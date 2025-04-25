@@ -1,0 +1,10 @@
+{
+    "usuarios": [
+      { "id": "1", "nombre": "agustin", "pass": "$2a$10$DCxy6CvvetDKc.vCA5wxQOJWhPquC0IC6ZBv2bMIwqzu.Wmx7QFn2", "admin": 0 },
+      { "id": "2", "nombre": "ana", "pass": "$2a$10$gNrybyKCMt.2Nsmlxh9/zO65ArED7DqD0LTsZs8qJUF6cUXHYtJrO", "admin": 0 },
+      { "id": "3", "nombre": "juanito", "pass": "$2a$10$sQ9lYOdbl2XIZV6SiocaV.bB9E.R0SpMl6qQtv61VNty/n.mJD5e2", "admin": 0 },
+      { "id": "4", "nombre": "kevin", "pass": "$2a$10$RSKzsbNyH7xy.1w4VWbGPewBmMO4iNjKpjTSkWDL0fcBhD7T8Oowe", "admin": 1 }
+    ]
+   
+  }
+
