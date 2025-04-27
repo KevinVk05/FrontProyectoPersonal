@@ -2,7 +2,7 @@ import httpExterno from "./http-externo";
 
 class ServicioProductos {
   buscarProducto(nombre) {
-    return httpExterno.get(`/productos/${nombre}`);
+    return httpExterno.get(`/productos/precio/${nombre}`);
   }
 }
 
