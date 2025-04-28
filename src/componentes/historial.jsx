@@ -1,30 +1,88 @@
+import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+const Historial = () => {
+  const [historial, setHistorial] = useState([]);
 
-const DetalleProducto = ({informacion}) => {  
-  console.log(informacion)
+  useEffect(() => {
+    // Simulamos que cargamos datos de historial (puedes cambiarlo por un fetch o axios)
+    const datosHistorial = [
+      {
+        producto: 'Leche Semi Desnatada',
+        resultados: [
+          {
+            nombre: 'Leche Hacendado 250ml',
+            precio: '1,05€',
+            supermercado: 'Mercadona',
+            imagen: 'https://via.placeholder.com/100',
+          },
+          {
+            nombre: 'Leche Día 250ml',
+            precio: '1,10€',
+            supermercado: 'Día',
+            imagen: 'https://via.placeholder.com/100',
+          },
+          {
+            nombre: 'Leche Carrefour 250ml',
+            precio: '1,15€',
+            supermercado: 'Carrefour',
+            imagen: 'https://via.placeholder.com/100',
+          },
+        ],
+      },
+      {
+        producto: 'Leche Semi Desnatada',
+        resultados: [
+          {
+            nombre: 'Leche Hacendado 250ml',
+            precio: '1,05€',
+            supermercado: 'Mercadona',
+            imagen: 'https://via.placeholder.com/100',
+          },
+          {
+            nombre: 'Leche Día 250ml',
+            precio: '1,10€',
+            supermercado: 'Día',
+            imagen: 'https://via.placeholder.com/100',
+          },
+          {
+            nombre: 'Leche Carrefour 250ml',
+            precio: '1,15€',
+            supermercado: 'Carrefour',
+            imagen: 'https://via.placeholder.com/100',
+          },
+        ],
+      },
+    ];
 
-  const producto = useParams().nombre  
-
-  let productoInfo = buscarProducto(producto, informacion)
+    setHistorial(datosHistorial);
+  }, []);
 
   return (
-    <div className="product-details-container">
-    {productoInfo ? (
-      <div className="product-card">
-        <h1 className="product-title">{productoInfo.nombre}</h1>
-        <p className="product-price">{productoInfo.precio} Є</p>
-        <img
-          className="product-image"
-          src={productoInfo.url}
-          alt={productoInfo.nombre}
-        />
+    <div>
+      <div>
+        <h2>Comparador, tu comparador de confianza</h2>
+        <p>
+          Mira los productos recientemente comparados para una rápida y eficiente forma de ver los precios de los productos recientemente buscados.
+        </p>
       </div>
-    ) : (
-      <h1 className="no-product-message">No existe el producto indicado</h1>
-    )}
-  </div>
+
+      {historial.map((item, index) => (
+        <section key={index}>
+          <h3>Producto comparado: {item.producto}</h3>
+          <div>
+            {item.resultados.map((resultado, idx) => (
+              <div key={idx}>
+                <img src={resultado.imagen} alt={resultado.nombre} />
+                <p>{resultado.nombre}</p>
+                <p>Precio: {resultado.precio}</p>
+                <p>Supermercado: {resultado.supermercado}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
   );
 };
 
-export default DetalleProducto ;
+export default Historial;

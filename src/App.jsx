@@ -5,13 +5,12 @@ import Comparador2 from './componentes/comparador2'
 
 import { Routes, Route } from 'react-router-dom';
 import Pagina404 from './componentes/Pagina404';
-import DetalleProducto from './componentes/historial';
 import UseStorageState from './servicios/UseStorageState';
 import { AuthProvider } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
-import ServicioUsuario from './servicios/ServicioUsuario';
 import Favoritos from './componentes/favoritos';
+import Historial from './componentes/historial';
 
 
 function App() {
@@ -59,9 +58,9 @@ function App() {
               </RutasProtegidas>
             } />
 
-            <Route path="/producto/:nombre" element={
+            <Route path="/historial" element={
               <RutasProtegidas>
-                <DetalleProducto/>
+                <Historial />
               </RutasProtegidas>
             } />
 

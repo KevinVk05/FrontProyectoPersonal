@@ -46,6 +46,10 @@ const MenuSuperior = () => {
               <li className="menu-item">
                 <Link to="/favoritos">Favoritos</Link>
               </li>
+
+              <li className="menu-item">
+                <Link to="/historial">Historial</Link>
+              </li>
               
               <li className="menu-item saludo">
                 Hola, {user}
