@@ -93,9 +93,9 @@ const Comparador2 = () => {
       {loading && (
         <div className="text-center my-4">
           <img
-            src="https://i.gifer.com/XOsX.gif"
+            src="./imagenes/loading.gif"
             alt="Cargando..."
-            style={{ width: '80px', height: '80px' }}
+            style={{ width: '130px', height: '130px' }}
           />
         </div>
       )}
@@ -105,7 +105,7 @@ const Comparador2 = () => {
       {/* Sección de comparación */}
       {busqueda && !loading && (
         <div className="mt-5">
-          <h3>Producto comparado: {producto}</h3>
+          <h3 className='text-center'>Producto comparado: {producto}</h3>
           <div className="d-flex justify-content-center gap-4">
             {super1 && productoSuper1 && (
               <div className="card" style={{ width: '18rem' }}>
