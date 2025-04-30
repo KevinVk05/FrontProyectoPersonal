@@ -21,8 +21,6 @@ const Login = () => {
       .then((response) => {
         const user=response.data[0];
         const passwdHash= user.pass;
-        console.log(password)
-        console.log(passwdHash)
         let ContraseñaCorrecta=bcrypt.compareSync(password,passwdHash)
         if (ContraseñaCorrecta) {
           login(user.nombre);
@@ -40,31 +38,45 @@ const Login = () => {
   };
 
   return (
-    <div className='contenedor'>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Usuario</label>
-          <input
-            type="text"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            required
-          />
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+    <div className="row w-100 justify-content-center">
+      <div className="col-12 col-md-6">
+        <div className="card p-4">
+          <h2 className="text-center mb-4">Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="usuario" className="form-label">Usuario</label>
+              <input
+                id="usuario"
+                type="text"
+                className="form-control"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password:</label>
+              <input
+                id="password"
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            {error && <p className="text-danger">{error}</p>}
+            <div className="d-grid">
+              <button type="submit" className="btn btn-primary">Login</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
-      </form>
+      </div>
     </div>
+  </div>
+  
+
   );
 };
 

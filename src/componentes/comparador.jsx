@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import ServicioProductos from '../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../estilos/comparador.css'; // Nuestro CSS personalizado
+import "../estilos/comparador.css"
 
 const Comparador = () => {
   const [producto, setProducto] = useState('');
