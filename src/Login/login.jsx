@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
 import bcrypt from 'bcryptjs';
-// import axios from 'axios';
+import "../estilos/login.css"
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -38,43 +38,50 @@ const Login = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-    <div className="row w-100 justify-content-center">
-      <div className="col-12 col-md-6">
-        <div className="card p-4">
-          <h2 className="text-center mb-4">Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="usuario" className="form-label">Usuario</label>
-              <input
-                id="usuario"
-                type="text"
-                className="form-control"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password:</label>
-              <input
-                id="password"
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {error && <p className="text-danger">{error}</p>}
-            <div className="d-grid">
-              <button type="submit" className="btn btn-primary">Login</button>
-            </div>
-          </form>
+    <div className="container-fluid login-container d-flex justify-content-center align-items-center vh-100">
+  <div className="row login-card shadow-lg">
+    {/* Lado izquierdo - Formulario */}
+    <div className="col-md-6 login-left d-flex flex-column justify-content-center align-items-center p-4">
+      <h2 className="mb-4">Log in</h2>
+      <form onSubmit={handleSubmit} className="w-100">
+        <div className="mb-3">
+          <label htmlFor="usuario" className="form-label">Usuario</label>
+          <input
+            id="usuario"
+            type="text"
+            className="form-control rounded-pill"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+            required
+          />
         </div>
-      </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            className="form-control rounded-pill"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="d-grid">
+          <button type="submit" className="btn login-btn rounded-pill">Login</button>
+        </div>
+        <small className="mt-2 d-block text-center">
+          ¿No tienes cuenta? <a href="/registro">Regístrate</a>
+        </small>
+      </form>
+    </div>
+
+    {/* Lado derecho - Imagen */}
+    <div className="col-md-6 login-right d-flex align-items-center justify-content-center p-0">
+      <img src="./imagenes/logo-login.png" alt="Login visual" className="img-fluid rounded-end" />
     </div>
   </div>
+</div>
+
   
 
   );

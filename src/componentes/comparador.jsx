@@ -26,7 +26,7 @@ const Comparador = () => {
           setBusqueda(res.data[0].nombre);
           setError(null);
           setLoading(false); // termina la carga después del delay
-        }, 1000);
+        }, 4000);
       } else {
         setTimeout(() => {
           setError('No se encontraron productos.');
@@ -104,7 +104,7 @@ const Comparador = () => {
               <div className="product-card-wrapper" key={index}>
                 <div className="card product-card shadow-sm h-100">
                   <img
-                    src={item.imagen}
+                    src={item.urlImagen}
                     className="card-img-top p-3"
                     alt={item.supermercado}
                   />

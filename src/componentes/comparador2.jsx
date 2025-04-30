@@ -20,20 +20,30 @@ const Comparador2 = () => {
       const res = await ServicioProductos.buscarProducto(producto.trim().toLowerCase());
 
       if (res.data && res.data.length > 0) {
-        setResultados(res.data);
-        setBusqueda(res.data[0].nombre);  // Mostramos el nombre del primer producto
-        setError(null);
+        // Esperar 1 segundo antes de mostrar resultados
+        setTimeout(() => {
+          setResultados(res.data);
+          setBusqueda(res.data[0].nombre);
+          setError(null);
+          setLoading(false); // termina la carga después del delay
+        }, 4000);
       } else {
-        setError('No se encontraron productos.');
+        setTimeout(() => {
+          setError('No se encontraron productos.');
+          setResultados([]);
+          setBusqueda('');
+          setLoading(false); // termina la carga después del delay
+        }, 1000);
+      }
+  
+    } catch (err) {
+      setTimeout(() => {
+        setError('No se encontró el producto');
         setResultados([]);
         setBusqueda('');
-      }
-    } catch (err) {
-      setError('No se encontró el producto');
-      setResultados([]);
-      setBusqueda('');
+        setLoading(false); // termina la carga después del delay
+      }, 1000);
     }
-    setLoading(false);
   };
 
   // Filtrar productos por supermercado seleccionado
@@ -77,13 +87,13 @@ const Comparador2 = () => {
           <select value={super1} onChange={(e) => setSuper1(e.target.value)} className="form-select">
             <option value="">Supermercado 1</option>
             <option value="MERCADONA">Mercadona</option>
-            <option value="CARREFOUR">Carrefour</option>
+            <option value="AHORRA MÁS">Ahorra mas</option>
             <option value="DIA">Dia</option>
           </select>
           <select value={super2} onChange={(e) => setSuper2(e.target.value)} className="form-select">
             <option value="">Supermercado 2</option>
             <option value="MERCADONA">Mercadona</option>
-            <option value="CARREFOUR">Carrefour</option>
+            <option value="AHORRA MÁS">Ahorra mas</option>
             <option value="DIA">Dia</option>
           </select>
         </form>
@@ -110,7 +120,7 @@ const Comparador2 = () => {
             {super1 && productoSuper1 && (
               <div className="card" style={{ width: '18rem' }}>
                 {/* Aquí no tenemos una imagen, por lo que podemos dejar una imagen genérica */}
-                <img src={productoSuper1.imagen} alt={busqueda} className="card-img-top" />
+                <img src={productoSuper1.urlImagen} alt={busqueda} className="card-img-top" />
                 <div className="card-body">
                   <p className="card-text">{productoSuper1.nombre} {productoSuper1.tamanoUnidad}{productoSuper1.unidadMedida.toUpperCase()}</p>
                   <p className="card-text">Precio: {productoSuper1.precio}€</p>
@@ -121,7 +131,7 @@ const Comparador2 = () => {
             {super2 && productoSuper2 && (
               <div className="card" style={{ width: '18rem' }}>
                 {/* Aquí tampoco tenemos una imagen, por lo que podemos dejar una imagen genérica */}
-                <img src={productoSuper2.imagen} alt={busqueda} className="card-img-top" />
+                <img src={productoSuper2.urlImagen} alt={busqueda} className="card-img-top" />
                 <div className="card-body">
                   <p className="card-text">{productoSuper2.nombre} {productoSuper2.tamanoUnidad}{productoSuper2.unidadMedida.toUpperCase()}</p>
                   <p className="card-text">Precio: {productoSuper2.precio}€</p>
