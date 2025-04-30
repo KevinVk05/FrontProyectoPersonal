@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import ServicioProductos from '../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
@@ -8,10 +8,13 @@ const Comparador = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
   const [error, setError] = useState(null);
-  
+  const [loading, setLoading] = useState(false); // nuevo estado de loading
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!producto.trim()) return;
+
+    setLoading(true); // comienza la carga
     try {
       const res = await ServicioProductos.buscarProducto(producto.trim().toLowerCase());
 
@@ -30,8 +33,8 @@ const Comparador = () => {
       setResultados([]);
       setBusqueda('');
     }
-  }; 
-  
+    setLoading(false); // termina la carga
+  };
 
   return (
     <div className="container py-4">
@@ -46,9 +49,9 @@ const Comparador = () => {
         <img
           src="imagenes/compra.png"
           alt="Logo Comparador"
-          className="ms-3" />
+          className="ms-3"
+        />
       </div>
-
 
       {/* Buscador */}
       <section className="search-section mb-4">
@@ -66,17 +69,26 @@ const Comparador = () => {
         <button type="submit" className="btn btn-primary">Buscar</button>
       </form>
 
+      {loading && (
+        <div className="text-center my-4">
+          <img
+            src="https://i.gifer.com/XOsX.gif"
+            alt="Cargando..."
+            style={{ width: '80px', height: '80px' }}
+          />
+        </div>
+      )}
+
       {/* Error */}
-      {error && (
+      {error && !loading && (
         <div className="alert alert-danger text-center">{error}</div>
       )}
 
       {/* Resultados */}
-      {busqueda && resultados.length > 0 && (
+      {busqueda && resultados.length > 0 && !loading && (
         <section className="mb-5">
           <h3 className="text-center mb-4">Producto comparado: {producto}</h3>
           <div className="row g-4 justify-content-center">
-            
             {resultados.map((item, index) => (
               <div className="col-6 col-md-4 col-lg-3" key={index}>
                 <div className="card product-card h-100 shadow-sm">
@@ -96,7 +108,6 @@ const Comparador = () => {
           </div>
         </section>
       )}
-
     </div>
   );
 };

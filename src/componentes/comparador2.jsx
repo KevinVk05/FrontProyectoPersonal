@@ -47,16 +47,19 @@ const Comparador2 = () => {
 
   return (
     <div className="container py-5">
-      {/* Sección principal */}
-      <div className="text-center mb-5">
-        <h2>Comparador, tu comparador de confianza</h2>
-        <p>
-          Compara precios entre 2 supermercados, de esta manera podrás elegir entre los establecimientos que están más cerca de ti.
-        </p>
+       {/* Encabezado */}
+       <div className="header-box mb-4 d-flex justify-content-between align-items-center">
         <div>
-          {/* Puedes agregar imágenes de logos aquí */}
-          <span>🛒 Carrefour | Dia | Mercadona</span>
+          <h2 className="mb-3">Comparador, tu comparador de confianza</h2>
+          <p className="mb-0">
+          Compara precios entre 2 supermercados, de esta manera podrás elegir entre los establecimientos que están más cerca de ti.
+          </p>
         </div>
+        <img
+          src="imagenes/supermercados.png"
+          alt="Supermercados"
+          className="ms-3"
+        />
       </div>
 
       {/* Formulario de búsqueda */}
@@ -86,7 +89,7 @@ const Comparador2 = () => {
         </form>
       </div>
 
-      {/* Manejo de error y cargando */}
+      {/* Manejo de error*/}
       {loading && (
         <div className="text-center my-4">
           <img
