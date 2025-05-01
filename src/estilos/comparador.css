@@ -4,9 +4,6 @@
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
 }
 
 /* Texto del título */
@@ -26,8 +23,6 @@
 /* Imagen dentro del header */
 .header-box img {
     width: 220px;
-    height: auto;
-    margin-left: 1rem; 
 }
 
 /* Fondo de la sección de búsqueda */
@@ -90,7 +85,6 @@
 .category-section {
     background-color: #e8f5e9; 
     border-radius: 8px;
-    padding: 1rem;
     margin-top: 3rem;
     text-align: center;
 }
