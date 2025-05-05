@@ -115,3 +115,109 @@
     scroll-snap-align: start;
   }
   
+/* Caja del encabezado */
+.header-box {
+    background-color: #ffece7; 
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* Texto del título */
+.header-box h2 {
+    color: #333;
+    text-align: left; 
+    font-size: 35px;
+}
+
+/* Texto del párrafo */
+.header-box p {
+    color: #666;
+    text-align: justify; 
+    font-size: 15px;
+}
+
+/* Imagen dentro del header */
+.header-box img {
+    width: 220px;
+    height: auto;
+    margin-left: 1rem; 
+}
+
+/* Fondo de la sección de búsqueda */
+.search-section {
+    background-color: #fff8e1; 
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 23px;
+}
+
+/* Input de búsqueda */
+.search-section input {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+/* Botón de buscar */
+.search-section button {
+    background-color: #ff8a65;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.search-section button:hover {
+    background-color: #ff7043;
+}
+
+/* Tarjetas de productos */
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Texto dentro de las tarjetas */
+.product-card h5 {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.product-card p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Sección de categorías */
+.category-section {
+    background-color: #e8f5e9; 
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+/* Subcategorías */
+.subcategory-title {
+    background-color: #a5d6a7;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: #2e7d32;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}

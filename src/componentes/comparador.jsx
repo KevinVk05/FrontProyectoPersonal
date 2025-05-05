@@ -122,6 +122,7 @@ const Comparador = () => {
         </section>
 
       )}
+
     </div>
   );
 };
