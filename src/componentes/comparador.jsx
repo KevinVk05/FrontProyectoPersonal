@@ -53,7 +53,7 @@ const Comparador = () => {
       <div className="header-box mb-4 d-flex justify-content-between align-items-center">
         <div>
           <h2 className="mb-3">Comparador, tu comparador de confianza</h2>
-          <p className="mb-0 te">
+          <p className="mb-0">
             Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!
           </p>
         </div>
@@ -66,7 +66,7 @@ const Comparador = () => {
 
       {/* Buscador */}
       <section className="search-section mb-4">
-        <p className="mb-3 fw-bold text-center">Busca un producto y lo compararemos entre x supermercados</p>
+        <p className="mb-0 fw-bold text-center">Busca un producto y lo compararemos entre varios supermercados</p>
       </section>
 
       <form className="d-flex justify-content-center gap-2" onSubmit={handleSubmit}>
@@ -97,8 +97,8 @@ const Comparador = () => {
 
       {/* Resultados */}
       {busqueda && resultados.length > 0 && !loading && (
-        <section className="mb-5">
-          <h3 className="text-center mb-4">Producto comparado: {producto}</h3>
+        <section className="mt-5">
+          <h3 className="text-center m-5">Producto comparado: {producto}</h3>
           <div className="horizontal-scroll">
             {resultados.map((item, index) => (
               <div className="product-card-wrapper" key={index}>
