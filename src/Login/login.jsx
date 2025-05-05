@@ -49,7 +49,7 @@ const Login = () => {
           <input
             id="usuario"
             type="text"
-            className="form-control rounded-pill"
+            className="form-control rounded-pill py-1 px-2"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
             required
@@ -69,9 +69,9 @@ const Login = () => {
         <div className="d-grid">
           <button type="submit" className="btn login-btn rounded-pill">Login</button>
         </div>
-        <small className="mt-2 d-block text-center">
+        {/*<small className="mt-2 d-block text-center">
           ¿No tienes cuenta? <a href="/registro">Regístrate</a>
-        </small>
+        </small>*/}
       </form>
     </div>
 

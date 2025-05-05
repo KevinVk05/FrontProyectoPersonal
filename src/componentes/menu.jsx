@@ -18,9 +18,9 @@ const MenuSuperior = () => {
   };
 
   return (
-    <div className="menu-superior">
+    <div className="menu-superior py-2 px-3 d-flex flex-row justify-content-around">
       <nav>
-        <ul className="menu-list">
+        <ul className="menu-list m-0 p-0">
           {/* Logo o ícono */}
           <li className="menu-item">
           <Link to="/">
@@ -55,7 +55,7 @@ const MenuSuperior = () => {
                 Hola, {user}
               </li>
               <li className="menu-item">
-                <button className="btn-salir" onClick={handleLogout}>
+                <button className="btn-salir py-1 px-2" onClick={handleLogout}>
                   Salir
                 </button>
               </li>

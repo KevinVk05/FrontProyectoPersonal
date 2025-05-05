@@ -26,7 +26,7 @@ const Comparador2 = () => {
           setBusqueda(res.data[0].nombre);
           setError(null);
           setLoading(false); // termina la carga después del delay
-        }, 4000);
+        }, 2000);
       } else {
         setTimeout(() => {
           setError('No se encontraron productos.');
@@ -105,7 +105,7 @@ const Comparador2 = () => {
           <img
             src="./imagenes/loading.gif"
             alt="Cargando..."
-            style={{ width: '130px', height: '130px' }}
+            className='loading'
           />
         </div>
       )}

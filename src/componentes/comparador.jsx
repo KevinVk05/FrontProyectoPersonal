@@ -26,7 +26,7 @@ const Comparador = () => {
           setBusqueda(res.data[0].nombre);
           setError(null);
           setLoading(false); // termina la carga después del delay
-        }, 4000);
+        }, 2000);
       } else {
         setTimeout(() => {
           setError('No se encontraron productos.');
@@ -50,10 +50,10 @@ const Comparador = () => {
   return (
     <div className="container py-4">
       {/* Encabezado */}
-      <div className="header-box mb-4 d-flex justify-content-between align-items-center">
+      <div className="header-box mb-4 d-flex justify-content-between align-items-center p-4">
         <div>
           <h2 className="mb-3">Comparador, tu comparador de confianza</h2>
-          <p className="mb-0">
+          <p className="mb-0 te">
             Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!
           </p>
         </div>
@@ -61,12 +61,13 @@ const Comparador = () => {
           src="imagenes/compra.png"
           alt="Logo Comparador"
           className="ms-3"
+          style={{width:'130px'}}
         />
       </div>
 
       {/* Buscador */}
-      <section className="search-section mb-4">
-        <p className="mb-0 fw-bold text-center">Busca un producto y lo compararemos entre varios supermercados</p>
+      <section className="search-section mb-4 p-3 my-4">
+        <p className="mb-3 fw-bold text-center">Busca un producto y lo compararemos entre x supermercados</p>
       </section>
 
       <form className="d-flex justify-content-center gap-2" onSubmit={handleSubmit}>
@@ -82,11 +83,7 @@ const Comparador = () => {
 
       {loading && (
         <div className="text-center my-4">
-          <img
-            src="./imagenes/loading.gif"
-            alt="Cargando..."
-            style={{ width: '130px' }}
-          />
+          <img src="./imagenes/loading.gif" alt="Cargando..." className='loading'/>
         </div>
       )}
 
@@ -97,23 +94,23 @@ const Comparador = () => {
 
       {/* Resultados */}
       {busqueda && resultados.length > 0 && !loading && (
-        <section className="mt-5">
-          <h3 className="text-center m-5">Producto comparado: {producto}</h3>
-          <div className="horizontal-scroll">
+        <section className="mb-5">
+          <h3 className="text-center mb-4">Producto comparado: {producto}</h3>
+          <div className="horizontal-scroll d-flex overflow-x-auto px-3 gap-4">
             {resultados.map((item, index) => (
               <div className="product-card-wrapper" key={index}>
-                <div className="card product-card shadow-sm h-100">
+                <div className="card product-card shadow-sm h-100 p-3">
                   <img
                     src={item.urlImagen}
                     className="card-img-top p-3"
                     alt={item.supermercado}
                   />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">{item.nombre}</h5>
-                    <p className="card-text mb-1">
+                  <div className="card-body text-center p-3">
+                    <h5 className="card-title mb-2">{item.nombre}</h5>
+                    <p className="card-text mb-1 my-1 mx-0">
                       Precio: <strong>{item.precio}€</strong>
                     </p>
-                    <p className="card-text">Supermercado: {item.supermercado}</p>
+                    <p className="card-text my-1 mx-0" style={{width:'130px'}}>Supermercado: {item.supermercado}</p>
                   </div>
                 </div>
               </div>
@@ -122,7 +119,6 @@ const Comparador = () => {
         </section>
 
       )}
-
     </div>
   );
 };
