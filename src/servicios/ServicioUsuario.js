@@ -1,5 +1,5 @@
 
-import http from "./http-axios.js";
+import http from "./http-externo.js";
 
 class ServicioUsuario {
    
@@ -9,7 +9,7 @@ class ServicioUsuario {
 
   login(usuario) {
       return http.get(`/usuarios?nombre=${usuario}`);
-      //http://localhost:3000/usuarios?nombre=agustin&pass=123
+      //http://localhost:8080/usuarios?nombre=agustin&pass=123
    }
 }
 
