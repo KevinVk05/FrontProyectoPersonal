@@ -70,9 +70,8 @@
     font-size: 1.1rem;
 }
 
-.product-card p {
+.product-card p, .product-card div {
     color: #666;
-    font-size: 0.95rem;
 }
 
 .horizontal-scroll {

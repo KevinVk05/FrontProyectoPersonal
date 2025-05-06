@@ -53,7 +53,7 @@ const Comparador = () => {
       <div className="header-box mb-4 d-flex justify-content-between align-items-center p-4">
         <div>
           <h2 className="mb-3">Comparador, tu comparador de confianza</h2>
-          <p className="mb-0 te">
+          <p className="mb-0">
             Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!
           </p>
         </div>
@@ -67,7 +67,7 @@ const Comparador = () => {
 
       {/* Buscador */}
       <section className="search-section mb-4 p-3 my-4">
-        <p className="mb-3 fw-bold text-center">Busca un producto y lo compararemos entre x supermercados</p>
+        <p className="mb-0 fw-bold text-center">Busca un producto y lo compararemos entre varios supermercados</p>
       </section>
 
       <form className="d-flex justify-content-center gap-2" onSubmit={handleSubmit}>
@@ -94,24 +94,34 @@ const Comparador = () => {
 
       {/* Resultados */}
       {busqueda && resultados.length > 0 && !loading && (
-        <section className="mb-5">
-          <h3 className="text-center mb-4">Producto comparado: {producto}</h3>
+        <section className="p-3">
+          <h3 className="text-center p-4">Producto comparado: {producto}</h3>
           <div className="horizontal-scroll d-flex overflow-x-auto px-3 gap-4">
             {resultados.map((item, index) => (
               <div className="product-card-wrapper" key={index}>
                 <div className="card product-card shadow-sm h-100 p-3">
+                <img
+                    src={`imagenes/${item.supermercado}_NOMBRE.svg`}
+                    className="card-img-top p-3 "
+                    alt={item.supermercado}
+                    style={{
+                      height: 75
+                    }}
+                  />
                   <img
                     src={item.urlImagen}
                     className="card-img-top p-3"
-                    alt={item.supermercado}
+                    alt={item.nombre}
                   />
                   <div className="card-body text-center p-3">
                     <h5 className="card-title mb-2">{item.nombre}</h5>
-                    <p className="card-text mb-1 my-1 mx-0">
+                    <p className="card-text my-1 mx-1">
                       Precio: <strong>{item.precio}€</strong>
                     </p>
-                    <p className="card-text my-1 mx-0" style={{width:'130px'}}>Supermercado: {item.supermercado}</p>
-                  </div>
+                    <p className="card-text my-1 mx-1">
+                      Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
+                    </p>
+                    </div>
                 </div>
               </div>
             ))}

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
 import bcrypt from 'bcryptjs';
-import "../estilos/login.css"
+import "../estilos/login.css";
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -19,9 +19,9 @@ const Login = () => {
 
     ServicioUsuario.login(usuario)
       .then((response) => {
-        const user=response.data[0];
-        const passwdHash= user.pass;
-        let ContraseñaCorrecta=bcrypt.compareSync(password,passwdHash)
+        const user = response.data[0];
+        const passwdHash = user.pass;
+        let ContraseñaCorrecta = bcrypt.compareSync(password, passwdHash)
         if (ContraseñaCorrecta) {
           login(user.nombre);
           navigate('/');
@@ -38,52 +38,78 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid login-container d-flex justify-content-center align-items-center vh-100">
-  <div className="row login-card shadow-lg">
-    {/* Lado izquierdo - Formulario */}
-    <div className="col-md-6 login-left d-flex flex-column justify-content-center align-items-center p-4">
-      <h2 className="mb-4">Log in</h2>
-      <form onSubmit={handleSubmit} className="w-100">
-        <div className="mb-3">
-          <label htmlFor="usuario" className="form-label">Usuario</label>
-          <input
-            id="usuario"
-            type="text"
-            className="form-control rounded-pill py-1 px-2"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            className="form-control rounded-pill"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="d-grid">
-          <button type="submit" className="btn login-btn rounded-pill">Login</button>
-        </div>
-        {/*<small className="mt-2 d-block text-center">
-          ¿No tienes cuenta? <a href="/registro">Regístrate</a>
-        </small>*/}
-      </form>
-    </div>
+    <section className="min-vh-100 d-flex align-items-center">
+      <div className="container">
+        <div className="row justify-content-center align-items-center ">
+        <div className="col-md-5 text-center justify-content-center">
+        {/* Imagen de fondo que ocupa toda la columna */}
+            <img
+              src="/imagenes/logoapp.png"
+              alt="logo"
+              className="w-100 h-100 overflow-hidden"
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </div>
+          {/* Bloque formulario */}
+          <div className="col-md-5">
+            <form onSubmit={handleSubmit} className="p-4 rounded bg-gold shadow-sm">
+              <h1 className="mb-4 text-center text-gold">
+                Comparator
+              </h1>
+              <h2 className="text-center text-purple mb-4">Identifícate</h2>
+              <div className="card bg-cream border-0">
+                <div className="card-body">
+                  <div className="mb-3">
+                    <label htmlFor="usuario" className="form-label text-purple">Usuario</label>
+                    <div className="input-group">
+                      <span className="input-group-text bg-white"><i className="fa fa-user text-purple" /></span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="usuario"
+                        placeholder="ainhoa"
+                        value={usuario}
+                        onChange={(e) => setUsuario(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
 
-    {/* Lado derecho - Imagen */}
-    <div className="col-md-6 login-right d-flex align-items-center justify-content-center p-0">
-      <img src="./imagenes/logo-login.png" alt="Login visual" className="img-fluid rounded-end" />
-    </div>
-  </div>
-</div>
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label text-purple">Contraseña</label>
+                    <div className="input-group">
+                      <span className="input-group-text bg-white"><i className="fa fa-lock text-purple" /></span>
+                      <input
+                        type="password"
+                        className="form-control border-purple"
+                        id="password"
+                        placeholder="*******"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
 
-  
+                  <div className="form-check mb-3">
+                    <input type="checkbox" className="form-check-input" id="recordarme" />
+                    <label className="form-check-label text-purple" htmlFor="recordarme">Recuérdame</label>
+                  </div>
 
+                  {error && <div className="alert alert-danger">{error}</div>}
+
+                  <div className="text-center">
+                    <button type="submit" className="btn btn-purple btn-lg rounded-pill">Acceder</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

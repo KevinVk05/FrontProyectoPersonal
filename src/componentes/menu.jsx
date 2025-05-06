@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Login/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import '../estilos/menu.css';
+import "../estilos/menu.css"
 
 
 // Componente MenuSuperior
@@ -17,53 +17,74 @@ const MenuSuperior = () => {
     navigate('/login');
   };
 
-  return (
-    <div className="menu-superior py-2 px-3 d-flex flex-row justify-content-around">
-      <nav>
-        <ul className="menu-list m-0 p-0">
-          {/* Logo o ícono */}
-          <li className="menu-item">
-          <Link to="/">
-            <img
-              src="/imagenes/logo.png"
-              alt="Supermercado"
-              className="icono"
-            />
-            </Link>
-          </li>
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
-          {/* Enlaces y acciones dependiendo del estado del usuario */}
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark px-3 menu-superior" >
+      <Link className="navbar-brand" to="/">
+        <img
+          src="/imagenes/logoapp.png"
+          alt="Supermercado"
+          width="40"
+          height="40"
+          className="d-inline-block align-top"
+        />
+        <span className="mx-3 d-inline-block align-top">
+          <span className="fw-bold fs-4">Comparator</span>
+        </span>
+      </Link>
+
+      {/* Botón que aparece en pantallas pequeñas */}
+      <button
+        className="navbar-toggler"
+        type="button"
+        onClick={() => setIsNavbarCollapsed(!isNavbarCollapsed)}
+        aria-controls="navbarNav"
+        aria-expanded={!isNavbarCollapsed}
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      {/* Menú colapsable */}
+      <div className={`collapse navbar-collapse ${!isNavbarCollapsed ? "show" : ""}`} id="navbarNav">
+        <ul className="navbar-nav ms-auto">
           {user === null ? (
-            <li className="menu-item">
-              <Link to="/login">Login</Link>
-            </li>
+            ""
           ) : (
             <>
-              <li className="menu-item">
-                <Link to="/comparador2">Comparador de 2 Supermercados</Link>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/">Comparador de supermercados</Link>
+              </li>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
+              </li>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/favoritos">Favoritos</Link>
+              </li>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/historial">Historial</Link>
+              </li>
+              <li className="nav-item mx-2">
+                <span className="saludo nav-link">Hola, {user}</span>
+              </li>
+              <li class="d-flex align-items-center">
+                <img
+                  src="/imagenes/logout.png"
+                  alt="Supermercado"
+                  width="28"
+                  height="28"
+                  className="d-inline-block align-center mx-auto"
+                  onClick={handleLogout}
+                />
+
               </li>
 
-              <li className="menu-item">
-                <Link to="/favoritos">Favoritos</Link>
-              </li>
-
-              <li className="menu-item">
-                <Link to="/historial">Historial</Link>
-              </li>
-              
-              <li className="menu-item saludo">
-                Hola, {user}
-              </li>
-              <li className="menu-item">
-                <button className="btn-salir py-1 px-2" onClick={handleLogout}>
-                  Salir
-                </button>
-              </li>
             </>
           )}
         </ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 
