@@ -1,5 +1,5 @@
 
-const ResultadoBusqueda = ({resultados, loading, error}) => {
+const ResultadoBusqueda = ({producto, resultados, loading, error}) => {
     return (
         <div>
             {!loading && !error && resultados.length === 0 && (
@@ -32,7 +32,7 @@ const ResultadoBusqueda = ({resultados, loading, error}) => {
                     <div className='d-flex flex-wrap justify-content-center gap-3'>
                         {resultados.map((item, index) => (
                             <div key={index} className="product-card mb-3">
-                                <div className="card p-3 shadow-sm" style={{ height: 500, width: 300 }}>
+                                <div className="card p-3 shadow-sm" style={{ height: 450, width: 250 }}>
                                     <img
                                         src={`imagenes/${item.supermercado}_NOMBRE.svg`}
                                         alt={item.supermercado}
@@ -44,10 +44,10 @@ const ResultadoBusqueda = ({resultados, loading, error}) => {
                                             src={item.urlImagen}
                                             className="p-3"
                                             alt={item.nombre}
-                                            style={{ width: 200, maxHeight: 200 }}
+                                            style={{ maxHeight: 200 }}
                                         />
                                     </div>
-                                    <div className="text-center p-3">
+                                    <div className="text-center">
                                         <p className="mb-2 fs-6 fw-bold">{item.nombre}</p>
                                         <p className="my-1 mx-1">
                                             Precio: <strong>{item.precio}€</strong>
