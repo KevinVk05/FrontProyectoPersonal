@@ -9,6 +9,12 @@ const Comparador = () => {
   const [resultados, setResultados] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // nuevo estado de loading
+  const [supermercado, setSupermercado] = useState("")
+
+  const filtrarPorSupermercado = () => {
+    const establecimiento = document.getElementById("selectSupermercado")
+    console.log(establecimiento)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +83,7 @@ const Comparador = () => {
           value={producto}
           onChange={(e) => setProducto(e.target.value)}
         />
-        <select name="supermercado" className='form-select w-auto'>
+        <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={filtrarPorSupermercado()}>
           <option selected value="Todos los supermercados">Todos los supermercados</option>
           <option value="Mercadona">Mercadona</option>
           <option value="Ahorramas">Ahorra más</option>
