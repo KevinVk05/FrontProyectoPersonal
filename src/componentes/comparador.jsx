@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ServicioProductos from '../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
+import ResultadoBusqueda from './resultadoBusqueda';
 
 const Comparador = () => {
   const [producto, setProducto] = useState('');
@@ -86,6 +87,8 @@ const Comparador = () => {
         <button type="submit" className="btn btn-success">Buscar</button>
       </form>
 
+      {/* <ResultadoBusqueda resultados={resultados} loading={loading} error={error}/> */}
+
       {!loading && !error && resultados.length === 0 && (
         <div className="text-center my-4">
           <img src="./imagenes/buscador.png" alt="Empieza la búsqueda" className='w-25' />
@@ -128,7 +131,7 @@ const Comparador = () => {
                       src={item.urlImagen}
                       className="p-3"
                       alt={item.nombre}
-                      style={{ width: 200 }}
+                      style={{ width: 200, maxHeight: 200 }}
                     />
                   </div>
                   <div className="text-center p-3">
