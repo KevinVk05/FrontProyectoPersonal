@@ -4,7 +4,6 @@
 
 .nav-item a, .nav-item span, .nav-item button {
   color: #f7d7d7 !important;
-  /* Texto claro para contraste */
 }
 
 .nav-item a:hover{

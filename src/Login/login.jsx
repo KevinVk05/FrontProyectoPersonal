@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
 import bcrypt from 'bcryptjs';
-import "../estilos/login.css";
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -62,9 +61,8 @@ const Login = () => {
               <div className="card bg-cream border-0">
                 <div className="card-body">
                   <div className="mb-3">
-                    <label htmlFor="usuario" className="form-label text-purple">Usuario</label>
+                    <label htmlFor="usuario" className="form-label text-purple">Usuario:</label>
                     <div className="input-group">
-                      <span className="input-group-text bg-white"><i className="fa fa-user text-purple" /></span>
                       <input
                         type="text"
                         className="form-control"
@@ -78,9 +76,8 @@ const Login = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label text-purple">Contraseña</label>
+                    <label htmlFor="password" className="form-label text-purple">Contraseña:</label>
                     <div className="input-group">
-                      <span className="input-group-text bg-white"><i className="fa fa-lock text-purple" /></span>
                       <input
                         type="password"
                         className="form-control border-purple"

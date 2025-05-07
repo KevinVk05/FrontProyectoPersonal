@@ -59,16 +59,16 @@ const MenuSuperior = () => {
               <li className="nav-item mx-2">
                 <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
               </li>
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-2 d-flex align-items-center">
                 <Link className="nav-link" to="/favoritos">Favoritos</Link>
               </li>
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-2 d-flex align-items-center">
                 <Link className="nav-link" to="/historial">Historial</Link>
               </li>
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-2 d-flex align-items-center">
                 <span className="saludo nav-link">Hola, {user}</span>
               </li>
-              <li class="d-flex align-items-center">
+              <li className="btn-salir d-flex align-items-center">
                 <img
                   src="/imagenes/logout.png"
                   alt="Supermercado"
