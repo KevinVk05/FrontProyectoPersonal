@@ -23,7 +23,7 @@ const MenuSuperior = () => {
     <nav className="navbar navbar-expand-lg navbar-dark px-3 menu-superior" >
       <Link className="navbar-brand" to="/">
         <img
-          src="/imagenes/logoapp.png"
+          src="/imagenes/logo-menu.png"
           alt="Supermercado"
           width="40"
           height="40"
@@ -74,7 +74,7 @@ const MenuSuperior = () => {
                   alt="Supermercado"
                   width="28"
                   height="28"
-                  className="d-inline-block align-center mx-auto"
+                  className="d-inline-block align-center mx-2"
                   onClick={handleLogout}
                 />
 

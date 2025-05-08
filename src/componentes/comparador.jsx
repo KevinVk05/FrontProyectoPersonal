@@ -3,6 +3,7 @@ import ServicioProductos from '../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
 import ResultadoBusqueda from './resultadoBusqueda';
+import EncabezadoComparadores from './encabezadoComparadores';
 
 const Comparador = () => {
   const [producto, setProducto] = useState('');
@@ -10,12 +11,17 @@ const Comparador = () => {
   const [resultadosCompleto, setResultadosCompleto] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // nuevo estado de loading
-  const [supermercado, setSupermercado] = useState("")
+  
+  const titulo = "Comparator, tu comparador de confianza"
+  const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!"
+  const textoEncabezado2 = "Busca un producto y lo compararemos entre varios supermercados"
 
   const filtrarPorSupermercado = () => {
-    setResultados(resultadosCompleto)
     const establecimiento = document.getElementById("selectSupermercado").value
-    setResultados(resultadosCompleto.filter(prod => prod.supermercado === establecimiento.toUpperCase()))     
+    setResultados(resultadosCompleto)
+    if(establecimiento !== "Todos los supermercados"){
+      setResultados(resultadosCompleto.filter(prod => prod.supermercado === establecimiento.toUpperCase()))     
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -39,6 +45,9 @@ const Comparador = () => {
           }, 1000);
           setTimeout(() => {
             window.scrollTo({ top: 500, behavior: 'smooth' });
+            //Por qué al poner aquí el filtro para que la primera vez que se hace una búsqueda también pueda ser
+            //filtrado por supermercado no funciona ya que aparece que resultadosCompleto y resultados está vacío   
+            //filtrarPorSupermercado()
           }, 1300)
         } else {
           setTimeout(() => {
@@ -64,24 +73,7 @@ const Comparador = () => {
   return (
     <div className="container p-4">
       {/* Encabezado */}
-      <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
-        <div className="w-75">
-          <h2 className="mb-3">Comparator, tu comparador de confianza</h2>
-          <div className="mb-0">
-            Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!
-          </div>
-        </div>
-        <img
-          src="imagenes/compra.png"
-          alt="Logo Comparador"
-          className="ms-3"
-        />
-      </div>
-
-      {/* Buscador */}
-      <section className="search-section shadow-sm rounded p-3 my-4">
-        <p className="mb-0 fs-5 fw-bold text-center">Busca un producto y lo compararemos entre varios supermercados</p>
-      </section>
+      <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"}/>
 
       <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={handleSubmit}>
         <input
@@ -92,7 +84,7 @@ const Comparador = () => {
           onChange={(e) => setProducto(e.target.value)}
         />
         <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={filtrarPorSupermercado}>
-          <option selected value="Todos los supermercados">Todos los supermercados</option>
+          <option value="Todos los supermercados">Todos los supermercados</option>
           <option value="Mercadona">Mercadona</option>
           <option value="Ahorramas">Ahorra más</option>
           <option value="Carrefour">Carrefour</option>

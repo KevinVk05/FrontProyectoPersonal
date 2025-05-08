@@ -1,5 +1,5 @@
 
-const ResultadoBusqueda = ({producto, resultados, loading, error}) => {
+const ResultadoBusqueda = ({ producto, resultados, loading, error }) => {
     return (
         <div>
             {!loading && !error && resultados.length === 0 && (
@@ -27,12 +27,12 @@ const ResultadoBusqueda = ({producto, resultados, loading, error}) => {
             {/* Resultados */}
             {resultados.length > 0 && !loading && (
                 <section className="p-3">
-
                     <p className="text-center p-4 fs-4">Producto comparado: {producto}</p>
-                    <div className='d-flex flex-wrap justify-content-center gap-3'>
+                    <div className='d-flex flex-wrap justify-content-center align-items-stretch gap-3'>
                         {resultados.map((item, index) => (
                             <div key={index} className="product-card mb-3">
-                                <div className="card p-3 shadow-sm" style={{ height: 450, width: 250 }}>
+                                {/* flex-column justify-content-between */}
+                                <div className="card p-3 shadow-sm h-100 d-flex" style={{ width: 250 }}>
                                     <img
                                         src={`imagenes/${item.supermercado}_NOMBRE.svg`}
                                         alt={item.supermercado}
@@ -47,6 +47,7 @@ const ResultadoBusqueda = ({producto, resultados, loading, error}) => {
                                             style={{ maxHeight: 200 }}
                                         />
                                     </div>
+                                    {/* mt-auto */}
                                     <div className="text-center">
                                         <p className="mb-2 fs-6 fw-bold">{item.nombre}</p>
                                         <p className="my-1 mx-1">
