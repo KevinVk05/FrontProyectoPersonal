@@ -40,13 +40,13 @@ const Comparador2 = () => {
           setResultados(res.data);
           setError(null);
           setLoading(false); // termina la carga después del delay
-        }, 2000);
+        }, 1000);
       } else {
         setTimeout(() => {
           setError('No se encontraron productos.');
           setResultados([]);
           setLoading(false); // termina la carga después del delay
-        }, 1000);
+        }, 500);
       }
   
     } catch (err) {
@@ -54,13 +54,13 @@ const Comparador2 = () => {
         setError('No se encontró el producto');
         setResultados([]);
         setLoading(false); // termina la carga después del delay
-      }, 1000);
+      }, 500);
     }
   }
   }
 
   return (
-    <div className="container py-5">
+    <div className="container py-4">
 
       <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/supermercados.png"}/>
 
