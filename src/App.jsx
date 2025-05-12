@@ -4,7 +4,6 @@ import MenuSuperior from './componentes/menu'
 import Comparador from './componentes/comparador'
 import Comparador2 from './componentes/comparador2'
 import Favoritos from './componentes/favoritos';
-import Historial from './componentes/historial';
 
 import { Routes, Route } from 'react-router-dom';
 import Pagina404 from './componentes/Pagina404';
@@ -12,6 +11,7 @@ import UseStorageState from './servicios/UseStorageState';
 import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
+import CestaCompra from './componentes/cestaCompra';
 
 
 function App() {
@@ -59,9 +59,9 @@ function App() {
               </RutasProtegidas>
             } />
 
-            <Route path="/historial" element={
+            <Route path="/cestaCompra" element={
               <RutasProtegidas>
-                <Historial />
+                <CestaCompra />
               </RutasProtegidas>
             } />
 

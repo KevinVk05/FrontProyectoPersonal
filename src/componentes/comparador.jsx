@@ -7,7 +7,7 @@ import EncabezadoComparadores from './encabezadoComparadores';
 
 const Comparador = () => {
   const [producto, setProducto] = useState('');
-  const [resultadosCompleto, setResultadosCompleto] = useState([]);
+  const [resultados, setResultados] = useState([]);
   const [supermercadoSeleccionado, setSupermercadoSeleccionado] = useState("Todos los supermercados");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // nuevo estado de loading
@@ -18,9 +18,9 @@ const Comparador = () => {
   
   const filtrarPorSupermercado = () => {
     if(supermercadoSeleccionado !== "Todos los supermercados"){
-      return resultadosCompleto.filter(prod => prod.supermercado === supermercadoSeleccionado.toUpperCase());
+      return resultados.filter(prod => prod.supermercado === supermercadoSeleccionado.toUpperCase());
     }
-    return resultadosCompleto;
+    return resultados;
   }
   
   const handleSubmit = async (e) => {
@@ -33,20 +33,20 @@ const Comparador = () => {
       ServicioProductos.buscarProducto(producto.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
           // Esperar 1 segundo antes de mostrar resultados
-          setResultadosCompleto(respuesta.data);
+          setResultados(respuesta.data);
           setError(null);
           setLoading(false); // termina la carga después del delay
           window.scrollTo({ top: 500, behavior: 'smooth' });
         } else {
           setTimeout(() => {
             setError('No se encontraron productos.');
-            setResultadosCompleto([]);
+            setResultados([]);
             setLoading(false); // termina la carga después del delay
           }, 1000);
         }
       }).catch(() => {
         setError('Ha ocurrido un error con la conexión');
-        setResultadosCompleto([]);
+        setResultados([]);
         setLoading(false); // termina la carga después del delay
       });
     }

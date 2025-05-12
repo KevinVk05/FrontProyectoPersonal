@@ -15,8 +15,6 @@ const Comparador2 = () => {
   const textoEncabezado1 = "Compara precios entre 2 supermercados, de esta manera podrás elegir entre los establecimientos que están más cerca de ti."
   const textoEncabezado2 = "Busca un producto y filtra por los supermercados que quieres comparar"
 
-
-  // Función para manejar el envío del formulario y obtener los productos
   const buscarResultados = async (e) => {
     e.preventDefault();
     if (!producto.trim()) {
@@ -31,31 +29,26 @@ const Comparador2 = () => {
     }else {
       setLoading(true); // comienza la carga
 
-    try {
-      const res = await ServicioProductos.buscarProductoSupermercadosConcretos(producto.trim().toLowerCase(), super1 + "-" + super2);
 
-      if (res.data && res.data.length > 0) {
-        // Esperar 1 segundo antes de mostrar resultados
-        setTimeout(() => {
-          setResultados(res.data);
+      ServicioProductos.buscarProductoSupermercadosConcretos(producto.trim().toLowerCase(), super1 + "-" + super2).then(respuesta => {
+        if (respuesta.data && respuesta.data.length > 0) {
+          // Esperar 1 segundo antes de mostrar resultados
+          setResultados(respuesta.data);
           setError(null);
           setLoading(false); // termina la carga después del delay
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          setError('No se encontraron productos.');
-          setResultados([]);
-          setLoading(false); // termina la carga después del delay
-        }, 500);
-      }
-  
-    } catch (err) {
-      setTimeout(() => {
-        setError('No se encontró el producto');
+          window.scrollTo({ top: 500, behavior: 'smooth' });
+        } else {
+          setTimeout(() => {
+            setError('No se encontraron productos.');
+            setResultados([]);
+            setLoading(false); // termina la carga después del delay
+          }, 500);
+        }
+      }).catch(() => {
+        setError('Ha ocurrido un error con la conexión');
         setResultados([]);
         setLoading(false); // termina la carga después del delay
-      }, 500);
-    }
+      });
   }
   }
 

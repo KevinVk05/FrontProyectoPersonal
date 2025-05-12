@@ -63,7 +63,7 @@ const MenuSuperior = () => {
                 <Link className="nav-link" to="/favoritos">Favoritos</Link>
               </li>
               <li className="nav-item mx-2 d-flex align-items-center">
-                <Link className="nav-link" to="/historial">Historial</Link>
+                <Link className="nav-link" to="/cestaCompra">Cesta de la compra</Link>
               </li>
               <li className="nav-item mx-2 d-flex align-items-center">
                 <span className="saludo nav-link">Hola, {user}</span>
