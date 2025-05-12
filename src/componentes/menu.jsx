@@ -48,7 +48,7 @@ const MenuSuperior = () => {
 
       {/* Menú colapsable */}
       <div className={`collapse navbar-collapse ${!isNavbarCollapsed ? "show" : ""}`} id="navbarNav">
-        <ul className="navbar-nav ms-auto">
+        <ul className="navbar-nav ms-auto d-flex align-items-center">
           {user === null ? (
             ""
           ) : (
@@ -68,15 +68,13 @@ const MenuSuperior = () => {
               <li className="nav-item mx-2 d-flex align-items-center">
                 <span className="saludo nav-link">Hola, {user}</span>
               </li>
-              <li className="btn-salir d-flex align-items-center">
-                <img
-                  src="/imagenes/logout.png"
-                  alt="Supermercado"
-                  width="28"
-                  height="28"
-                  className="d-inline-block align-center mx-2"
-                  onClick={handleLogout}
-                />
+              <li className="nav-item d-flex align-items-center">
+                <div>
+                <div
+                  onClick={handleLogout} 
+                  className="btn-salir">
+                </div>
+                </div>
 
               </li>
 

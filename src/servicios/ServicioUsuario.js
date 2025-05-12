@@ -11,6 +11,10 @@ class ServicioUsuario {
       return http.get(`/usuarios?nombre=${usuario}`);
       //http://localhost:3000/usuarios?nombre=agustin&pass=123
    }
+
+   prods(){
+      return http.get("/productos")
+   }
 }
 
 export default new ServicioUsuario();

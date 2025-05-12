@@ -10,10 +10,19 @@
   color: #ffffff !important;
 }
 
-.btn-salir:hover{
-  background-color: #dd4c3c;
-}
-
 .navbar {
   background-color: #BF3131 !important;
+}
+
+.btn-salir{
+  background-image: url("/public/imagenes/logout.png");
+  width:28px;
+  height:28px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.btn-salir:hover{
+  background-image: url("/public/imagenes/logout2.png");
 }
