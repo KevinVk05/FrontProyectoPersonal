@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ServicioProductos from '../servicios/ServicioProductos'; // Asegúrate de importar correctamente el servicio
-import EncabezadoComparadores from './encabezadoComparadores';
 import ResultadoBusqueda from './resultadoBusqueda';
+import Encabezado from './encabezados';
 
 const Comparador2 = () => {
   const [producto, setProducto] = useState('');
@@ -55,7 +55,7 @@ const Comparador2 = () => {
   return (
     <div className="container py-4">
 
-      <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/supermercados.png"}/>
+      <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/supermercados.png"}/>
 
       <div className="text-center mb-4">
         <form onSubmit={buscarResultados} className="d-flex flex-wrap justify-content-center gap-2">

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ServicioProductos from '../servicios/ServicioProductos';
 import EstadoBusqueda from './estadoBusqueda';
-import { useAuth } from '../Login/AuthProvider';
-import EncabezadoComparadores from './encabezadoComparadores';
 import ServicioUsuario from '../servicios/ServicioUsuario';
-import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
-import { Modal } from 'bootstrap';
 import ResultadoBusquedaCesta from './resultadoBusquedaCesta';
+import Encabezado from './encabezados';
 
 const CestaCompra = () => {
 
@@ -80,7 +76,7 @@ const CestaCompra = () => {
 
   return (
     <div className="container py-4">
-      <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
+      <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
 
       <EstadoBusqueda loading={loading} error={error} resultados={resultadosPorSupermercados} />
 

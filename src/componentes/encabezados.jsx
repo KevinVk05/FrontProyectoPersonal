@@ -1,5 +1,5 @@
 
-const EncabezadoComparadores = ({titulo, texto1, texto2, img}) => {
+const Encabezado = ({titulo, texto1, texto2, img}) => {
     return (
         <div>
             <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
@@ -23,4 +23,4 @@ const EncabezadoComparadores = ({titulo, texto1, texto2, img}) => {
     )
 }
 
-export default EncabezadoComparadores;
+export default Encabezado;

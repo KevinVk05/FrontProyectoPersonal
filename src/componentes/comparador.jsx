@@ -3,7 +3,7 @@ import ServicioProductos from '../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
 import ResultadoBusqueda from './resultadoBusqueda';
-import EncabezadoComparadores from './encabezadoComparadores';
+import Encabezado from './encabezados';
 
 const Comparador = () => {
   const [producto, setProducto] = useState('');
@@ -55,8 +55,7 @@ const Comparador = () => {
   
   return (
     <div className="container py-4">
-    {/* Encabezado */}
-    <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"}/>
+    <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"}/>
     
     <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={handleSubmit}>
     <input
