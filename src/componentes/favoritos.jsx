@@ -3,8 +3,8 @@ import React from 'react';
 const Favoritos = () => {
 
   return (
-    <div>
-      <h1>Página en Construcción</h1>
+    <div className="container py-4">
+      <EncabezadoComparadores titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"}/>
     </div>
   );
 };
