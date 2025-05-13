@@ -1,11 +1,9 @@
-import { eliminarProductoConTransicion } from "../transicion/script";
 
-const ModalEliminarProducto = ({producto, indexProducto, onClose}) => {
+const ModalEliminarProducto = ({producto, onClose, eliminarProd}) => {
 
-    const eliminarProducto = (producto) => {
+    const eliminarProducto = () => {
         //Llamada al servicio mandándole el id del producto junto al de la lista
-
-        eliminarProductoConTransicion(producto.supermercado, indexProducto)
+        eliminarProd(producto);
         onClose()
     }
 
