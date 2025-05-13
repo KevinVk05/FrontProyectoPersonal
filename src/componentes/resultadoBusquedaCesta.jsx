@@ -21,8 +21,8 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
     }
 
 
-    const abrirModalEliminarProducto = (producto) => {
-        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal}/>)
+    const abrirModalEliminarProducto = (producto, indexProducto) => {
+        setChildrenModal(<ModalEliminarProducto producto={producto} indexProducto={indexProducto} onClose={closeModal} />)
         openModal()
     }
 
@@ -48,7 +48,11 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                             <div className='d-flex overflow-auto align-items-stretch gap-3 m-4'>
                                 {productos.map((item, index) => (
                                     <div key={index} className="product-card my-3">
-                                        <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"  style={{ width: 250 }}>
+                                        <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
+                                         style={{
+                                            width: 250, 
+                                            viewTransitionName: `card-${nombreSupermercado}-${index}`
+                                         }}>
                                             <div className="d-flex justify-content-center">
                                                 <img
                                                     src={item.urlImagen}
@@ -65,7 +69,7 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                                                 <p>
                                                     Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                                                 </p>
-                                                <button type="button" className='btn btn-danger' onClick={() => abrirModalEliminarProducto(item)}>Eliminar de la cesta</button>
+                                                <button type="button" className='btn btn-danger' onClick={() => abrirModalEliminarProducto(item, index)}>Eliminar de la cesta</button>
                                             </div>
                                         </div>
                                     </div>

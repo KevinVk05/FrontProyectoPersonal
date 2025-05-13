@@ -1,14 +1,18 @@
-const ModalEliminarProducto = ({producto, onClose}) => {
+import { eliminarProductoConTransicion } from "../transicion/script";
+
+const ModalEliminarProducto = ({producto, indexProducto, onClose}) => {
 
     const eliminarProducto = (producto) => {
         //Llamada al servicio mandándole el id del producto junto al de la lista
+
+        eliminarProductoConTransicion(producto.supermercado, indexProducto)
         onClose()
     }
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center">
             <div className="p-3">
-                Está apunto de eliminar {producto.nombre} de la lista
+                Está apunto de eliminar <strong>{producto.nombre}</strong> de la lista
                 ¿Está seguro de que quiere hacerlo?</div>
             <img 
                 src="/public/imagenes/papelera_icon.png" 

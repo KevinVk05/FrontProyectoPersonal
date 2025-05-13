@@ -8,7 +8,7 @@ import Encabezado from './encabezados';
 const CestaCompra = () => {
 
   const titulo = "Comparator, tu cesta de la compra al mejor precio"
-  const textoEncabezado1 = "Organiza tu cesta de la compra, asegurándote de hacerla al menor precio manteniendo la misma calidad."
+  const textoEncabezado1 = "Organiza tu cesta de la compra por supermercado, asegurándote de hacerla al menor precio manteniendo la misma calidad."
   const textoEncabezado2 = "Tu cesta de la compra:"
 
   const [error, setError] = useState(null);
@@ -77,8 +77,6 @@ const CestaCompra = () => {
   return (
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
-
-      <EstadoBusqueda loading={loading} error={error} resultados={resultadosPorSupermercados} />
 
       <ResultadoBusquedaCesta resultadosPorSupermercados={resultadosPorSupermercados} error={error} loading={loading}/>
 
