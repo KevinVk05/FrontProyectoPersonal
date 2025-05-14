@@ -17,9 +17,9 @@ const ModalEliminarProducto = ({producto, onClose, eliminarProd}) => {
                 alt="icono papelera" 
                 className="w-50 m-2"
                 />
-            <div className="d-flex flex-wrap justify-content-between w-100 m-2">
-                <button onClick={eliminarProducto} className="btn btn-danger">Eliminar el producto</button>
-                <button onClick={onClose} className="btn btn-success">Mantener el producto</button>
+            <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2">
+                <button onClick={eliminarProducto} className="btn btn-danger">Eliminar producto</button>
+                <button onClick={onClose} className="btn btn-success">Mantener producto</button>
             </div>
         </div>
     )

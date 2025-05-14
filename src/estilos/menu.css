@@ -17,7 +17,7 @@
 }
 
 .btn-salir {
-  background-image: url("/public/imagenes/logout_icon.png");
+  background-image: url("/imagenes/logout_icon.png");
   width: 28px;
   height: 28px;
   background-size: cover;
