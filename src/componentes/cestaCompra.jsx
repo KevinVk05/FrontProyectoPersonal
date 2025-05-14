@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import EstadoBusqueda from './estadoBusqueda';
 import ServicioUsuario from '../servicios/ServicioUsuario';
-import 'react-horizontal-scrolling-menu/dist/styles.css';
 import ResultadoBusquedaCesta from './resultadoBusquedaCesta';
 import Encabezado from './encabezados';
 

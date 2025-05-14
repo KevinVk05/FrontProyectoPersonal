@@ -7,7 +7,7 @@ import "../estilos/transicion.css"
 
 const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) => {
 
-    const [productoEliminado, setProductoEliminado] = useState([])
+    const [productosEliminando, setProductosEliminando] = useState([])
     const [childrenModal, setChildrenModal] = useState(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -17,30 +17,28 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         setChildrenModal(null)
     }
 
-    const eliminarProd = (producto) => {
-        document.querySelectorAll(`.delete-btn-${producto.index}-${producto.supermercado}`).forEach(button => {
-            button.addEventListener('click', () => {
-                const card = button.closest('.carta');
+    const eliminarProductoConAnimacion = (producto) => {
+        const { supermercado, index } = producto;
 
-                // Añadir la clase para la animación de difuminado
-                card.classList.add('fade-up');
+        // Añade este producto a los que están animándose
+        setProductosEliminando(prev => [...prev, `${supermercado}-${index}`]);
 
-                // Después de 1 segundo (que es la duración de la animación), eliminar la carta
-                setTimeout(() => {
-                    card.remove(); // Elimina la carta del DOM
-
-                    // Reorganiza las cartas restantes con el efecto de rebote
-                    const cards = document.querySelectorAll('.carta');
-                    cards.forEach(card => {
-                        card.classList.remove('bounce'); // Limpiar animaciones anteriores
-                        card.offsetHeight; // Forzar reflow para reiniciar la animación
-                        card.classList.add('bounce'); // Añadir la animación de rebote
-                    });
-                }, 1000); // 1000 ms coincide con la duración de la animación fadeUp
+        // Espera la duración de la animación (1s) y luego elimínalo del estado
+        setTimeout(() => {
+            setProductosPorSuper(prev => {
+                const nuevosProductos = { ...prev };
+                nuevosProductos[supermercado] = nuevosProductos[supermercado].filter(p => p.index !== index);
+                return nuevosProductos;
             });
-        });
-    }
-    
+
+            // Elimina de la lista de animación
+            setProductoEliminando(prev => prev.filter(id => id !== `${supermercado}-${index}`));
+
+            closeModal();
+        }, 1000); // 1s = duración de la animación
+    };
+
+
 
     const abrirModalEliminarLista = (lista) => {
         setChildrenModal(<ModalEliminarLista lista={lista} onClose={closeModal} />)
@@ -49,7 +47,7 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
 
 
     const abrirModalEliminarProducto = (producto) => {
-        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProd} />)
+        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProductoConAnimacion} />)
         openModal()
     }
 
@@ -75,7 +73,10 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
 
                                     <div className='d-flex overflow-auto align-items-stretch gap-3 m-4'>
                                         {productos.map((item, indexProd) => (
-                                            <div key={indexProd} className="carta product-card my-3">
+                                            <div
+                                                key={indexProd}
+                                                className={`carta product-card my-3 ${productosEliminando.includes(`${item.supermercado}-${item.index}`) ? 'fade-up' : ''}`}
+                                            >
                                                 <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
                                                     style={{
                                                         width: 250,
