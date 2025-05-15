@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EstadoBusqueda from "./estadoBusqueda";
 import ModalEliminarProducto from "./modalEliminarProducto";
 import ModalEliminarLista from "./modalEliminarLista";
 import Modal from "./modal";
 import "../estilos/transicion.css"
+import { flushSync } from "react-dom";
 
 const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) => {
 
-    const [productosEliminando, setProductosEliminando] = useState([])
+    const [productosPorSupermercado, setProductosPorSupermercado] = useState(resultadosPorSupermercados);
     const [childrenModal, setChildrenModal] = useState(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -17,25 +18,26 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         setChildrenModal(null)
     }
 
+    // Actualiza la lista de productos cada vez que se cambia el input del componente
+    useEffect(() => setProductosPorSupermercado(resultadosPorSupermercados), [resultadosPorSupermercados]);
+
     const eliminarProductoConAnimacion = (producto) => {
         const { supermercado, index } = producto;
 
-        // Añade este producto a los que están animándose
-        setProductosEliminando(prev => [...prev, `${supermercado}-${index}`]);
-
-        // Espera la duración de la animación (1s) y luego elimínalo del estado
-        setTimeout(() => {
-            setProductosPorSuper(prev => {
-                const nuevosProductos = { ...prev };
-                nuevosProductos[supermercado] = nuevosProductos[supermercado].filter(p => p.index !== index);
-                return nuevosProductos;
-            });
-
-            // Elimina de la lista de animación
-            setProductoEliminando(prev => prev.filter(id => id !== `${supermercado}-${index}`));
-
-            closeModal();
-        }, 1000); // 1s = duración de la animación
+        const cardProducto = document.getElementById(obtenerIdProducto(producto));
+        cardProducto.style.viewTransitionName = 'para-eliminar-cesta';
+        
+        document.startViewTransition(() => {
+            flushSync(() => {
+                closeModal();
+                setProductosPorSupermercado(prev => {
+                    const nuevosProductos = { ...prev };
+                    const idSupermercado = supermercado.toLocaleLowerCase();
+                    nuevosProductos[idSupermercado] = nuevosProductos[idSupermercado].filter(p => p.index !== index);
+                    return nuevosProductos;
+                });
+            })
+        });
     };
 
 
@@ -51,17 +53,19 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         openModal()
     }
 
+    const obtenerIdProducto = (producto) => `producto-cesta-${producto.supermercado.replace(' ', '')}-${producto.index}`
+
     return (
         <div>
             <EstadoBusqueda loading={loading} error={error} resultados={resultadosPorSupermercados} />
 
-            {resultadosPorSupermercados && !loading && (
+            {productosPorSupermercado && !loading && (
                 <section className='p-3 shadow-sm border rounded'>
                     <div className='d-flex gap-3 justify-content-center py-4'>
                         <div className='d-flex align-items-center'><span>Si ya has realizado la compra...</span></div>
                         <button className='btn btn-danger' onClick={() => abrirModalEliminarLista()}>Descartar lista</button>
                     </div>
-                    {Object.entries(resultadosPorSupermercados).map(([nombreSupermercado, productos], indexSuper) => (
+                    {Object.entries(productosPorSupermercado).map(([nombreSupermercado, productos], indexSuper) => (
                         <div key={indexSuper}>
                             {productos.length > 0 && (
                                 <div className='shadow-sm border rounded mb-4'>
@@ -75,7 +79,9 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                                         {productos.map((item, indexProd) => (
                                             <div
                                                 key={indexProd}
-                                                className={`carta product-card my-3 ${productosEliminando.includes(`${item.supermercado}-${item.index}`) ? 'fade-up' : ''}`}
+                                                className={'carta product-card my-3'}
+                                                id={obtenerIdProducto(item)}
+                                                style={{viewTransitionName: obtenerIdProducto(item)}}
                                             >
                                                 <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
                                                     style={{
