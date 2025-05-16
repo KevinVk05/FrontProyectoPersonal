@@ -11,23 +11,28 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await ServicioUsuario.login({
-        "nombre": usuario,
-        "contrasena": password
-      });
-      if (response.data === "Login exitoso") {
-        login(usuario); 
-        navigate('/'); 
-      } else {
-        setError("Usuario o contraseña incorrectos");
-      }
-    } catch (error) {
-      setError("Error al iniciar sesión");
+  try {
+    const response = await ServicioUsuario.login({
+      nombre: usuario,
+      contrasena: password
+    });
+
+    // Ahora response.data será el token JWT si el login fue exitoso
+    if (response.status === 200) {
+      const token = response.data;
+      localStorage.setItem('token', token);  // Guardamos el JWT
+      login(usuario); 
+      navigate('/'); 
+    } else {
+      setError("Usuario o contraseña incorrectos");
     }
-  };
+  } catch (error) {
+    setError("Error al iniciar sesión");
+  }
+};
+
 
   return (
     <section className="min-vh-100 d-flex align-items-center">
