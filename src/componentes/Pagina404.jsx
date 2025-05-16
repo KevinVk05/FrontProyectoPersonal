@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 const Pagina404 = () => {
   return (
-    <div className="pagina404-container">
-      <h1 className="pagina404-title">404</h1>
-      <p className="pagina404-text">Página no encontrada</p>
-      <Link to="/" className="pagina404-button">Volver al Inicio</Link>
+    <div className="p-5 m-5 d-flex flex-column align-items-center gap-4">
+      <h2 className="pagina404-title">La página no ha sido encontrada</h2>
+      <img src="../imagenes/img_pag_404.png" alt="imagen 404" className="w-25" />
+      <Link to="/" className="btn btn-success">Volver al Inicio</Link>
     </div>
   );
 };
