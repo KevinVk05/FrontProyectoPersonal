@@ -27,7 +27,8 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         const cardProducto = document.getElementById(obtenerIdProducto(producto));
         cardProducto.style.viewTransitionName = 'para-eliminar-cesta';
         
-        document.startViewTransition(() => {
+        setTimeout(() => {
+                    document.startViewTransition(() => {
             flushSync(() => {
                 closeModal();
                 setProductosPorSupermercado(prev => {
@@ -38,6 +39,7 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                 });
             })
         });
+        }, 200)
     };
 
 
