@@ -3,7 +3,6 @@ import EstadoBusqueda from "./estadoBusqueda";
 import ModalEliminarProducto from "./modalEliminarProducto";
 import ModalEliminarLista from "./modalEliminarLista";
 import Modal from "./modal";
-import "../estilos/transicion.css"
 import { flushSync } from "react-dom";
 
 const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) => {
@@ -76,7 +75,6 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                                         alt={nombreSupermercado}
                                         className='mt-5 ms-5'
                                         style={{ height: 30 }} />
-
                                     <div className='d-flex overflow-auto align-items-stretch gap-3 m-4'>
                                         {productos.map((item, indexProd) => (
                                             <div

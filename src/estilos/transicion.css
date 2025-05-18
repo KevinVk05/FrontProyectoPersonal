@@ -7,10 +7,6 @@
   100% { transform: translateY(0); }
 }
 
-.bounce {
-  animation: bounce 0.5s;
-}
-
 /* Animación para difuminar y mover hacia arriba al eliminar */
 @keyframes fadeUp {
   0% {
