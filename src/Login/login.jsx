@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
-import bcrypt from 'bcryptjs';
-import Encabezado from "../componentes/encabezados";
 
 const Login = () => {
 
@@ -28,9 +26,6 @@ const Login = () => {
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignup, setErrorSignup] = useState('');
 
-    const titulo = "Comparator, tu cesta de la compra al mejor precio"
-    const textoEncabezado1 = "Organiza tu cesta de la compra por supermercado, asegurándote de hacerla al menor precio manteniendo la misma calidad."
-
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -38,24 +33,23 @@ const Login = () => {
 
         e.preventDefault();
 
-        ServicioUsuario.login(loginUsuario)
-            .then((response) => {
-                const user = response.data[0];
-                const passwdHash = user.pass;
-                let contraseñaCorrecta = bcrypt.compareSync(loginPassword, passwdHash)
-                if (contraseñaCorrecta) {
-                    login(user.nombre);
-                    navigate('/');
-                } else {
-                    setErrorLogin("Usuario no es correcto")
-                }
-
-
-            })
-            .catch((error) => {
-                alert(error)
-                navigate('/login');
+        try {
+            const respuesta = await ServicioUsuario.login({
+                nombre: loginUsuario,
+                contrasena: loginPassword
             });
+            // Ahora response.data será el token JWT si el login fue exitoso
+            if (respuesta.status === 200) {
+                const token = respuesta.data;
+                localStorage.setItem('token', token);  // Guardamos el JWT
+                login(loginUsuario);
+                navigate("/")
+            } else {
+                setErrorLogin("Usuario o contraseña incorrectos");
+            }
+        } catch (error) {
+            setErrorLogin("Error al iniciar sesión");
+        }
     };
 
     const handleSignupSubmit = async (e) => {
@@ -83,7 +77,7 @@ const Login = () => {
                     <h1 class="p-4 text-center">Comparator</h1>
                     <h3>Descubre la forma más inteligente de hacer la compra</h3>
                     <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
-                    Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
+                        Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
                 </div>
                 <section className="col-12 col-md-6 py-3 d-flex flex-column justify-content-center align-items-center">
                     <div className="d-flex">
