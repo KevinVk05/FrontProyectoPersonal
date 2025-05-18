@@ -1,8 +1,9 @@
 
-const Encabezado = ({titulo, texto1, texto2, img}) => {
-    return (
-        <div>
-            <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
+const Encabezado = ({ titulo, texto1, texto2, img }) => {
+  console.log(texto2)
+  return (
+    <div>
+      <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
         <div className="w-75">
           <h2 className="mb-3">{titulo}</h2>
           <div className="mb-0">
@@ -16,11 +17,13 @@ const Encabezado = ({titulo, texto1, texto2, img}) => {
         />
       </div>
 
-      <section className="search-section shadow-sm rounded p-3 my-4">
-        <p className="mb-0 fs-5 fw-bold text-center">{texto2}</p>
-      </section>
-        </div>
-    )
+      {texto2 && (
+        <section className="search-section shadow-sm rounded p-3 my-4">
+          <p className="mb-0 fs-5 fw-bold text-center">{texto2}</p>
+        </section>
+      )}
+    </div>
+  )
 }
 
 export default Encabezado;
