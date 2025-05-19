@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
 import bcrypt from 'bcryptjs';
-import Encabezado from "../componentes/encabezados";
 
 const Login = () => {
 
@@ -27,9 +26,6 @@ const Login = () => {
 
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignup, setErrorSignup] = useState('');
-
-    const titulo = "Comparator, tu cesta de la compra al mejor precio"
-    const textoEncabezado1 = "Organiza tu cesta de la compra por supermercado, asegurándote de hacerla al menor precio manteniendo la misma calidad."
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -79,7 +75,7 @@ const Login = () => {
     return (
         <div className="p-4 m-5">
             <div className="d-flex flex-column flex-md-row align-items-center">
-                <div className="header-box col-12 col-md-6 rounded p-4 h-100" >
+                <div className="header-box col-12 col-md-6 rounded p-5 h-100" >
                     <h1 class="p-4 text-center">Comparator</h1>
                     <h3>Descubre la forma más inteligente de hacer la compra</h3>
                     <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.

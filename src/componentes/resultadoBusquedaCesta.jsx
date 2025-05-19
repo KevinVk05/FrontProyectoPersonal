@@ -3,11 +3,13 @@ import EstadoBusqueda from "./estadoBusqueda";
 import ModalEliminarProducto from "./modalEliminarProducto";
 import ModalEliminarLista from "./modalEliminarLista";
 import Modal from "./modal";
-import { flushSync } from "react-dom";
+import "../estilos/transicion.css"
 
 const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) => {
 
     const [productosPorSupermercado, setProductosPorSupermercado] = useState(resultadosPorSupermercados);
+    const [eliminando, setEliminando] = useState(null);
+
     const [childrenModal, setChildrenModal] = useState(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -18,28 +20,24 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
     }
 
     // Actualiza la lista de productos cada vez que se cambia el input del componente
-    useEffect(() => setProductosPorSupermercado(resultadosPorSupermercados), [resultadosPorSupermercados]);
+    useEffect(() => 
+        setProductosPorSupermercado(resultadosPorSupermercados)
+    , [resultadosPorSupermercados]);
 
     const eliminarProductoConAnimacion = (producto) => {
-        const { supermercado, index } = producto;
-
-        const cardProducto = document.getElementById(obtenerIdProducto(producto));
-        cardProducto.style.viewTransitionName = 'para-eliminar-cesta';
-        
+        setEliminando(obtenerIdProducto(producto));
+        closeModal();
         setTimeout(() => {
-                    document.startViewTransition(() => {
-            flushSync(() => {
-                closeModal();
-                setProductosPorSupermercado(prev => {
-                    const nuevosProductos = { ...prev };
-                    const idSupermercado = supermercado.toLocaleLowerCase();
-                    nuevosProductos[idSupermercado] = nuevosProductos[idSupermercado].filter(p => p.index !== index);
-                    return nuevosProductos;
-                });
-            })
-        });
-        }, 200)
+            setProductosPorSupermercado(prev => {
+                const nuevos = { ...prev };
+                const idSuper = producto.supermercado.toLowerCase();
+                nuevos[idSuper] = nuevos[idSuper].filter(p => p.index !== producto.index);
+                return nuevos;
+            });
+            setEliminando(null);
+        }, 500); 
     };
+
 
 
 
@@ -79,9 +77,9 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                                         {productos.map((item, indexProd) => (
                                             <div
                                                 key={indexProd}
-                                                className={'carta product-card my-3'}
+                                                className={`product-card my-3${eliminando === obtenerIdProducto(item) ? ' fade-up' : ''}`}
                                                 id={obtenerIdProducto(item)}
-                                                style={{viewTransitionName: obtenerIdProducto(item)}}
+                                                style={{ viewTransitionName: obtenerIdProducto(item) }}
                                             >
                                                 <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
                                                     style={{
