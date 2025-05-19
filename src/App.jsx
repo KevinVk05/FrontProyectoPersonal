@@ -12,6 +12,7 @@ import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
 import CestaCompra from './componentes/cestaCompra';
+import Registro from './Login/registro';
 
 
 function App() {
@@ -32,7 +33,6 @@ function App() {
 
         <main>
           <Routes>
-            {/* Ruta principal con ListaImagenes */}
             <Route
               path="/"
               element={
@@ -45,6 +45,10 @@ function App() {
             <Route
               path="/login"
               element={<Login />}
+            />
+            <Route 
+              path='/registro'
+              element={<Registro />}
             />
 
             <Route path="/comparador2" element={

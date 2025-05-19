@@ -1,178 +1,102 @@
-import "../estilos/login.css"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+  const [usuario, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const switchers = [...document.querySelectorAll('.switcher')]
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    switchers.forEach(item => {
-        item.addEventListener('click', function () {
-            switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-            this.parentElement.classList.add('is-active')
-        })
-    })
+    try {
+      const response = await ServicioUsuario.login({
+        nombre: usuario,
+        contrasena: password
+      });
 
-    const [loginUsuario, setLoginUsuario] = useState('');
-    const [loginPassword, setLoginPassword] = useState('');
-
-    const [signupUsuario, setSignupUsuario] = useState('');
-    const [signupPassword, setSignupPassword] = useState('');
-    const [signupPasswordConfirm, setSignupPasswordConfirm] = useState('');
-
-
-    const [errorLogin, setErrorLogin] = useState('');
-    const [errorSignup, setErrorSignup] = useState('');
-
-    const { login } = useAuth();
-    const navigate = useNavigate();
-
-    const handleSubmitLogin = async (e) => {
-
-        e.preventDefault();
-
-        try {
-            const respuesta = await ServicioUsuario.login({
-                nombre: loginUsuario,
-                contrasena: loginPassword
-            });
-            // Ahora response.data será el token JWT si el login fue exitoso
-            if (respuesta.status === 200) {
-                const token = respuesta.data;
-                localStorage.setItem('token', token);  // Guardamos el JWT
-                login(loginUsuario);
-                navigate("/")
-            } else {
-                setErrorLogin("Usuario o contraseña incorrectos");
-            }
-        } catch (error) {
-            setErrorLogin("Error al iniciar sesión");
-        }
-    };
-
-    const handleSignupSubmit = async (e) => {
-        e.preventDefault();
-        if (signupPassword !== signupPasswordConfirm) {
-            setErrorSignup('Las contraseñas no coinciden');
-            return;
-        }
-
-        // try {
-        //     // Aquí harías la llamada para registrar el usuario
-        //     const hash = bcrypt.hashSync(signupPassword, 10);
-        //     await ServicioUsuario.registrar({ usuario: signupUsuario, pass: hash });
-        //     alert("Usuario registrado con éxito");
-        // } catch (err) {
-        //     setError("Error al registrar usuario");
-        // }
+      if (response.status === 200) {
+        const token = response.data;
+        localStorage.setItem('token', token);  // Guardamos el token
+        login(usuario);
+        navigate('/');
+      } else {
+        setError("Usuario o contraseña incorrectos");
+      }
+    } catch (error) {
+      setError("Error al iniciar sesión");
     }
+  };
 
 
-    return (
-        <div className="p-4 m-5">
-            <div className="d-flex flex-column flex-md-row align-items-center">
-                <div className="header-box col-12 col-md-6 rounded p-4 h-100" >
-                    <h1 class="p-4 text-center">Comparator</h1>
-                    <h3>Descubre la forma más inteligente de hacer la compra</h3>
-                    <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
-                        Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
+  return (
+    <section className="min-vh-100 d-flex align-items-center">
+      <div className="container">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-md-5 text-center justify-content-center">
+            <img
+              src="/imagenes/logoapp.png"
+              alt="logo"
+              className="w-100 h-100 overflow-hidden"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className="col-md-5">
+            <form onSubmit={handleSubmit} className="p-4 rounded bg-gold shadow-sm">
+              <h1 className="mb-4 text-center text-gold">Comparator</h1>
+              <h2 className="text-center text-purple mb-4">Identifícate</h2>
+              <div className="card bg-cream border-0">
+                <div className="card-body">
+                  <div className="mb-3">
+                    <label htmlFor="usuario" className="form-label text-purple">Usuario:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="usuario"
+                      placeholder="ainhoa"
+                      value={usuario}
+                      onChange={(e) => setUsuario(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label text-purple">Contraseña:</label>
+                    <input
+                      type="password"
+                      className="form-control border-purple"
+                      id="password"
+                      placeholder="*******"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {error && <div className="alert alert-danger">{error}</div>}
+
+                  <div className="text-center">
+                    <button type="submit" className="btn btn-purple btn-lg rounded-pill">Acceder</button>
+                  </div>
+                  <div className="text-center mt-3">
+                    <span className="text-purple">¿No tienes cuenta?</span>{' '}
+                    <Link to="/registro" className="text-decoration-none text-gold fw-bold">
+                      Regístrate aquí
+                    </Link>
+                  </div>
                 </div>
-                <section className="col-12 col-md-6 py-3 d-flex flex-column justify-content-center align-items-center">
-                    <div className="d-flex">
-                        <div class="form-wrapper is-active w-50">
-                            <button type="button" className="switcher switcher-login">
-                                Login
-                                <span className="underline"></span>
-                            </button>
-                            <form onSubmit={handleSubmitLogin} className="form form-login rounded overflow-hidden">
-                                <fieldset>
-                                    <div className="input-block">
-                                        <label for="login-email">E-mail:</label>
-                                        <input
-                                            id="login-email"
-                                            type="text"
-                                            className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa"
-                                            value={loginUsuario}
-                                            onChange={(e) => setLoginUsuario(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="input-block">
-                                        <label for="login-password">Contraseña: </label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="login-password"
-                                            placeholder="*******"
-                                            value={loginPassword}
-                                            onChange={(e) => setLoginPassword(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-
-                                    {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
-
-                                    <button type="submit" class="btn-login btn btn-success">Acceder</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="form-wrapper w-50">
-                            <button type="button" class="switcher switcher-signup">
-                                Sign Up
-                                <span class="underline"></span>
-                            </button>
-                            <form className="form form-signup rounded overflow-hidden" onSubmit={handleSignupSubmit}>
-                                <fieldset>
-                                    <div class="input-block">
-                                        <label for="signup-email">E-mail:</label>
-                                        <input
-                                            id="signup-email"
-                                            type="text"
-                                            className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa"
-                                            value={signupUsuario}
-                                            onChange={(e) => setSignupUsuario(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="input-block ">
-                                        <label for="signup-password">Contraseña:</label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="signup-password"
-                                            placeholder="*******"
-                                            value={signupPassword}
-                                            onChange={(e) => setSignupPassword(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div class="input-block">
-                                        <label for="signup-password-confirm">Confirme la contraseña:</label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="signup-password-confirm"
-                                            placeholder="*******"
-                                            value={signupPasswordConfirm}
-                                            onChange={(e) => setSignupPasswordConfirm(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
-
-                                    <button type="submit" class="btn-signup btn btn-success">Continue</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
-    )
-}
+      </div>
+    </section>
+  );
+};
 
 export default Login;
