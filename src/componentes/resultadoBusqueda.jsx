@@ -1,6 +1,44 @@
 import EstadoBusqueda from "./estadoBusqueda";
+import { useAuth } from '../Login/AuthProvider';
 
-const ResultadoBusqueda = ({ producto, resultados, loading, error }) => {
+const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error }) => {
+
+    const { user } = useAuth();
+
+    const anadirProdCesta = (item) => {
+        setResultados(() => {
+            return resultados.map(prod =>
+                prod.nombre === item.nombre && prod.supermercado === item.supermercado
+                    ? { ...prod, enLaCesta: true }
+                    : prod
+            );
+        })
+
+        const prodAnadido = {
+            nombre: user,
+            nombreBusqueda: item
+        }
+
+        console.log(prodAnadido)
+    }
+
+    const eliminarProdCesta = (item) => {
+        setResultados(() => {
+            return resultados.map(prod =>
+                prod.nombre === item.nombre && prod.supermercado === item.supermercado
+                    ? { ...prod, enLaCesta: false }
+                    : prod
+            );
+        })
+
+        const prodEliminado = {
+            usuario: user,
+            prod: item
+        }
+
+        console.log(prodEliminado)
+    }
+
     return (
         <div>
             <EstadoBusqueda loading={loading} error={error} resultados={resultados} />
@@ -9,7 +47,7 @@ const ResultadoBusqueda = ({ producto, resultados, loading, error }) => {
                     <p className="text-center p-4 fs-4">Producto comparado: {producto}</p>
                     <div className='d-flex flex-wrap justify-content-center align-items-stretch gap-3'>
                         {resultados.map((item, index) => (
-                            <div key={index} className="product-card mb-3">
+                            <div key={index} className="product-card mb-3 shadow-sm">
                                 <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between" style={{ width: 250 }}>
                                     <img
                                         src={`imagenes/${item.supermercado}_NOMBRE.svg`}
@@ -33,7 +71,12 @@ const ResultadoBusqueda = ({ producto, resultados, loading, error }) => {
                                         <p>
                                             Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                                         </p>
-                                        <button type="button" className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la cesta</button>
+                                        {!item.enLaCesta ? (
+                                            <button type="button" onClick={() => anadirProdCesta(item)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la cesta</button>
+                                        ) : (
+                                            <button type="button" onClick={() => eliminarProdCesta(item)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la cesta</button>
+                                        )
+                                        }
                                     </div>
                                 </div>
                             </div>

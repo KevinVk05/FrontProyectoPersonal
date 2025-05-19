@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ServicioUsuario from '../servicios/ServicioUsuario';
 import ResultadoBusquedaCesta from './resultadoBusquedaCesta';
 import Encabezado from './encabezados';
+import ServicioProductos from '../servicios/ServicioProductos';
 
 const CestaCompra = () => {
 
@@ -42,8 +43,9 @@ const CestaCompra = () => {
 
     setLoading(true)
 
+    ServicioProductos.prods().then(respuesta => {
     //ServicioProductos.buscarCesta(user).then(respuesta => {
-    ServicioUsuario.prods().then(respuesta => {
+    //ServicioUsuario.prods().then(respuesta => {
       if (respuesta.data && respuesta.data.length > 0) {
         dividirResultadosPorSupermercados(respuesta.data)
         setError(null);

@@ -38,9 +38,6 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         }, 500); 
     };
 
-
-
-
     const abrirModalEliminarLista = (lista) => {
         setChildrenModal(<ModalEliminarLista lista={lista} onClose={closeModal} />)
         openModal()

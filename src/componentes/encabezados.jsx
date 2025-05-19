@@ -1,11 +1,10 @@
 
 const Encabezado = ({ titulo, texto1, texto2, img }) => {
-  console.log(texto2)
   return (
     <div>
       <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
         <div className="w-75">
-          <h2 className="mb-3">{titulo}</h2>
+          <h2 className="mb-3 fs-2">{titulo}</h2>
           <div className="mb-0">
             {texto1}
           </div>
@@ -14,6 +13,8 @@ const Encabezado = ({ titulo, texto1, texto2, img }) => {
           src={img}
           alt="Logo Comparador"
           className="ms-3"
+
+          style={{width: '170px'}}
         />
       </div>
 

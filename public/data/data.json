@@ -5,6 +5,31 @@
       { "id": "3", "nombre": "juanito", "pass": "$2a$10$sQ9lYOdbl2XIZV6SiocaV.bB9E.R0SpMl6qQtv61VNty/n.mJD5e2", "admin": 0 },
       { "id": "4", "nombre": "kevin", "pass": "$2a$10$RSKzsbNyH7xy.1w4VWbGPewBmMO4iNjKpjTSkWDL0fcBhD7T8Oowe", "admin": 1 }
     ],
+
+        "productosCesta" : [
+      {
+          "nombre": "leche desnatada dia lactea brik 6 x 1 l",
+          "precio": 5.04,
+          "precioGranel": 0.8,
+          "tamanoUnidad": 1.0,
+          "unidadMedida": "l",
+          "index": 4,
+          "urlImagen": "https://www.dia.es/product_images/607P6/607P6_ISO_0_ES.jpg",
+          "prioridad": 0,
+          "supermercado": "DIA"
+      },
+            {
+          "nombre": "Leche desnatada Hacendado",
+          "precio": 5.04,
+          "precioGranel": 0.84,
+          "tamanoUnidad": 6.0,
+          "unidadMedida": "l",
+          "index": 3,
+          "urlImagen": "https://prod-mercadona.imgix.net/images/3b2cde7125f13d701043eef134149fe3.jpg?fit=crop&h=300&w=300",
+          "prioridad": 0,
+          "supermercado": "MERCADONA"
+      }
+    ],
     
     "productos" : [
       {

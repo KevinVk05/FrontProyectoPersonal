@@ -10,7 +10,7 @@ const EstadoBusqueda = ({loading, error, resultados}) => {
 
             {loading && (
                 <div className="text-center my-4">
-                    <img src="./imagenes/loading.gif" alt="Cargando..." className='loading' />
+                    <img src="./imagenes/loading.gif" alt="Cargando..." className='loading' style={{height: 130}}/>
                 </div>
             )}
 
