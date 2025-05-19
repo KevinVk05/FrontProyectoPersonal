@@ -9,6 +9,11 @@ class ServicioBusquedas {
     return httpExterno.delete(`/favoritos`, favorito);
   }
 
+  getBusquedasFavs(user) {
+    return httpExterno.get(`/favoritos/${user}`)
+  }
+
+
 }
 
 export default new ServicioBusquedas();

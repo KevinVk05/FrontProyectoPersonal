@@ -7,6 +7,7 @@ import Encabezado from './encabezados';
 import ServicioBusquedas from "../servicios/ServicioBusquedas";
 import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado } from '../herramientas/general';
 import { useAuth } from '../Login/AuthProvider';
+import BusquedasFavoritas from './busquedasFavoritas';
 
 const Comparador = () => {
 
@@ -23,6 +24,7 @@ const Comparador = () => {
   const textoEncabezado2 = "Busca un producto y lo compararemos entre varios supermercados"
 
   const [imagen, setImagen] = useState("/imagenes/fav1.png");
+  const [favoritoGuardado, setFavoritoGuardado] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,22 +35,21 @@ const Comparador = () => {
 
       ServicioProductos.buscarProducto(producto.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
-          // Esperar 1 segundo antes de mostrar resultados
           setError(null);
-          setLoading(false); // termina la carga después del delay
+          setLoading(false);
           comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError)
           window.scrollTo({ top: 500, behavior: 'smooth' });
         } else {
           setTimeout(() => {
             setError('No se encontraron productos.');
             setResultados([]);
-            setLoading(false); // termina la carga después del delay
+            setLoading(false);
           }, 1000);
         }
-      }).catch(() => {
+      }).catch((error) => {
         setError('Ha ocurrido un error con la conexión');
         setResultados([]);
-        setLoading(false); // termina la carga después del delay
+        setLoading(false);
       });
     }
   };
@@ -56,7 +57,6 @@ const Comparador = () => {
   const manejarFavoritos = () => {
     if (!producto.trim()) {
       setError("Introduzca el nombre de un producto.")
-      cambiarImgFavoritos(imagen, setImagen)
     } else {
       const busquedaFavAnadir = {
         usuario: user,
@@ -64,12 +64,24 @@ const Comparador = () => {
       }
 
       ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir).then(() => {
-        alert("Se ha añadido la busqueda")
-      }).catch(() => {
+        cambiarImgFavoritos(imagen, setImagen)
+        setFavoritoGuardado(true)
+      }).catch((err) => {
+        if (err.response) {
+          return setError(err.response.data);
+        }
         setError('Ha ocurrido un error con la conexión');
       })
     }
   }
+
+  const handleInputChange = (e) => {
+    setProducto(e.target.value)
+    setFavoritoGuardado(false)
+    if (favoritoGuardado) {
+      cambiarImgFavoritos(imagen, setImagen)
+    }
+  };
 
   return (
     <div className="container py-4">
@@ -77,14 +89,14 @@ const Comparador = () => {
 
       <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={handleSubmit}>
         <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
-          <img src={imagen} onClick={manejarFavoritos}  alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+          <img src={imagen} onClick={manejarFavoritos} alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
         </div>
         <input
           type="text"
           className="form-control w-50"
           placeholder="Busca el producto"
           value={producto}
-          onChange={(e) => setProducto(e.target.value)}
+          onChange={(e) => handleInputChange(e)}
         />
         <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={(e) => setSupermercadoSeleccionado(e.target.value)}>
           <option value="Todos los supermercados">Todos los supermercados</option>
@@ -95,6 +107,8 @@ const Comparador = () => {
         </select>
         <button type="submit" className="btn btn-success">Buscar</button>
       </form>
+
+    
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} />
 
