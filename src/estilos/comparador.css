@@ -34,17 +34,6 @@
 
 .product-card{
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  view-transition-class: producto-cesta;
-}
-
-/* Animacion para le producto que se elimina de la cesta. Estos atributos sobrescriben los de abajo */
-::view-transition-old(para-eliminar-cesta) {
-  animation-name: fade-up;
-}
-
-/* Propiedades para *todos* los elementos de la cesta (incluido e eliminado) */
-::view-transition-group(.producto-cesta){
-  animation-duration: 500ms;
 }
 
 .textoCarrito{
@@ -53,11 +42,4 @@
 
 .loading{
   width: 130px;
-}
-
-@keyframes fade-up {
-  to {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
 }
