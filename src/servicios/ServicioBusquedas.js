@@ -1,12 +1,12 @@
 import httpExterno from "./http-externo";
 
 class ServicioBusquedas {
-  anadirBusquedaFav(favorito) {
-    return httpExterno.post(`/favoritos`, favorito);
+  anadirBusquedaFav(favoritoAnadir) {
+    return httpExterno.post(`/favoritos`, favoritoAnadir);
   }
 
-  eliminarBusquedaFav(favorito) {
-    return httpExterno.delete(`/favoritos`, favorito);
+  eliminarBusquedaFav(favoritoEliminar) {
+    return httpExterno.delete(`/favoritos`, favoritoEliminar);
   }
 
   getBusquedasFavs(user) {

@@ -58,21 +58,39 @@ const Comparador = () => {
     if (!producto.trim()) {
       setError("Introduzca el nombre de un producto.")
     } else {
-      const busquedaFavAnadir = {
+      const busquedaFav = {
         usuario: user,
         nombreBusqueda: producto
       }
 
-      ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir).then(() => {
-        cambiarImgFavoritos(imagen, setImagen)
-        setFavoritoGuardado(true)
-      }).catch((err) => {
-        if (err.response) {
-          return setError(err.response.data);
-        }
-        setError('Ha ocurrido un error con la conexión');
-      })
+      if (favoritoGuardado) {
+        eliminarBusquedaFav(busquedaFav)
+      } else {
+        anadirBusquedaFav(busquedaFav)
+      }
     }
+  }
+
+  const eliminarBusquedaFav = (busquedaFavEliminar) => {
+    console.log(busquedaFavEliminar)
+    ServicioBusquedas.eliminarBusquedaFav(busquedaFavEliminar).then(() => {
+      cambiarImgFavoritos(imagen, setImagen)
+      setFavoritoGuardado(false)
+    }).catch((err) => {
+      setError('Ha ocurrido un error con la conexión');
+    })
+  }
+
+  const anadirBusquedaFav = (busquedaFavAnadir) => {
+    ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir).then(() => {
+      cambiarImgFavoritos(imagen, setImagen)
+      setFavoritoGuardado(true)
+    }).catch((err) => {
+      if (err.response) {
+        return setError(err.response.data);
+      }
+      setError('Ha ocurrido un error con la conexión');
+    })
   }
 
   const handleInputChange = (e) => {
@@ -108,7 +126,7 @@ const Comparador = () => {
         <button type="submit" className="btn btn-success">Buscar</button>
       </form>
 
-    
+
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} />
 
