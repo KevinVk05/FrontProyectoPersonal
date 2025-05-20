@@ -6,7 +6,7 @@ import { useFavoritos } from "../hooks/useFavoritos";
 const BusquedasFavoritas = ({setError, cambioBusquedasFavoritas, setCambioBusquedasFavoritas}) => {
 
     const { user } = useAuth();
-    const {eliminarBusquedaFav} = useFavoritos(setCambioBusquedasFavoritas);
+    const {eliminarBusquedaFav} = useFavoritos(setError);
     const [busquedasFavs, setBusquedasFavs] = useState([])
 
     useEffect(() => {
@@ -22,8 +22,7 @@ const BusquedasFavoritas = ({setError, cambioBusquedasFavoritas, setCambioBusque
             usuario: user,
             nombreBusqueda: producto
         }
-        eliminarBusquedaFav(busqueda)
-      setCambioBusquedasFavoritas(Math.random())
+        eliminarBusquedaFav(busqueda, setCambioBusquedasFavoritas)
     }
 
     return (

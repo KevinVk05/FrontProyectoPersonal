@@ -1,28 +1,36 @@
-import { useState } from 'react';
-import ServicioBusquedas from '../servicios/ServicioBusquedas';
-import { cambiarImgFavoritos } from '../herramientas/general';
+import { useState } from "react";
+import ServicioBusquedas from "../servicios/ServicioBusquedas";
+import { cambiarImgFavoritos } from "../herramientas/general";
 
-export const useFavoritos = (setCambioBusquedasFavoritas) => {
+export const useFavoritos = (setError) => {
   const [imagen, setImagen] = useState("/imagenes/fav1.png");
   const [favoritoGuardado, setFavoritoGuardado] = useState(false);
 
-  const eliminarBusquedaFav = async (busquedaFavEliminar) => {
+  const eliminarBusquedaFav = async (
+    busquedaFavEliminar,
+    setCambioBusquedasFavoritas
+  ) => {
     try {
       await ServicioBusquedas.eliminarBusquedaFav(busquedaFavEliminar);
       cambiarImgFavoritos(imagen, setImagen);
       setFavoritoGuardado(false);
+      setCambioBusquedasFavoritas(Math.random());
     } catch (err) {
-      throw new Error('Error al eliminar búsqueda favorita');
+      setError("Ha ocurrido un error al eliminar la búsqueda a favoritos");
     }
   };
 
-  const anadirBusquedaFav = async (busquedaFavAnadir) => {
+  const anadirBusquedaFav = async (
+    busquedaFavAnadir,
+    setCambioBusquedasFavoritas
+  ) => {
     try {
       await ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir);
       cambiarImgFavoritos(imagen, setImagen);
       setFavoritoGuardado(true);
+      setCambioBusquedasFavoritas(Math.random());
     } catch (err) {
-      throw err;
+      setError("Ha ocurrido un error al añadir la búsqueda a favoritos");
     }
   };
 
@@ -32,6 +40,6 @@ export const useFavoritos = (setCambioBusquedasFavoritas) => {
     favoritoGuardado,
     eliminarBusquedaFav,
     anadirBusquedaFav,
-    setFavoritoGuardado
+    setFavoritoGuardado,
   };
 };

@@ -1,3 +1,5 @@
+import { useAuth } from "../Login/AuthProvider";
+import ServicioCesta from "../servicios/ServicioCesta";
 import ServicioProductos from "../servicios/ServicioProductos";
 
 export const filtrarPorSupermercado = (resultados, supermercadoSeleccionado) => {
@@ -7,24 +9,25 @@ export const filtrarPorSupermercado = (resultados, supermercadoSeleccionado) => 
     return resultados;
 }
 
-export const comprobarSiEstanEnLaCesta = (productos, setResultados, setError) => {
-    ServicioProductos.prodsCesta().then((respuesta) => {
-        const productosEnCesta = respuesta.data;
+export const comprobarSiEstanEnLaCesta = (productosTotal, setResultados, setError, user) => {
+    ServicioCesta.getProdsCesta(user).then((respuesta) => {
+            const productosEnCesta = respuesta.data?.productos || [];
 
-        const productosActualizados = productos.map(prodResultado => {
-            const enCesta = productosEnCesta.some(prodCesta =>
-                prodCesta.nombre === prodResultado.nombre &&
-                prodCesta.supermercado === prodResultado.supermercado
-            );
+            console.log('Productos en la cesta:', productosEnCesta);
 
-            return {
-                ...prodResultado,
-                enLaCesta: enCesta
-            };
-        });
+            const productosActualizados = productosTotal.map(prodResultado => {
+                const enCesta = productosEnCesta.some(prodCesta =>
+                    prodCesta.nombre === prodResultado.nombre &&
+                    prodCesta.supermercado === prodResultado.supermercado
+                );
 
-        setResultados(productosActualizados); // Actualizamos el estado
+                return {
+                    ...prodResultado,
+                    enLaCesta: enCesta
+                };
+            });
 
+            setResultados(productosActualizados);
     }).catch(() => {
         setError('Ha ocurrido un error con la conexión');
     })

@@ -24,7 +24,6 @@ const Comparador = () => {
   const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!"
   const textoEncabezado2 = "Busca un producto y lo compararemos entre varios supermercados"
 
-  // Usa el hook de favoritos
   const {
     imagen,
     setImagen,
@@ -32,7 +31,7 @@ const Comparador = () => {
     eliminarBusquedaFav,
     anadirBusquedaFav,
     setFavoritoGuardado
-  } = useFavoritos();
+  } = useFavoritos(setError);
 
 
   const handleSubmit = async (e) => {
@@ -44,9 +43,10 @@ const Comparador = () => {
 
       ServicioProductos.buscarProducto(producto.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
+          setResultados(respuesta.data)
           setError(null);
           setLoading(false);
-          comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError)
+          comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
           window.scrollTo({ top: 500, behavior: 'smooth' });
         } else {
           setTimeout(() => {
@@ -73,9 +73,9 @@ const Comparador = () => {
       }
 
       if (favoritoGuardado) {
-        eliminarBusquedaFav(busquedaFav)
+        eliminarBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
       } else {
-        anadirBusquedaFav(busquedaFav)
+        anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
       }
       setCambioBusquedasFavoritas(Math.random())
     }
@@ -116,7 +116,7 @@ const Comparador = () => {
 
       <BusquedasFavoritas setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
 
-      <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} />
+      <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError}/>
 
     </div>
   );

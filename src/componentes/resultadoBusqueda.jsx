@@ -1,28 +1,36 @@
 import EstadoBusqueda from "./estadoBusqueda";
 import { useAuth } from '../Login/AuthProvider';
+import ServicioCesta from "../servicios/ServicioCesta";
 
-const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error }) => {
+const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error, setError }) => {
 
     const { user } = useAuth();
 
     const anadirProdCesta = (item) => {
-        setResultados(() => {
-            return resultados.map(prod =>
-                prod.nombre === item.nombre && prod.supermercado === item.supermercado
-                    ? { ...prod, enLaCesta: true }
-                    : prod
-            );
-        })
-
         const prodAnadido = {
-            nombre: user,
-            nombreBusqueda: item
+            usuario: user,
+            prod: item
         }
 
-        console.log(prodAnadido)
+        ServicioCesta.anadirProdCesta(prodAnadido).then(() => {
+            setResultados(() => {
+                return resultados.map(prod =>
+                    prod.nombre === item.nombre && prod.supermercado === item.supermercado
+                        ? { ...prod, enLaCesta: true }
+                        : prod
+                );
+            })
+        }).catch(() => {
+            setError("Ha ocurrido un error al añadir el producto a la cesta")
+        })
     }
 
     const eliminarProdCesta = (item) => {
+        const prodEliminado = {
+            usuario: user,
+            prod: item
+        }
+        ServicioCesta.eliminarProdCesta(prodEliminado)
         setResultados(() => {
             return resultados.map(prod =>
                 prod.nombre === item.nombre && prod.supermercado === item.supermercado
@@ -30,13 +38,6 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
                     : prod
             );
         })
-
-        const prodEliminado = {
-            usuario: user,
-            prod: item
-        }
-
-        console.log(prodEliminado)
     }
 
     return (
