@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
 import ResultadoBusqueda from './resultadoBusqueda';
 import Encabezado from './encabezados';
-import ServicioBusquedas from "../servicios/ServicioBusquedas";
 import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado } from '../herramientas/general';
 import { useAuth } from '../Login/AuthProvider';
 import BusquedasFavoritas from './busquedasFavoritas';
+import { useFavoritos } from '../hooks/useFavoritos';
 
 const Comparador = () => {
 
@@ -15,7 +15,8 @@ const Comparador = () => {
   const [resultados, setResultados] = useState([]);
   const [supermercadoSeleccionado, setSupermercadoSeleccionado] = useState("Todos los supermercados");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); // nuevo estado de loading
+  const [loading, setLoading] = useState(false);
+  const [cambioBusquedasFavoritas, setCambioBusquedasFavoritas] = useState(1)
 
   const { user } = useAuth();
 
@@ -23,8 +24,16 @@ const Comparador = () => {
   const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!"
   const textoEncabezado2 = "Busca un producto y lo compararemos entre varios supermercados"
 
-  const [imagen, setImagen] = useState("/imagenes/fav1.png");
-  const [favoritoGuardado, setFavoritoGuardado] = useState(false);
+  // Usa el hook de favoritos
+  const {
+    imagen,
+    setImagen,
+    favoritoGuardado,
+    eliminarBusquedaFav,
+    anadirBusquedaFav,
+    setFavoritoGuardado
+  } = useFavoritos();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,29 +77,8 @@ const Comparador = () => {
       } else {
         anadirBusquedaFav(busquedaFav)
       }
+      setCambioBusquedasFavoritas(Math.random())
     }
-  }
-
-  const eliminarBusquedaFav = (busquedaFavEliminar) => {
-    console.log(busquedaFavEliminar)
-    ServicioBusquedas.eliminarBusquedaFav(busquedaFavEliminar).then(() => {
-      cambiarImgFavoritos(imagen, setImagen)
-      setFavoritoGuardado(false)
-    }).catch((err) => {
-      setError('Ha ocurrido un error con la conexión');
-    })
-  }
-
-  const anadirBusquedaFav = (busquedaFavAnadir) => {
-    ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir).then(() => {
-      cambiarImgFavoritos(imagen, setImagen)
-      setFavoritoGuardado(true)
-    }).catch((err) => {
-      if (err.response) {
-        return setError(err.response.data);
-      }
-      setError('Ha ocurrido un error con la conexión');
-    })
   }
 
   const handleInputChange = (e) => {
@@ -126,7 +114,7 @@ const Comparador = () => {
         <button type="submit" className="btn btn-success">Buscar</button>
       </form>
 
-
+      <BusquedasFavoritas setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} />
 

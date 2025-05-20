@@ -6,7 +6,12 @@ class ServicioBusquedas {
   }
 
   eliminarBusquedaFav(favoritoEliminar) {
-    return httpExterno.delete(`/favoritos`, favoritoEliminar);
+    return httpExterno.delete(`/favoritos`, {
+      data: favoritoEliminar,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
   }
 
   getBusquedasFavs(user) {
