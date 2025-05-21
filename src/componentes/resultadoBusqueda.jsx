@@ -15,7 +15,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
         ServicioCesta.anadirProdCesta(prodAnadido).then(() => {
             setResultados(() => {
                 return resultados.map(prod =>
-                    prod.nombre === item.nombre && prod.supermercado === item.supermercado
+                    prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precioGranel === item.precioGranel
                         ? { ...prod, enLaCesta: true }
                         : prod
                 );
@@ -33,7 +33,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
         ServicioCesta.eliminarProdCesta(prodEliminado)
         setResultados(() => {
             return resultados.map(prod =>
-                prod.nombre === item.nombre && prod.supermercado === item.supermercado
+                prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precioGranel === item.precioGranel
                     ? { ...prod, enLaCesta: false }
                     : prod
             );
@@ -61,7 +61,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
                                             src={item.urlImagen}
                                             className="p-3"
                                             alt={item.nombre}
-                                            style={{ maxHeight: 200 }}
+                                            style={{ maxHeight: 200, maxWidth: '100%' }}
                                         />
                                     </div>
                                     <div className="text-center mt-auto">

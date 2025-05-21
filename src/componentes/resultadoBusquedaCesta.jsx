@@ -4,14 +4,14 @@ import ModalEliminarProducto from "./modalEliminarProducto";
 import ModalEliminarLista from "./modalEliminarLista";
 import Modal from "./modal";
 import "../estilos/transicion.css"
+import ServicioProductos from '../servicios/ServicioProductos';
+import { dividirResultadosPorSupermercados, obtenerIdProducto } from "../herramientas/general";
+import ServicioCesta from "../servicios/ServicioCesta";
+import { useAuth } from "../Login/AuthProvider";
 
-const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) => {
-
-    const [productosPorSupermercado, setProductosPorSupermercado] = useState(resultadosPorSupermercados);
-    const [eliminando, setEliminando] = useState(null);
+const ResultadoBusquedaCesta = () => {
 
     const [childrenModal, setChildrenModal] = useState(null)
-
     const [isModalOpen, setIsModalOpen] = useState(false)
     const openModal = () => setIsModalOpen(true)
     const closeModal = () => {
@@ -19,10 +19,54 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         setChildrenModal(null)
     }
 
-    // Actualiza la lista de productos cada vez que se cambia el input del componente
-    useEffect(() => 
-        setProductosPorSupermercado(resultadosPorSupermercados)
-    , [resultadosPorSupermercados]);
+    const { user } = useAuth()
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [eliminando, setEliminando] = useState(null);
+
+    const [productosPorSupermercado, setProductosPorSupermercado] = useState({
+        Mercadona: [],
+        Carrefour: [],
+        Dia: [],
+        Ahorramas: []
+    });
+
+    useEffect(() => {
+        setLoading(true)
+        ServicioCesta.getProdsCesta(user).then(respuesta => {
+            let prods = respuesta.data.productos
+            //ServicioProductos.prods().then(respuesta => {
+            //ServicioProductos.buscarCesta(user).then(respuesta => {
+            //ServicioUsuario.prods().then(respuesta => {
+            console.log(prods)
+            if (prods && prods.length > 0) {
+                console.log(prods)
+                dividirResultadosPorSupermercados(prods, setProductosPorSupermercado)
+                setError(null);
+                setLoading(false); // termina la carga después del delay
+                console.log(loading)
+            } else {
+                setError('No se encontraron productos.');
+                setProductosPorSupermercado({
+                    Mercadona: [],
+                    Carrefour: [],
+                    Dia: [],
+                    Ahorramas: []
+                });
+                setLoading(false);
+            }
+        })
+            .catch(() => {
+                setError('Ha ocurrido un error con la conexión');
+                setProductosPorSupermercado({
+                    Mercadona: [],
+                    Carrefour: [],
+                    Dia: [],
+                    Ahorramas: []
+                });
+                setLoading(false);
+            })
+    }, [])
 
     const eliminarProductoConAnimacion = (producto) => {
         setEliminando(obtenerIdProducto(producto));
@@ -35,7 +79,7 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
                 return nuevos;
             });
             setEliminando(null);
-        }, 500); 
+        }, 500);
     };
 
     const abrirModalEliminarLista = (lista) => {
@@ -49,11 +93,9 @@ const ResultadoBusquedaCesta = ({ resultadosPorSupermercados, error, loading }) 
         openModal()
     }
 
-    const obtenerIdProducto = (producto) => `producto-cesta-${producto.supermercado.replace(' ', '')}-${producto.index}`
-
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={resultadosPorSupermercados} />
+            <EstadoBusqueda loading={loading} error={error} resultados={productosPorSupermercado} />
 
             {productosPorSupermercado && !loading && (
                 <section className='p-3 shadow-sm border rounded'>
