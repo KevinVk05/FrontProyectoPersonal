@@ -29,9 +29,18 @@ const Login = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmitLogin = async (e) => {
+       const esEmailValido = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+};
 
+    const handleSubmitLogin = async (e) => {
         e.preventDefault();
+
+         if (!esEmailValido(loginUsuario)) {
+        setErrorLogin("Introduce un correo electrónico válido");
+        return;
+    }
 
         try {
             const respuesta = await ServicioUsuario.login({
@@ -54,6 +63,11 @@ const Login = () => {
 
    const handleSignupSubmit = async (e) => {
     e.preventDefault();
+
+     if (!esEmailValido(loginUsuario)) {
+        setErrorLogin("Introduce un correo electrónico válido");
+        return;
+    }
 
     if (signupPassword !== signupPasswordConfirm) {
         setErrorSignup('Las contraseñas no coinciden');
@@ -87,6 +101,8 @@ const Login = () => {
         }
     }
 
+ 
+
     }
 
 
@@ -112,9 +128,9 @@ const Login = () => {
                                         <label htmlFor="login-email">E-mail:</label>
                                         <input
                                             id="login-email"
-                                            type="email"
+                                            type="text"
                                             className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa"
+                                            placeholder="ainhoa@ejemplo.com"
                                             value={loginUsuario}
                                             onChange={(e) => setLoginUsuario(e.target.value)}
                                             required
@@ -150,9 +166,9 @@ const Login = () => {
                                         <label htmlFor="signup-email">E-mail:</label>
                                         <input
                                             id="signup-email"
-                                            type="email"
+                                            type="text"
                                             className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa"
+                                            placeholder="ainhoa@ejemplo.com"
                                             value={signupUsuario}
                                             onChange={(e) => setSignupUsuario(e.target.value)}
                                             required
