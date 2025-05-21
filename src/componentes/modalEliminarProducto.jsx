@@ -2,7 +2,6 @@
 const ModalEliminarProducto = ({producto, onClose, eliminarProd}) => {
 
     const eliminarProducto = () => {
-        //Llamada al servicio mandándole el id del producto junto al de la lista
         eliminarProd(producto);
         onClose()
     }

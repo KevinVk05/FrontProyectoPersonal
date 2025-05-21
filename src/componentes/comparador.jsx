@@ -89,6 +89,10 @@ const Comparador = () => {
     }
   };
 
+  const hacerBusqueda = (nombreProd) => {
+    setProducto(nombreProd)
+  }
+
   return (
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
@@ -116,7 +120,7 @@ const Comparador = () => {
 
       <BusquedasFavoritas setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
 
-      <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError}/>
+      <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
     </div>
   );

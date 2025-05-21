@@ -4,12 +4,11 @@ import ModalEliminarProducto from "./modalEliminarProducto";
 import ModalEliminarLista from "./modalEliminarLista";
 import Modal from "./modal";
 import "../estilos/transicion.css"
-import ServicioProductos from '../servicios/ServicioProductos';
 import { dividirResultadosPorSupermercados, obtenerIdProducto } from "../herramientas/general";
 import ServicioCesta from "../servicios/ServicioCesta";
 import { useAuth } from "../Login/AuthProvider";
 
-const ResultadoBusquedaCesta = () => {
+const ResultadosCesta = () => {
 
     const [childrenModal, setChildrenModal] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -55,6 +54,7 @@ const ResultadoBusquedaCesta = () => {
                 });
                 setLoading(false);
             }
+            console.log(productosPorSupermercado.length > 0)
         })
             .catch(() => {
                 setError('Ha ocurrido un error con la conexión');
@@ -106,7 +106,7 @@ const ResultadoBusquedaCesta = () => {
         <div>
             <EstadoBusqueda loading={loading} error={error} resultados={productosPorSupermercado} />
 
-            {productosPorSupermercado && !loading && (
+            {Object.values(productosPorSupermercado).some(arr => arr.length > 0) > 0 && !loading && (
                 <section className='p-3 shadow-sm border rounded'>
                     <div className='d-flex gap-3 justify-content-center py-4'>
                         <div className='d-flex align-items-center'><span>Si ya has realizado la compra...</span></div>
@@ -170,4 +170,4 @@ const ResultadoBusquedaCesta = () => {
     )
 }
 
-export default ResultadoBusquedaCesta;
+export default ResultadosCesta;

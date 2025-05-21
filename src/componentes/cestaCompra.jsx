@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import ServicioUsuario from '../servicios/ServicioUsuario';
-import ResultadoBusquedaCesta from './resultadoBusquedaCesta';
 import Encabezado from './encabezados';
+import ResultadosCesta from './resultadosCesta';
 
 const CestaCompra = () => {
 
@@ -13,7 +11,7 @@ const CestaCompra = () => {
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
 
-      <ResultadoBusquedaCesta />
+      <ResultadosCesta />
 
     </div>
   )
