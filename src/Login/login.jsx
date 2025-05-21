@@ -31,6 +31,7 @@ const Login = () => {
 
        const esEmailValido = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(regex.test(email))
     return regex.test(email);
 };
 
@@ -64,8 +65,8 @@ const Login = () => {
    const handleSignupSubmit = async (e) => {
     e.preventDefault();
 
-     if (!esEmailValido(loginUsuario)) {
-        setErrorLogin("Introduce un correo electrónico válido");
+     if (!esEmailValido(signupUsuario)) {
+        setErrorSignup("Introduce un correo electrónico válido");
         return;
     }
 
