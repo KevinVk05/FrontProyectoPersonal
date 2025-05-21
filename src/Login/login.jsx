@@ -52,21 +52,41 @@ const Login = () => {
         }
     };
 
-    const handleSignupSubmit = async (e) => {
-        e.preventDefault();
-        if (signupPassword !== signupPasswordConfirm) {
-            setErrorSignup('Las contraseñas no coinciden');
-            return;
-        }
+   const handleSignupSubmit = async (e) => {
+    e.preventDefault();
 
-        // try {
-        //     // Aquí harías la llamada para registrar el usuario
-        //     const hash = bcrypt.hashSync(signupPassword, 10);
-        //     await ServicioUsuario.registrar({ usuario: signupUsuario, pass: hash });
-        //     alert("Usuario registrado con éxito");
-        // } catch (err) {
-        //     setError("Error al registrar usuario");
-        // }
+    if (signupPassword !== signupPasswordConfirm) {
+        setErrorSignup('Las contraseñas no coinciden');
+        return;
+    }
+
+    if (signupPassword.length < 6) {
+        setErrorSignup('La contraseña debe tener al menos 6 caracteres');
+        return;
+    }
+    try {
+        const respuesta = await ServicioUsuario.registrar({
+            nombre: signupUsuario,
+            contrasena: signupPassword
+        });
+
+        if (respuesta.status === 201) {
+            alert("Usuario registrado con éxito. Ahora puedes iniciar sesión.");
+            setSignupUsuario('');
+            setSignupPassword('');
+            setSignupPasswordConfirm('');
+            setErrorSignup('');
+        } else {
+            setErrorSignup("Error desconocido al registrar usuario");
+        }
+    } catch (err) {
+        if (err.response && err.response.status === 400) {
+            setErrorSignup("El nombre de usuario ya existe");
+        } else {
+            setErrorSignup("Error al registrar usuario");
+        }
+    }
+
     }
 
 
@@ -74,14 +94,14 @@ const Login = () => {
         <div className="p-4 m-5">
             <div className="d-flex flex-column flex-md-row align-items-center">
                 <div className="header-box col-12 col-md-6 rounded p-5 h-100" >
-                    <h1 class="p-4 text-center">Comparator</h1>
+                    <h1 className="p-4 text-center">Comparator</h1>
                     <h3>Descubre la forma más inteligente de hacer la compra</h3>
                     <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
                         Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
                 </div>
                 <section className="col-12 col-md-6 py-3 d-flex flex-column justify-content-center align-items-center">
                     <div className="d-flex">
-                        <div class="form-wrapper is-active w-50">
+                        <div className="form-wrapper is-active w-50">
                             <button type="button" className="switcher switcher-login">
                                 Login
                                 <span className="underline"></span>
@@ -89,10 +109,10 @@ const Login = () => {
                             <form onSubmit={handleSubmitLogin} className="form form-login rounded overflow-hidden">
                                 <fieldset>
                                     <div className="input-block">
-                                        <label for="login-email">E-mail:</label>
+                                        <label htmlFor="login-email">E-mail:</label>
                                         <input
                                             id="login-email"
-                                            type="text"
+                                            type="email"
                                             className="form-control w-100 my-3 px-2"
                                             placeholder="ainhoa"
                                             value={loginUsuario}
@@ -101,7 +121,7 @@ const Login = () => {
                                         />
                                     </div>
                                     <div className="input-block">
-                                        <label for="login-password">Contraseña: </label>
+                                        <label htmlFor="login-password">Contraseña: </label>
                                         <input
                                             type="password"
                                             className="form-control w-100 my-3 px-2"
@@ -115,22 +135,22 @@ const Login = () => {
 
                                     {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
 
-                                    <button type="submit" class="btn-login btn btn-success">Acceder</button>
+                                    <button type="submit" className="btn-login btn btn-success">Acceder</button>
                                 </fieldset>
                             </form>
                         </div>
-                        <div class="form-wrapper w-50">
-                            <button type="button" class="switcher switcher-signup">
+                        <div className="form-wrapper w-50">
+                            <button type="button" className="switcher switcher-signup">
                                 Sign Up
-                                <span class="underline"></span>
+                                <span className="underline"></span>
                             </button>
                             <form className="form form-signup rounded overflow-hidden" onSubmit={handleSignupSubmit}>
                                 <fieldset>
-                                    <div class="input-block">
-                                        <label for="signup-email">E-mail:</label>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">E-mail:</label>
                                         <input
                                             id="signup-email"
-                                            type="text"
+                                            type="email"
                                             className="form-control w-100 my-3 px-2"
                                             placeholder="ainhoa"
                                             value={signupUsuario}
@@ -139,7 +159,7 @@ const Login = () => {
                                         />
                                     </div>
                                     <div className="input-block ">
-                                        <label for="signup-password">Contraseña:</label>
+                                        <label htmlFor="signup-password">Contraseña:</label>
                                         <input
                                             type="password"
                                             className="form-control w-100 my-3 px-2"
@@ -150,8 +170,8 @@ const Login = () => {
                                             required
                                         />
                                     </div>
-                                    <div class="input-block">
-                                        <label for="signup-password-confirm">Confirme la contraseña:</label>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-password-confirm">Confirme la contraseña:</label>
                                         <input
                                             type="password"
                                             className="form-control w-100 my-3 px-2"
@@ -164,7 +184,7 @@ const Login = () => {
                                     </div>
                                     {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
 
-                                    <button type="submit" class="btn-signup btn btn-success">Continue</button>
+                                    <button type="submit" className="btn-signup btn btn-success">Continue</button>
                                 </fieldset>
                             </form>
                         </div>
