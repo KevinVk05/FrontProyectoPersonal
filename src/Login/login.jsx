@@ -45,7 +45,7 @@ const Login = () => {
 
         try {
             const respuesta = await ServicioUsuario.login({
-                nombre: loginUsuario,
+                nombre: loginUsuario.toLowerCase(),
                 contrasena: loginPassword
             });
             // Ahora response.data será el token JWT si el login fue exitoso
@@ -81,7 +81,7 @@ const Login = () => {
     }
     try {
         const respuesta = await ServicioUsuario.registrar({
-            nombre: signupUsuario,
+            nombre: signupUsuario.toLowerCase(),
             contrasena: signupPassword
         });
 
