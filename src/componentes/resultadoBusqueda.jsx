@@ -29,7 +29,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
         }
         ServicioCesta.eliminarProdCesta(prodEliminado).then(() => {
             setResultados(() => {
-                return modificarResultados(item, resultados, false)
+                return modificarResultadosCesta(item, resultados, false)
             })
         }).catch(() => {
             setError("Ha ocurrido un error al añadir el producto a la cesta")
