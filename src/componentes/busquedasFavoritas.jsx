@@ -3,7 +3,7 @@ import ServicioBusquedas from "../servicios/ServicioBusquedas";
 import { useAuth } from "../Login/AuthProvider";
 import { useFavoritos } from "../hooks/useFavoritos";
 
-const BusquedasFavoritas = ({setError, cambioBusquedasFavoritas, setCambioBusquedasFavoritas}) => {
+const BusquedasFavoritas = ({setError, hacerBusquedaFavorita, cambioBusquedasFavoritas, setCambioBusquedasFavoritas}) => {
 
     const { user } = useAuth();
     const {eliminarBusquedaFav} = useFavoritos(setError);
@@ -34,7 +34,7 @@ const BusquedasFavoritas = ({setError, cambioBusquedasFavoritas, setCambioBusque
                         <button key={index} className="btn btn-light border">
                             <div>
                                 <span className="me-2" onClick={() => eliminarFavorito(busqueda.nombreBusqueda)}>&times;</span>
-                                <span>{busqueda.nombreBusqueda}</span>
+                                <span onClick={() => hacerBusquedaFavorita(busqueda.nombreBusqueda)}>{busqueda.nombreBusqueda}</span>
                             </div>
                         </button>
                     ))}

@@ -30,7 +30,7 @@ export const useFavoritos = (setError) => {
       setFavoritoGuardado(true);
       setCambioBusquedasFavoritas(Math.random());
     } catch (err) {
-      setError("Ha ocurrido un error al añadir la búsqueda a favoritos");
+      setError(err.response.data.error);
     }
   };
 

@@ -77,7 +77,6 @@ const Comparador = () => {
       } else {
         anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
       }
-      setCambioBusquedasFavoritas(Math.random())
     }
   }
 
@@ -89,7 +88,7 @@ const Comparador = () => {
     }
   };
 
-  const hacerBusqueda = (nombreProd) => {
+  const hacerBusquedaFavorita = (nombreProd) => {
     setProducto(nombreProd)
   }
 
@@ -118,7 +117,7 @@ const Comparador = () => {
         <button type="submit" className="btn btn-success">Buscar</button>
       </form>
 
-      <BusquedasFavoritas setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
+      <BusquedasFavoritas hacerBusquedaFavorita={hacerBusquedaFavorita} setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 

@@ -109,7 +109,7 @@ const Login = () => {
 
     return (
         <div className="p-4 m-5">
-            <div className="d-flex flex-column flex-md-row align-items-center">
+            <div className="d-flex flex-column flex-md-row align-items-center gap-4">
                 <div className="header-box col-12 col-md-6 rounded p-5 h-100" >
                     <h1 className="p-4 text-center">Comparator</h1>
                     <h3>Descubre la forma más inteligente de hacer la compra</h3>
