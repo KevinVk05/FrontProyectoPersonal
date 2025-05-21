@@ -13,7 +13,7 @@ const ModalEliminarProducto = ({producto, onClose, eliminarProd}) => {
                 Está apunto de eliminar <strong>{producto.nombre}</strong> de la lista
                 ¿Está seguro de que quiere hacerlo?</div>
             <img 
-                src="/public/imagenes/papelera_icon.png" 
+                src="/imagenes/papelera_icon.png" 
                 alt="icono papelera" 
                 className="w-50 m-2"
                 />

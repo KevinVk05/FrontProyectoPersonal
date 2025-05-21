@@ -10,7 +10,7 @@ const ModalEliminarLista = ({ onClose, lista }) => {
             <div className="p-3">
                 ¿Está seguro de que quiere eliminar la lista?</div>
             <img 
-                src="/public/imagenes/papelera_icon.png" 
+                src="/imagenes/papelera_icon.png" 
                 alt="icono papelera" 
                 className="w-50 m-2"
                 />

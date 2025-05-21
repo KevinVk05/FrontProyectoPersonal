@@ -53,12 +53,6 @@ function App() {
               </RutasProtegidas>
             } />
 
-            <Route path="/favoritos" element={
-              <RutasProtegidas>
-                <Favoritos />
-              </RutasProtegidas>
-            } />
-
             <Route path="/cestaCompra" element={
               <RutasProtegidas>
                 <CestaCompra />

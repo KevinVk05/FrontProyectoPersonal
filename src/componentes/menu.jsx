@@ -17,6 +17,10 @@ const MenuSuperior = () => {
     navigate('/login');
   };
 
+  const userAcortado=()=>{
+    var userMostrar=user ? user.split('@')[0]: "";
+    return userMostrar
+  }
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
   return (
@@ -60,13 +64,10 @@ const MenuSuperior = () => {
                 <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
               </li>
               <li className="nav-item mx-2 d-flex align-items-center">
-                <Link className="nav-link" to="/favoritos">Favoritos</Link>
-              </li>
-              <li className="nav-item mx-2 d-flex align-items-center">
                 <Link className="nav-link" to="/cestaCompra">Cesta de la compra</Link>
               </li>
               <li className="nav-item mx-2 d-flex align-items-center">
-                <span className="saludo nav-link">Hola, {user}</span>
+                <span className="saludo nav-link">Hola, {userAcortado()}</span>
               </li>
               <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{width: 32, height:32}}>
                 
