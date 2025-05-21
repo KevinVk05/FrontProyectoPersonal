@@ -1,6 +1,7 @@
 import EstadoBusqueda from "./estadoBusqueda";
 import { useAuth } from '../Login/AuthProvider';
 import ServicioCesta from "../servicios/ServicioCesta";
+import { modificarResultadosCesta } from "../herramientas/cestaDeLaCompra";
 
 const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error, setError }) => {
 
@@ -14,11 +15,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
 
         ServicioCesta.anadirProdCesta(prodAnadido).then(() => {
             setResultados(() => {
-                return resultados.map(prod =>
-                    prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precioGranel === item.precioGranel
-                        ? { ...prod, enLaCesta: true }
-                        : prod
-                );
+                return modificarResultadosCesta(item, resultados, true)
             })
         }).catch(() => {
             setError("Ha ocurrido un error al añadir el producto a la cesta")
@@ -30,13 +27,12 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
             usuario: user,
             prod: item
         }
-        ServicioCesta.eliminarProdCesta(prodEliminado)
-        setResultados(() => {
-            return resultados.map(prod =>
-                prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precioGranel === item.precioGranel
-                    ? { ...prod, enLaCesta: false }
-                    : prod
-            );
+        ServicioCesta.eliminarProdCesta(prodEliminado).then(() => {
+            setResultados(() => {
+                return modificarResultados(item, resultados, false)
+            })
+        }).catch(() => {
+            setError("Ha ocurrido un error al añadir el producto a la cesta")
         })
     }
 
