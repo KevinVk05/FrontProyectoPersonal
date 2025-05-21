@@ -68,19 +68,28 @@ const ResultadoBusquedaCesta = () => {
             })
     }, [])
 
-    const eliminarProductoConAnimacion = (producto) => {
-        setEliminando(obtenerIdProducto(producto));
-        closeModal();
-        setTimeout(() => {
-            setProductosPorSupermercado(prev => {
-                const nuevos = { ...prev };
-                const idSuper = producto.supermercado.toLowerCase();
-                nuevos[idSuper] = nuevos[idSuper].filter(p => p.index !== producto.index);
-                return nuevos;
-            });
-            setEliminando(null);
-        }, 500);
-    };
+    const eliminarProdCesta = (item) => {
+        const prodEliminado = {
+            usuario: user,
+            prod: item
+        }
+
+        ServicioCesta.eliminarProdCesta(prodEliminado).then(() => {
+            setEliminando(obtenerIdProducto(item));
+            closeModal();
+            setTimeout(() => {
+                setProductosPorSupermercado(prev => {
+                    const nuevos = { ...prev };
+                    const idSuper = item.supermercado.toLowerCase();
+                    nuevos[idSuper] = nuevos[idSuper].filter(p => p.index !== item.index);
+                    return nuevos;
+                });
+                setEliminando(null);
+            }, 500);
+        }).catch(() => {
+            setError("Ha ocurrido un error al añadir el producto a la cesta")
+        })
+    }
 
     const abrirModalEliminarLista = (lista) => {
         setChildrenModal(<ModalEliminarLista lista={lista} onClose={closeModal} />)
@@ -89,7 +98,7 @@ const ResultadoBusquedaCesta = () => {
 
 
     const abrirModalEliminarProducto = (producto) => {
-        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProductoConAnimacion} />)
+        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProdCesta} />)
         openModal()
     }
 
