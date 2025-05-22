@@ -34,14 +34,19 @@ const Comparador = () => {
   } = useFavoritos(setError);
 
 
-  const handleSubmit = async (e) => {
+  const manejarSubmit = async (e) => {
     e.preventDefault();
-    if (!producto.trim()) {
+    realizarBusqueda()
+  };
+
+  const realizarBusqueda = (nombreProducto) => {
+    const productoABuscar = nombreProducto || producto
+    if (!productoABuscar.trim()) {
       setError("Introduzca el nombre de un producto.")
     } else {
       setLoading(true); // comienza la carga
 
-      ServicioProductos.buscarProducto(producto.trim().toLowerCase()).then(respuesta => {
+      ServicioProductos.buscarProducto(productoABuscar.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
           setResultados(respuesta.data)
           setError(null);
@@ -61,7 +66,7 @@ const Comparador = () => {
         setLoading(false);
       });
     }
-  };
+  }
 
   const manejarFavoritos = () => {
     if (!producto.trim()) {
@@ -90,13 +95,15 @@ const Comparador = () => {
 
   const hacerBusquedaFavorita = (nombreProd) => {
     setProducto(nombreProd)
+    //Como no se actualiza instantáneamente la pasamos por parámetro por si acaso
+    realizarBusqueda(nombreProd)
   }
 
   return (
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
 
-      <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={handleSubmit}>
+      <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={manejarSubmit}>
         <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
           <img src={imagen} onClick={manejarFavoritos} alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
         </div>

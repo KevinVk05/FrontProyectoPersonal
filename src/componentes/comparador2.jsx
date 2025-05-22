@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import ServicioProductos from '../servicios/ServicioProductos'; // Asegúrate de importar correctamente el servicio
 import ResultadoBusqueda from './resultadoBusqueda';
 import Encabezado from './encabezados';
+import { useFavoritos } from '../hooks/useFavoritos';
+import BusquedasFavoritas from './busquedasFavoritas';
+import { useAuth } from '../Login/AuthProvider';
+import { comprobarSiEstanEnLaCesta } from '../herramientas/general';
 
 const Comparador2 = () => {
   const [producto, setProducto] = useState('');
@@ -10,10 +14,22 @@ const Comparador2 = () => {
   const [resultados, setResultados] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cambioBusquedasFavoritas, setCambioBusquedasFavoritas] = useState(1)
+
+  const { user } = useAuth();
 
   const titulo = "Comparator, tu comparador de confianza"
   const textoEncabezado1 = "Compara precios entre 2 supermercados, de esta manera podrás elegir entre los establecimientos que están más cerca de ti."
   const textoEncabezado2 = "Busca un producto y filtra por los supermercados que quieres comparar"
+
+  const {
+    imagen,
+    setImagen,
+    favoritoGuardado,
+    eliminarBusquedaFav,
+    anadirBusquedaFav,
+    setFavoritoGuardado
+  } = useFavoritos(setError);
 
   const buscarResultados = async (e) => {
     e.preventDefault();
@@ -32,47 +48,51 @@ const Comparador2 = () => {
 
       ServicioProductos.buscarProductoSupermercadosConcretos(producto.trim().toLowerCase(), super1 + "-" + super2).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
-          // Esperar 1 segundo antes de mostrar resultados
-          comprobarSiEstanEnLaCesta(respuesta.data);
+          setResultados(respuesta.data)
           setError(null);
-          setLoading(false); // termina la carga después del delay
+          setLoading(false);
+          comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
           window.scrollTo({ top: 500, behavior: 'smooth' });
         } else {
-          setTimeout(() => {
-            setError('No se encontraron productos.');
-            setResultados([]);
-            setLoading(false); // termina la carga después del delay
-          }, 500);
+          setError('No se encontraron productos.');
+          setResultados([]);
+          setLoading(false);
         }
       }).catch(() => {
         setError('Ha ocurrido un error con la conexión');
         setResultados([]);
-        setLoading(false); // termina la carga después del delay
+        setLoading(false);
       });
     }
   }
 
-  const comprobarSiEstanEnLaCesta = (productos) => {
-    ServicioProductos.prodsCesta().then((respuesta) => {
-      const productosEnCesta = respuesta.data;
+  const handleInputChange = (e) => {
+    setProducto(e.target.value)
+    setFavoritoGuardado(false)
+    if (favoritoGuardado) {
+      cambiarImgFavoritos(imagen, setImagen)
+    }
+  };
 
-      const productosActualizados = productos.map(prodResultado => {
-        const enCesta = productosEnCesta.some(prodCesta =>
-          prodCesta.nombre === prodResultado.nombre &&
-          prodCesta.supermercado === prodResultado.supermercado
-        );
+  const hacerBusquedaFavorita = (nombreProd) => {
+    setProducto(nombreProd)
+  }
 
-        return {
-          ...prodResultado,
-          enLaCesta: enCesta
-        };
-      });
+  const manejarFavoritos = () => {
+    if (!producto.trim()) {
+      setError("Introduzca el nombre de un producto.")
+    } else {
+      const busquedaFav = {
+        usuario: user,
+        nombreBusqueda: producto
+      }
 
-      setResultados(productosActualizados); // Actualizamos el estado
-
-    }).catch(() => {
-      setError('Ha ocurrido un error con la conexión');
-    })
+      if (favoritoGuardado) {
+        eliminarBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
+      } else {
+        anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
+      }
+    }
   }
 
   return (
@@ -82,12 +102,15 @@ const Comparador2 = () => {
 
       <div className="text-center mb-4">
         <form onSubmit={buscarResultados} className="d-flex flex-wrap justify-content-center gap-2">
+          <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
+            <img src={imagen} onClick={manejarFavoritos} alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+          </div>
           <input
             type="text"
+            className="form-control w-50"
             placeholder="Busca el producto"
-            className="form-control w-auto"
             value={producto}
-            onChange={(e) => setProducto(e.target.value)}
+            onChange={(e) => handleInputChange(e)}
           />
           <button type="submit" className="btn btn-success">Buscar</button>
           <select value={super1} onChange={(e) => setSuper1(e.target.value)} className="form-select" style={{ width: "30%" }}>
@@ -107,8 +130,9 @@ const Comparador2 = () => {
         </form>
       </div>
 
-      <ResultadoBusqueda producto={producto} resultados={resultados} setResultados={setResultados} loading={loading} error={error} />
+      <BusquedasFavoritas hacerBusquedaFavorita={hacerBusquedaFavorita} setError={setError} favoritoGuardado={favoritoGuardado} cambioBusquedasFavoritas={cambioBusquedasFavoritas} setCambioBusquedasFavoritas={setCambioBusquedasFavoritas} />
 
+      <ResultadoBusqueda producto={producto} resultados={resultados} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
     </div>
   );

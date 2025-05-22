@@ -95,6 +95,7 @@ const Login = () => {
             setErrorSignup("Error desconocido al registrar usuario");
         }
     } catch (err) {
+        console.log(err)
         if (err.response && err.response.status === 400) {
             setErrorSignup("El nombre de usuario ya existe");
         } else {

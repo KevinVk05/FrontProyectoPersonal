@@ -1,7 +1,11 @@
+import { useAuth } from "../Login/AuthProvider"
+
 const ModalEliminarLista = ({ onClose, lista }) => {
 
+    const {user} = useAuth()
+
     const eliminarLista = (lista) => {
-        //Llamada al servicio mandándole el id de la lista 
+        
         onClose()
     }
 
