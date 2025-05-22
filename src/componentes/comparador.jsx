@@ -129,7 +129,7 @@ const Comparador = () => {
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
-      {/* <ListasPredeterminadas /> */}
+      <ListasPredeterminadas loading={loading} error={error}/>
     </div>
   );
 };

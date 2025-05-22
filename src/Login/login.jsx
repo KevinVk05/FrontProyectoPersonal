@@ -6,7 +6,6 @@ import ServicioUsuario from '../servicios/ServicioUsuario';
 
 const Login = () => {
 
-    const [muestraFormLogin, setMuestraFormLogin] = useState(true)
     const switchers = [...document.querySelectorAll('.switcher')]
 
     switchers.forEach(item => {
@@ -56,7 +55,11 @@ const Login = () => {
                 navigate("/")
             }
         } catch (error) {
-            setErrorLogin(error.response.data);
+            if (error.response.data) {
+                setErrorLogin(error.response.data);
+            }else{
+                setErrorLogin("Ha ocurrido un error de conexión")
+            }
         }
     };
 
@@ -98,15 +101,12 @@ const Login = () => {
                 setErrorSignup("Error al registrar usuario");
             }
         }
-
-
-
     }
 
     const cambioError = (esLogIn) => {
-        if(esLogIn){
+        if (esLogIn) {
             setErrorSignup("")
-        }else{
+        } else {
             setErrorLogin("")
         }
     }
