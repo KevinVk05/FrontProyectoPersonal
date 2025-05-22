@@ -45,7 +45,6 @@ const ResultadosCesta = () => {
                 setLoading(false); // termina la carga después del delay
                 console.log(loading)
             } else {
-                setError('No se encontraron productos.');
                 setProductosPorSupermercado({
                     Mercadona: [],
                     Carrefour: [],
@@ -92,7 +91,7 @@ const ResultadosCesta = () => {
     }
 
     const abrirModalEliminarLista = () => {
-        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError}/>)
+        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setProductosPorSupermercado={setProductosPorSupermercado} />)
         openModal()
     }
 
@@ -102,9 +101,17 @@ const ResultadosCesta = () => {
         openModal()
     }
 
+    //Solo queremos saber si hay alguna lista con mínimo un elemento
+    //Dependiendo de ellos el estado de búsqueda va a ser diferente
+    const listaConResultados = () => {
+        console.log(productosPorSupermercado)
+        return Object.values(productosPorSupermercado).some(arr => arr.length > 0) || [];
+    };
+
+
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={productosPorSupermercado} />
+            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados()} />
 
             {Object.values(productosPorSupermercado).some(arr => arr.length > 0) > 0 && !loading && (
                 <section className='p-3 shadow-sm border rounded'>

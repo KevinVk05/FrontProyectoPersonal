@@ -1,14 +1,18 @@
 import { useAuth } from "../Login/AuthProvider"
 import ServicioCesta from "../servicios/ServicioCesta"
 
-const ModalEliminarLista = ({ onClose, setError}) => {
+const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado}) => {
 
     const { user } = useAuth()
 
     const eliminarLista = () => {
-        console.log(user)
         ServicioCesta.eliminarCesta(user).then(() => {
-            console.log("eliminada")
+                setProductosPorSupermercado({
+                    Mercadona: [],
+                    Carrefour: [],
+                    Dia: [],
+                    Ahorramas: []
+                });
         }).catch((err) => {
             setError("Ha ocurrido un error al eliminar su cesta")
         })

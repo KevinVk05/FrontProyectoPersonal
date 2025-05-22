@@ -17,8 +17,8 @@ const MenuSuperior = () => {
     navigate('/login');
   };
 
-  const userAcortado=()=>{
-    var userMostrar=user ? user.split('@')[0]: "";
+  const userAcortado = () => {
+    var userMostrar = user ? user.split('@')[0] : "";
     return userMostrar
   }
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
@@ -69,13 +69,18 @@ const MenuSuperior = () => {
               <li className="nav-item mx-2 d-flex align-items-center">
                 <span className="saludo nav-link">Hola, {userAcortado()}</span>
               </li>
-              <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{width: 32, height:32}}>
-                
+              <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
                 <div
-                  onClick={handleLogout} 
+                  className="btn-carrito">
+                </div>
+              </li>
+              <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
+
+                <div
+                  onClick={handleLogout}
                   className="btn-salir">
                 </div>
-                
+
               </li>
 
             </>

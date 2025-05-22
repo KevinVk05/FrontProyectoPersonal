@@ -8,6 +8,7 @@ import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado 
 import { useAuth } from '../Login/AuthProvider';
 import BusquedasFavoritas from './busquedasFavoritas';
 import { useFavoritos } from '../hooks/useFavoritos';
+import ListasPredeterminadas from './listasPredeterminadas';
 
 const Comparador = () => {
 
@@ -128,6 +129,7 @@ const Comparador = () => {
 
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
+      {/* <ListasPredeterminadas /> */}
     </div>
   );
 };
