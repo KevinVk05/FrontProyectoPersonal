@@ -23,6 +23,16 @@ class ServicioCesta {
     });
   }
 
+  eliminarCesta(user) {
+    return httpExterno.delete(`/cesta/eliminarCesta`, {
+      data: user,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   getProdsCesta(user) {
     return httpExterno.get(`/cesta/${user}`, {
       headers: {
