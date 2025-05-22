@@ -25,7 +25,7 @@ class ServicioCesta {
 
   eliminarCesta(user) {
     return httpExterno.delete(`/cesta/eliminarCesta`, {
-      data: user,
+      data: {nombreUsuario: user},
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
