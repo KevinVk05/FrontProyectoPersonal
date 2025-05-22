@@ -1,11 +1,17 @@
 import { useAuth } from "../Login/AuthProvider"
+import ServicioCesta from "../servicios/ServicioCesta"
 
-const ModalEliminarLista = ({ onClose, lista }) => {
+const ModalEliminarLista = ({ onClose, setError}) => {
 
-    const {user} = useAuth()
+    const { user } = useAuth()
 
-    const eliminarLista = (lista) => {
-        
+    const eliminarLista = () => {
+        console.log(user)
+        ServicioCesta.eliminarCesta(user).then(() => {
+            console.log("eliminada")
+        }).catch((err) => {
+            setError("Ha ocurrido un error al eliminar su cesta")
+        })
         onClose()
     }
 
@@ -13,11 +19,11 @@ const ModalEliminarLista = ({ onClose, lista }) => {
         <div className="d-flex flex-column align-items-center justify-content-center">
             <div className="p-3">
                 ¿Está seguro de que quiere eliminar la lista?</div>
-            <img 
-                src="/imagenes/papelera_icon.png" 
-                alt="icono papelera" 
+            <img
+                src="/imagenes/papelera_icon.png"
+                alt="icono papelera"
                 className="w-50 m-2"
-                />
+            />
             <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2">
                 <button onClick={eliminarLista} className="btn btn-danger">Eliminar lista</button>
                 <button onClick={onClose} className="btn btn-success">Mantener lista</button>

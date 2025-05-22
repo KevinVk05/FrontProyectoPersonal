@@ -6,6 +6,7 @@ import ServicioUsuario from '../servicios/ServicioUsuario';
 
 const Login = () => {
 
+    const [muestraFormLogin, setMuestraFormLogin] = useState(true)
     const switchers = [...document.querySelectorAll('.switcher')]
 
     switchers.forEach(item => {
@@ -22,26 +23,25 @@ const Login = () => {
     const [signupPassword, setSignupPassword] = useState('');
     const [signupPasswordConfirm, setSignupPasswordConfirm] = useState('');
 
-
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignup, setErrorSignup] = useState('');
 
     const { login } = useAuth();
     const navigate = useNavigate();
 
-       const esEmailValido = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(regex.test(email))
-    return regex.test(email);
-};
+    const esEmailValido = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        console.log(regex.test(email))
+        return regex.test(email);
+    };
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
 
-         if (!esEmailValido(loginUsuario)) {
-        setErrorLogin("Introduce un correo electrónico válido");
-        return;
-    }
+        if (!esEmailValido(loginUsuario)) {
+            setErrorLogin("Introduce un correo electrónico válido");
+            return;
+        }
 
         try {
             const respuesta = await ServicioUsuario.login({
@@ -54,57 +54,61 @@ const Login = () => {
                 localStorage.setItem('token', token);  // Guardamos el JWT
                 login(loginUsuario);
                 navigate("/")
-            } else {
-                setErrorLogin("Usuario o contraseña incorrectos");
             }
         } catch (error) {
-            setErrorLogin("Error al iniciar sesión");
+            setErrorLogin(error.response.data);
         }
     };
 
-   const handleSignupSubmit = async (e) => {
-    e.preventDefault();
+    const handleSignupSubmit = async (e) => {
+        e.preventDefault();
 
-     if (!esEmailValido(signupUsuario)) {
-        setErrorSignup("Introduce un correo electrónico válido");
-        return;
-    }
-
-    if (signupPassword !== signupPasswordConfirm) {
-        setErrorSignup('Las contraseñas no coinciden');
-        return;
-    }
-
-    if (signupPassword.length < 6) {
-        setErrorSignup('La contraseña debe tener al menos 6 caracteres');
-        return;
-    }
-    try {
-        const respuesta = await ServicioUsuario.registrar({
-            nombre: signupUsuario.toLowerCase(),
-            contrasena: signupPassword
-        });
-
-        if (respuesta.status === 201) {
-            alert("Usuario registrado con éxito. Ahora puedes iniciar sesión.");
-            setSignupUsuario('');
-            setSignupPassword('');
-            setSignupPasswordConfirm('');
-            setErrorSignup('');
-        } else {
-            setErrorSignup("Error desconocido al registrar usuario");
+        if (!esEmailValido(signupUsuario)) {
+            setErrorSignup("Introduce un correo electrónico válido");
+            return;
         }
-    } catch (err) {
-        console.log(err)
-        if (err.response && err.response.status === 400) {
-            setErrorSignup("El nombre de usuario ya existe");
-        } else {
-            setErrorSignup("Error al registrar usuario");
+
+        if (signupPassword !== signupPasswordConfirm) {
+            setErrorSignup('Las contraseñas no coinciden');
+            return;
         }
+
+        if (signupPassword.length < 6) {
+            setErrorSignup('La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+        try {
+            const respuesta = await ServicioUsuario.registrar({
+                nombre: signupUsuario.toLowerCase(),
+                contrasena: signupPassword
+            });
+
+            if (respuesta.status === 201) {
+                setSignupUsuario('');
+                setSignupPassword('');
+                setSignupPasswordConfirm('');
+                setErrorSignup('');
+            } else {
+                setErrorSignup("Error desconocido al registrar usuario");
+            }
+        } catch (err) {
+            if (err.response && err.response.status === 400) {
+                setErrorSignup("El nombre de usuario ya existe");
+            } else {
+                setErrorSignup("Error al registrar usuario");
+            }
+        }
+
+
+
     }
 
- 
-
+    const cambioError = (esLogIn) => {
+        if(esLogIn){
+            setErrorSignup("")
+        }else{
+            setErrorLogin("")
+        }
     }
 
 
@@ -113,18 +117,18 @@ const Login = () => {
             <div className="d-flex flex-column flex-md-row align-items-center gap-4">
                 <div className="header-box col-12 col-md-6 rounded p-5 h-100" >
                     <h1 className="p-4 text-center">Comparator</h1>
-                    <h3>Descubre la forma más inteligente de hacer la compra</h3>
+                    <h3>Descubre la forma más inteligente de hacer la compra.</h3>
                     <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
                         Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
                 </div>
                 <section className="col-12 col-md-6 py-3 d-flex flex-column justify-content-center align-items-center">
                     <div className="d-flex">
                         <div className="form-wrapper is-active w-50">
-                            <button type="button" className="switcher switcher-login">
+                            <button type="button" className="switcher switcher-login" onClick={() => cambioError(true)}>
                                 Login
                                 <span className="underline"></span>
                             </button>
-                            <form onSubmit={handleSubmitLogin} className="form form-login rounded overflow-hidden">
+                            <form onSubmit={handleSubmitLogin} className="form form-login border rounded overflow-hidden">
                                 <fieldset>
                                     <div className="input-block">
                                         <label htmlFor="login-email">E-mail:</label>
@@ -150,19 +154,16 @@ const Login = () => {
                                             required
                                         />
                                     </div>
-
-                                    {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
-
                                     <button type="submit" className="btn-login btn btn-success">Acceder</button>
                                 </fieldset>
                             </form>
                         </div>
                         <div className="form-wrapper w-50">
-                            <button type="button" className="switcher switcher-signup">
+                            <button type="button" className="switcher switcher-signup" onClick={() => cambioError(false)}>
                                 Sign Up
                                 <span className="underline"></span>
                             </button>
-                            <form className="form form-signup rounded overflow-hidden" onSubmit={handleSignupSubmit}>
+                            <form className="form form-signup border rounded overflow-hidden" onSubmit={handleSignupSubmit}>
                                 <fieldset>
                                     <div className="input-block">
                                         <label htmlFor="signup-email">E-mail:</label>
@@ -200,13 +201,13 @@ const Login = () => {
                                             required
                                         />
                                     </div>
-                                    {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
-
                                     <button type="submit" className="btn-signup btn btn-success">Continue</button>
                                 </fieldset>
                             </form>
                         </div>
                     </div>
+                    {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
+                    {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
                 </section>
             </div>
         </div>

@@ -91,8 +91,8 @@ const ResultadosCesta = () => {
         })
     }
 
-    const abrirModalEliminarLista = (lista) => {
-        setChildrenModal(<ModalEliminarLista lista={lista} onClose={closeModal} />)
+    const abrirModalEliminarLista = () => {
+        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError}/>)
         openModal()
     }
 
