@@ -1,4 +1,4 @@
-import Encabezado from './encabezados';
+import Encabezado from '../comunes/encabezados';
 import ResultadosCesta from './resultadosCesta';
 
 const CestaCompra = () => {

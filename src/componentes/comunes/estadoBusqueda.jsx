@@ -1,4 +1,5 @@
 const EstadoBusqueda = ({loading, error, resultados}) => {
+    
     return (
         <div className="my-5">
             {!loading && !error && resultados.length === 0 && (

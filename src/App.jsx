@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react'
-
-import MenuSuperior from './componentes/menu'
-import Comparador from './componentes/comparador'
-import Comparador2 from './componentes/comparador2'
-import Favoritos from './componentes/favoritos';
+import Comparador from './componentes/comparadores/comparador'
+import Comparador2 from './componentes/comparadores/comparador2'
 
 import { Routes, Route } from 'react-router-dom';
-import Pagina404 from './componentes/Pagina404';
 import UseStorageState from './servicios/UseStorageState';
 import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
-import CestaCompra from './componentes/cestaCompra';
-import AdministrarListas from './componentes/administrarListas';
+import CestaCompra from './componentes/cesta/cestaCompra';
+import AdministrarListas from './componentes/admin/administrarListas';
+import MenuSuperior from './componentes/comunes/menu';
+import Pagina404 from './componentes/comunes/Pagina404';
 
 
 function App() {

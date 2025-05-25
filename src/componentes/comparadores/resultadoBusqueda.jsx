@@ -1,7 +1,7 @@
-import EstadoBusqueda from "./estadoBusqueda";
-import { useAuth } from '../Login/AuthProvider';
-import ServicioCesta from "../servicios/ServicioCesta";
-import { modificarResultadosCesta } from "../herramientas/cestaDeLaCompra";
+import { useAuth } from '../../Login/AuthProvider';
+import ServicioCesta from "../../servicios/ServicioCesta";
+import { modificarResultadosCesta } from "../../herramientas/cestaDeLaCompra";
+import EstadoBusqueda from "../comunes/estadoBusqueda";
 
 const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error, setError }) => {
 

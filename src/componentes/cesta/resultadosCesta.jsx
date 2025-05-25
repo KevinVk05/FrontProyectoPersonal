@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import EstadoBusqueda from "./estadoBusqueda";
-import ModalEliminarProducto from "./modalEliminarProducto";
-import ModalEliminarLista from "./modalEliminarLista";
-import Modal from "./modal";
-import "../estilos/transicion.css"
-import { dividirResultadosPorSupermercados, obtenerIdProducto } from "../herramientas/general";
-import ServicioCesta from "../servicios/ServicioCesta";
-import { useAuth } from "../Login/AuthProvider";
+import EstadoBusqueda from "../comunes/estadoBusqueda";
+import ModalEliminarProducto from "../modals/modalEliminarProducto";
+import ModalEliminarLista from "../modals/modalEliminarLista";
+import Modal from "../modals/modal";
+import "../../estilos/transicion.css"
+import { dividirResultadosPorSupermercados, listaConResultados, obtenerIdProducto } from "../../herramientas/general";
+import { useAuth } from "../../Login/AuthProvider";
+import ServicioCesta from "../../servicios/ServicioCesta";
+import ProductoLista from "../comunes/productoLista";
 
 const ResultadosCesta = () => {
 
@@ -34,15 +35,11 @@ const ResultadosCesta = () => {
         setLoading(true)
         ServicioCesta.getProdsCesta(user).then(respuesta => {
             let prods = respuesta.data.productos
-            //ServicioProductos.prods().then(respuesta => {
-            //ServicioProductos.buscarCesta(user).then(respuesta => {
-            //ServicioUsuario.prods().then(respuesta => {
-            console.log(prods)
+            setLoading(false);
             if (prods && prods.length > 0) {
                 console.log(prods)
                 dividirResultadosPorSupermercados(prods, setProductosPorSupermercado)
                 setError(null);
-                setLoading(false); // termina la carga después del delay
                 console.log(loading)
             } else {
                 setProductosPorSupermercado({
@@ -101,17 +98,10 @@ const ResultadosCesta = () => {
         openModal()
     }
 
-    //Solo queremos saber si hay alguna lista con mínimo un elemento
-    //Dependiendo de ellos el estado de búsqueda va a ser diferente
-    const listaConResultados = () => {
-        console.log(productosPorSupermercado)
-        return Object.values(productosPorSupermercado).some(arr => arr.length > 0) || [];
-    };
-
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados()} />
+            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados(productosPorSupermercado)} />
 
             {Object.values(productosPorSupermercado).some(arr => arr.length > 0) > 0 && !loading && (
                 <section className='p-3 shadow-sm border rounded'>
@@ -128,40 +118,7 @@ const ResultadosCesta = () => {
                                         alt={nombreSupermercado}
                                         className='mt-5 ms-5'
                                         style={{ height: 30 }} />
-                                    <div className='d-flex overflow-auto align-items-stretch gap-3 m-4'>
-                                        {productos.map((item, indexProd) => (
-                                            <div
-                                                key={indexProd}
-                                                className={`product-card my-3${eliminando === obtenerIdProducto(item) ? ' fade-up' : ''}`}
-                                                id={obtenerIdProducto(item)}
-                                                style={{ viewTransitionName: obtenerIdProducto(item) }}
-                                            >
-                                                <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
-                                                    style={{
-                                                        width: 250,
-                                                    }}>
-                                                    <div className="d-flex justify-content-center">
-                                                        <img
-                                                            src={item.urlImagen}
-                                                            className="p-3"
-                                                            alt={item.nombre}
-                                                            style={{ maxHeight: 200 }}
-                                                        />
-                                                    </div>
-                                                    <div className="text-center mt-auto">
-                                                        <p className="mb-2 fs-6 fw-bold">{item.nombre}</p>
-                                                        <p className="my-1 mx-1">
-                                                            Precio: <strong>{item.precio}€</strong>
-                                                        </p>
-                                                        <p>
-                                                            Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
-                                                        </p>
-                                                        <button type="button" className={`btn btn-danger delete-btn-${item.index}-${item.supermercado}`} onClick={() => abrirModalEliminarProducto(item)}>Eliminar de la cesta</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <ProductoLista productos={productos} eliminando={eliminando} abrirModalEliminarProducto={abrirModalEliminarProducto} />
                                 </div>
                             )}
                         </div>

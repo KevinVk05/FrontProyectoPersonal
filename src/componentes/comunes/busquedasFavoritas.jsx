@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ServicioBusquedas from "../servicios/ServicioBusquedas";
-import { useAuth } from "../Login/AuthProvider";
-import { useFavoritos } from "../hooks/useFavoritos";
+import ServicioBusquedas from "../../servicios/ServicioBusquedas";
+import { useAuth } from "../../Login/AuthProvider";
+import { useFavoritos } from "../../hooks/useFavoritos";
 
 const BusquedasFavoritas = ({setError, hacerBusquedaFavorita, cambioBusquedasFavoritas, setCambioBusquedasFavoritas}) => {
 

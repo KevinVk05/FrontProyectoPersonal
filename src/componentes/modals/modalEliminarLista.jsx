@@ -1,5 +1,5 @@
-import { useAuth } from "../Login/AuthProvider"
-import ServicioCesta from "../servicios/ServicioCesta"
+import { useAuth } from "../../Login/AuthProvider"
+import ServicioCesta from "../../servicios/ServicioCesta"
 
 const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado}) => {
 
