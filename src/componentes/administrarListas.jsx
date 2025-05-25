@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import ServicioProductos from "../servicios/ServicioProductos";
-import EstadoBusqueda from "./estadoBusqueda";
+import Encabezado from "./encabezados";
 
-const ListasPredeterminadas = ({ error }) => {
+const AdministrarListas = () => {
+
+    const titulo = "Administra las listas predeterminadas"
+    const textoEncabezado1 = "Selecciona las listas que los usuarios podrán visualizar, añade y elimina productos de las listas predeterminadas."
+    const textoEncabezado2 = "Customiza las listas:"
 
     const [productosLista, setProductosLista] = useState([])
 
@@ -10,14 +14,13 @@ const ListasPredeterminadas = ({ error }) => {
         ServicioProductos.prods().then((respuesta) => {
             setProductosLista(respuesta.data)
         }).catch(() => {
-            
+
         })
     }, [])
 
     return (
-        <div>
-            <EstadoBusqueda error={error} resultados={productosLista} />
-
+        <div className="container py-4">
+            <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
             {productosLista.length > 0 && (
                 <div className='shadow-sm border rounded p-4'>
                     <div className="m-4">Lista predeterminada</div>
@@ -62,4 +65,5 @@ const ListasPredeterminadas = ({ error }) => {
     )
 }
 
-export default ListasPredeterminadas;
+
+export default AdministrarListas;

@@ -58,3 +58,30 @@ export const dividirResultadosPorSupermercados = (productos, setProductosPorSupe
 
 
 export const obtenerIdProducto = (producto) => `producto-cesta-${producto.supermercado.replace(' ', '')}-${producto.index}`
+
+// src/herramientas/handlersBusqueda.js
+
+export const handleInputChange = (e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen) => {
+  setProducto(e.target.value);
+  setFavoritoGuardado(false);
+  if (favoritoGuardado) {
+    cambiarImgFavoritos(imagen, setImagen);
+  }
+};
+
+export const manejarFavoritos = (producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas) => {
+  if (!producto.trim()) {
+    setError("Introduzca el nombre de un producto.");
+  } else {
+    const busquedaFav = {
+      usuario: user,
+      nombreBusqueda: producto,
+    };
+
+    if (favoritoGuardado) {
+      eliminarBusquedaFav(busquedaFav, setCambioBusquedasFavoritas);
+    } else {
+      anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas);
+    }
+  }
+};

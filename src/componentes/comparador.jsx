@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../estilos/comparador.css"
 import ResultadoBusqueda from './resultadoBusqueda';
 import Encabezado from './encabezados';
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado } from '../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos } from '../herramientas/general';
 import { useAuth } from '../Login/AuthProvider';
 import BusquedasFavoritas from './busquedasFavoritas';
 import { useFavoritos } from '../hooks/useFavoritos';
@@ -45,7 +45,7 @@ const Comparador = () => {
     if (!productoABuscar.trim()) {
       setError("Introduzca el nombre de un producto.")
     } else {
-      setLoading(true); // comienza la carga
+      setLoading(true); 
 
       ServicioProductos.buscarProducto(productoABuscar.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
@@ -69,31 +69,6 @@ const Comparador = () => {
     }
   }
 
-  const manejarFavoritos = () => {
-    if (!producto.trim()) {
-      setError("Introduzca el nombre de un producto.")
-    } else {
-      const busquedaFav = {
-        usuario: user,
-        nombreBusqueda: producto
-      }
-
-      if (favoritoGuardado) {
-        eliminarBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
-      } else {
-        anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
-      }
-    }
-  }
-
-  const handleInputChange = (e) => {
-    setProducto(e.target.value)
-    setFavoritoGuardado(false)
-    if (favoritoGuardado) {
-      cambiarImgFavoritos(imagen, setImagen)
-    }
-  };
-
   const hacerBusquedaFavorita = (nombreProd) => {
     setProducto(nombreProd)
     //Como no se actualiza instantáneamente la pasamos por parámetro por si acaso
@@ -106,14 +81,15 @@ const Comparador = () => {
 
       <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={manejarSubmit}>
         <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
-          <img src={imagen} onClick={manejarFavoritos} alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+          <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)} 
+          alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
         </div>
         <input
           type="text"
           className="form-control w-50"
           placeholder="Busca el producto"
           value={producto}
-          onChange={(e) => handleInputChange(e)}
+          onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen)}
         />
         <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={(e) => setSupermercadoSeleccionado(e.target.value)}>
           <option value="Todos los supermercados">Todos los supermercados</option>

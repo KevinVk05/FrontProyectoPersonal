@@ -12,6 +12,7 @@ import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
 import CestaCompra from './componentes/cestaCompra';
+import AdministrarListas from './componentes/administrarListas';
 
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
           <Routes>
             {/* Ruta principal con ListaImagenes */}
             <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
               path="/"
               element={
                 <RutasProtegidas>
@@ -43,8 +49,12 @@ function App() {
             />
 
             <Route
-              path="/login"
-              element={<Login />}
+              path="/administrarListas"
+              element={
+                <RutasProtegidas>
+                  <AdministrarListas />
+                </RutasProtegidas>
+              }
             />
 
             <Route path="/comparador2" element={

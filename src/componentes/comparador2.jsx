@@ -5,7 +5,7 @@ import Encabezado from './encabezados';
 import { useFavoritos } from '../hooks/useFavoritos';
 import BusquedasFavoritas from './busquedasFavoritas';
 import { useAuth } from '../Login/AuthProvider';
-import { comprobarSiEstanEnLaCesta } from '../herramientas/general';
+import { comprobarSiEstanEnLaCesta, handleInputChange, manejarFavoritos } from '../herramientas/general';
 
 const Comparador2 = () => {
   const [producto, setProducto] = useState('');
@@ -66,33 +66,8 @@ const Comparador2 = () => {
     }
   }
 
-  const handleInputChange = (e) => {
-    setProducto(e.target.value)
-    setFavoritoGuardado(false)
-    if (favoritoGuardado) {
-      cambiarImgFavoritos(imagen, setImagen)
-    }
-  };
-
   const hacerBusquedaFavorita = (nombreProd) => {
     setProducto(nombreProd)
-  }
-
-  const manejarFavoritos = () => {
-    if (!producto.trim()) {
-      setError("Introduzca el nombre de un producto.")
-    } else {
-      const busquedaFav = {
-        usuario: user,
-        nombreBusqueda: producto
-      }
-
-      if (favoritoGuardado) {
-        eliminarBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
-      } else {
-        anadirBusquedaFav(busquedaFav, setCambioBusquedasFavoritas)
-      }
-    }
   }
 
   return (
@@ -103,14 +78,15 @@ const Comparador2 = () => {
       <div className="text-center mb-4">
         <form onSubmit={buscarResultados} className="d-flex flex-wrap justify-content-center gap-2">
           <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
-            <img src={imagen} onClick={manejarFavoritos} alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+            <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)} 
+            alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
           </div>
           <input
             type="text"
             className="form-control w-50"
             placeholder="Busca el producto"
             value={producto}
-            onChange={(e) => handleInputChange(e)}
+            onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen)}
           />
           <button type="submit" className="btn btn-success">Buscar</button>
           <select value={super1} onChange={(e) => setSuper1(e.target.value)} className="form-select" style={{ width: "30%" }}>
