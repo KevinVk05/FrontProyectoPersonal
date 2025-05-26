@@ -57,7 +57,7 @@ const Login = () => {
         } catch (error) {
             if (error.response.data) {
                 setErrorLogin(error.response.data);
-            }else{
+            } else {
                 setErrorLogin("Ha ocurrido un error de conexión")
             }
         }
@@ -87,10 +87,21 @@ const Login = () => {
             });
 
             if (respuesta.status === 201) {
-                setSignupUsuario('');
-                setSignupPassword('');
-                setSignupPasswordConfirm('');
-                setErrorSignup('');
+                try {
+                    const loginRespuesta = await ServicioUsuario.login({
+                        nombre: signupUsuario.toLowerCase(),
+                        contrasena: signupPassword
+                    });
+
+                    if (loginRespuesta.status === 200) {
+                        const token = loginRespuesta.data;
+                        localStorage.setItem('token', token);
+                        login(signupUsuario.toLowerCase());
+                        navigate("/");
+                    }
+                } catch (loginError) {
+                    setErrorSignup("Usuario registrado, pero hubo un problema al iniciar sesión.");
+                }
             } else {
                 setErrorSignup("Error desconocido al registrar usuario");
             }

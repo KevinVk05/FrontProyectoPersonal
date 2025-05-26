@@ -10,6 +10,7 @@ import CestaCompra from './componentes/cesta/cestaCompra';
 import AdministrarListas from './componentes/admin/administrarListas';
 import MenuSuperior from './componentes/comunes/menu';
 import Pagina404 from './componentes/comunes/Pagina404';
+import ComparadorAdmin from './componentes/admin/comparadorAdmin';
 
 
 function App() {
@@ -50,6 +51,15 @@ function App() {
               element={
                 <RutasProtegidas>
                   <AdministrarListas />
+                </RutasProtegidas>
+              }
+            />
+
+            <Route
+              path="/comparadorAdmin"
+              element={
+                <RutasProtegidas>
+                  <ComparadorAdmin />
                 </RutasProtegidas>
               }
             />

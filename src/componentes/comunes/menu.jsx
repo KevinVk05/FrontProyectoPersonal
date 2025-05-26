@@ -63,6 +63,9 @@ const MenuSuperior = () => {
               <li className="nav-item mx-2">
                 <Link className="nav-link" to="/administrarListas">Administrar Listas</Link>
               </li>
+              <li className="nav-item mx-2 d-flex align-items-center">
+                <Link className="nav-link" to="/comparadorAdmin">Comparador admin</Link>
+              </li>
               <li className="nav-item mx-2">
                 <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
               </li>
