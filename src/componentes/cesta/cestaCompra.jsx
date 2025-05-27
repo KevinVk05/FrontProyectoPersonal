@@ -1,4 +1,5 @@
 import Encabezado from '../comunes/encabezados';
+import Cesta from './cesta';
 import ResultadosCesta from './resultadosCesta';
 
 const CestaCompra = () => {
@@ -11,7 +12,7 @@ const CestaCompra = () => {
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
 
-      <ResultadosCesta />
+      <Cesta />
 
     </div>
   )

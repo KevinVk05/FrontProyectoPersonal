@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ServicioListas from "../../servicios/ServicioListas";
-import EstadoBusqueda from "../comunes/estadoBusqueda";
+import ServicioListas from "../../../servicios/ServicioListas";
+import EstadoBusqueda from "../../comunes/estadoBusqueda";
 import ResultadosListas from "./resultadosListas";
 
 const Listas = () => {
@@ -10,7 +10,6 @@ const Listas = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log("hola")
         setLoading(true)
         ServicioListas.getListas().then((respuesta) => {
             setListasProductos(respuesta.data)

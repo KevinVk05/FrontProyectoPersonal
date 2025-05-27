@@ -7,10 +7,11 @@ import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
 import CestaCompra from './componentes/cesta/cestaCompra';
-import AdministrarListas from './componentes/admin/administrarListas';
+import AdministrarListas from './componentes/admin/administrarListas/administrarListas';
 import MenuSuperior from './componentes/comunes/menu';
 import Pagina404 from './componentes/comunes/Pagina404';
 import ComparadorAdmin from './componentes/admin/comparadorAdmin';
+import RutasAdminProtegida from './Login/RutasAdminProtegidas';
 
 
 function App() {
@@ -26,12 +27,8 @@ function App() {
         <header className="App-header">
           <MenuSuperior />
         </header>
-
-
-
         <main>
           <Routes>
-            {/* Ruta principal con ListaImagenes */}
             <Route
               path="/login"
               element={<Login />}
@@ -49,18 +46,18 @@ function App() {
             <Route
               path="/administrarListas"
               element={
-                <RutasProtegidas>
+                <RutasAdminProtegida>
                   <AdministrarListas />
-                </RutasProtegidas>
+                </RutasAdminProtegida>
               }
             />
 
             <Route
               path="/comparadorAdmin"
               element={
-                <RutasProtegidas>
+                <RutasAdminProtegida>
                   <ComparadorAdmin />
-                </RutasProtegidas>
+                </RutasAdminProtegida>
               }
             />
 

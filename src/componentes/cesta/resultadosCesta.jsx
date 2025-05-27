@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
-import EstadoBusqueda from "../comunes/estadoBusqueda";
+import { useState } from "react";
 import ModalEliminarProducto from "../modals/modalEliminarProducto";
 import ModalEliminarLista from "../modals/modalEliminarLista";
 import Modal from "../modals/modal";
 import "../../estilos/transicion.css"
-import { dividirResultadosPorSupermercados, listaConResultados, obtenerIdProducto } from "../../herramientas/general";
+import { obtenerIdProducto } from "../../herramientas/general";
 import { useAuth } from "../../Login/AuthProvider";
 import ServicioCesta from "../../servicios/ServicioCesta";
 import ProductoLista from "../comunes/productoLista";
 
-const ResultadosCesta = () => {
+const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado }) => {
 
+    console.log(productosPorSupermercado)
+
+    const [error, setError] = useState(null);
     const [childrenModal, setChildrenModal] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const openModal = () => setIsModalOpen(true)
@@ -18,51 +20,9 @@ const ResultadosCesta = () => {
         setIsModalOpen(false)
         setChildrenModal(null)
     }
-
     const { user } = useAuth()
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+
     const [eliminando, setEliminando] = useState(null);
-
-    const [productosPorSupermercado, setProductosPorSupermercado] = useState({
-        Mercadona: [],
-        Carrefour: [],
-        Dia: [],
-        Ahorramas: []
-    });
-
-    useEffect(() => {
-        setLoading(true)
-        ServicioCesta.getProdsCesta(user).then(respuesta => {
-            let prods = respuesta.data.productos
-            setLoading(false);
-            if (prods && prods.length > 0) {
-                console.log(prods)
-                dividirResultadosPorSupermercados(prods, setProductosPorSupermercado)
-                setError(null);
-                console.log(loading)
-            } else {
-                setProductosPorSupermercado({
-                    Mercadona: [],
-                    Carrefour: [],
-                    Dia: [],
-                    Ahorramas: []
-                });
-                setLoading(false);
-            }
-            console.log(productosPorSupermercado.length > 0)
-        })
-            .catch(() => {
-                setError('Ha ocurrido un error con la conexión');
-                setProductosPorSupermercado({
-                    Mercadona: [],
-                    Carrefour: [],
-                    Dia: [],
-                    Ahorramas: []
-                });
-                setLoading(false);
-            })
-    }, [])
 
     const eliminarProdCesta = (item) => {
         const prodEliminado = {
@@ -101,9 +61,14 @@ const ResultadosCesta = () => {
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados(productosPorSupermercado)} />
-
-            {Object.values(productosPorSupermercado).some(arr => arr.length > 0) > 0 && !loading && (
+            {error && (
+                <div className="d-flex justify-content-center my-4">
+                    <div className='alert alert-danger text-center w-50'>
+                        {error}
+                    </div>
+                </div>
+            )}
+            {productosPorSupermercado && Object.values(productosPorSupermercado).some(arr => arr.length > 0) > 0 && (
                 <section className='p-3 shadow-sm border rounded'>
                     <div className='d-flex gap-3 justify-content-center py-4'>
                         <div className='d-flex align-items-center'><span>Si ya has realizado la compra...</span></div>

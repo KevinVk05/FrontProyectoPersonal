@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import ServicioProductos from "../../servicios/ServicioProductos";
-import Encabezado from "../comunes/encabezados";
 import AnadirListas from "./anadirListas";
+import Encabezado from "../../comunes/encabezados";
 import Listas from "./listas";
 
 const AdministrarListas = () => {

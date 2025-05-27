@@ -1,6 +1,6 @@
 import { useState } from "react"
-import Modal from "../modals/modal"
-import ModalAnadirListaAdmin from "../modals/modalAnadirListaAdmin"
+import Modal from "../../modals/modal"
+import ModalAnadirListaAdmin from "../../modals/modalAnadirListaAdmin"
 
 const AnadirListas = () => {
 
@@ -16,7 +16,6 @@ const AnadirListas = () => {
         setChildrenModal(<ModalAnadirListaAdmin onClose={onclose}/>)
         openModal()
     }
-
 
     return (
         <div className="d-flex justify-content-center m-5">

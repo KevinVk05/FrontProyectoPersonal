@@ -52,7 +52,7 @@ const Login = () => {
                 localStorage.setItem('token', token);
                 admin(respuesta.data.esAdmin)
                 login(loginUsuario.toLowerCase());
-                navigate("/")
+                if (respuesta.data.esAdmin ? navigate("/administrarListas") : navigate("/"));
             }
         } catch (error) {
             if (error.response && error.response.data) {
@@ -98,7 +98,7 @@ const Login = () => {
                         localStorage.setItem('token', token);
                         login(signupUsuario.toLowerCase());
                         admin(respuesta.data.esAdmin)
-                        navigate("/");
+                        if (respuesta.data.esAdmin ? navigate("/administrarListas") : navigate("/"));
                     }
                 } catch (loginError) {
                     setErrorSignup("Usuario registrado, pero hubo un problema al iniciar sesión.");
