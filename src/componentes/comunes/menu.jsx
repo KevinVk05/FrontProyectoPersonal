@@ -4,11 +4,10 @@ import { useAuth } from '../../Login/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import "../../estilos/menu.css"
 
-
-// Componente MenuSuperior
 const MenuSuperior = () => {
 
-  const { user, logout } = useAuth();
+  const { user, logout, esAdmin } = useAuth();
+  console.log("Admin es: " + esAdmin)
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,7 +37,6 @@ const MenuSuperior = () => {
         </span>
       </Link>
 
-      {/* Botón que aparece en pantallas pequeñas */}
       <button
         className="navbar-toggler"
         type="button"
@@ -50,38 +48,43 @@ const MenuSuperior = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      {/* Menú colapsable */}
       <div className={`collapse navbar-collapse ${!isNavbarCollapsed ? "show" : ""}`} id="navbarNav">
         <ul className="navbar-nav ms-auto d-flex align-items-center">
           {user === null ? (
             ""
           ) : (
             <>
-              <li className="nav-item mx-2">
-                <Link className="nav-link" to="/">Comparador de supermercados</Link>
-              </li>
-              <li className="nav-item mx-2">
-                <Link className="nav-link" to="/administrarListas">Administrar Listas</Link>
-              </li>
-              <li className="nav-item mx-2 d-flex align-items-center">
-                <Link className="nav-link" to="/comparadorAdmin">Comparador admin</Link>
-              </li>
-              <li className="nav-item mx-2">
-                <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
-              </li>
-              <li className="nav-item mx-2 d-flex align-items-center">
-                <Link className="nav-link" to="/cestaCompra">Cesta de la compra</Link>
-              </li>
-              <li className="nav-item mx-2 d-flex align-items-center">
-                <span className="saludo nav-link">Hola, {userAcortado()}</span>
-              </li>
+              {esAdmin === true ? (
+                <>
+                  <li className="nav-item mx-2">
+                    <Link className="nav-link" to="/administrarListas">Administrar Listas</Link>
+                  </li>
+                  <li className="nav-item mx-2 d-flex align-items-center">
+                    <Link className="nav-link" to="/comparadorAdmin">Comparador admin</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item mx-2">
+                    <Link className="nav-link" to="/">Comparador de supermercados</Link>
+                  </li>
+                  <li className="nav-item mx-2">
+                    <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
+                  </li>
+                  <li className="nav-item mx-2 d-flex align-items-center">
+                    <Link className="nav-link" to="/cestaCompra">Cesta de la compra</Link>
+                  </li>
+                  <li className="nav-item mx-2 d-flex align-items-center">
+                    <span className="saludo nav-link">Hola, {userAcortado()}</span>
+                  </li>
+                  <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
+                    <div
+                      className="btn-carrito">
+                    </div>
+                  </li>
+                </>
+              )}
               <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
-                <div
-                  className="btn-carrito">
-                </div>
-              </li>
-              <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
-
                 <div
                   onClick={handleLogout}
                   className="btn-salir">

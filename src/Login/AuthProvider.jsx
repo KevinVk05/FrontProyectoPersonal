@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const admin = (userData) => setEsAdmin(userData)
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, admin }}>
+    <AuthContext.Provider value={{ user, login, logout, esAdmin }}>
       {children}
     </AuthContext.Provider>
   );
