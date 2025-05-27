@@ -26,8 +26,7 @@ const Listas = () => {
     return (
         <div>
             <EstadoBusqueda loading={loading} error={error} resultados={listasProductos}/>
-            <ResultadosListas listas={listasProductos}/>
-
+            <ResultadosListas listas={listasProductos} error={error} setError={setError}/>
         </div>
     )
 }

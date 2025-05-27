@@ -37,13 +37,15 @@ const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado
                 setProductosPorSupermercado(prev => {
                     const nuevos = { ...prev };
                     const idSuper = item.supermercado.toLowerCase();
-                    nuevos[idSuper] = nuevos[idSuper].filter(p => p.index !== item.index);
+                    console.log(nuevos[idSuper])
+                    nuevos[idSuper] = nuevos[idSuper].filter(p => p.nombre !== item.nombre || p.precio !== item.precio);
+                    console.log(nuevos[idSuper])
                     return nuevos;
                 });
                 setEliminando(null);
             }, 500);
         }).catch(() => {
-            setError("Ha ocurrido un error al añadir el producto a la cesta")
+            setError("Ha ocurrido un error al eliminar el producto de la cesta")
         })
     }
 

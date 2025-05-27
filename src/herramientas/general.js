@@ -77,7 +77,7 @@ export const dividirResultadosPorSupermercados = (
 };
 
 export const obtenerIdProducto = (producto) =>
-  `producto-cesta-${producto.supermercado.replace(" ", "")}-${producto.index}`;
+  `producto-cesta-${producto.precio}-${producto.nombre}`;
 
 // src/herramientas/handlersBusqueda.js
 

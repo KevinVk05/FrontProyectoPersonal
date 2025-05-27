@@ -12,10 +12,10 @@ const Cesta = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [productosPorSupermercado, setProductosPorSupermercado] = useState({
-        Mercadona: [],
-        Carrefour: [],
-        Dia: [],
-        Ahorramas: []
+        mercadona: [],
+        carrefour: [],
+        dia: [],
+        ahorramas: []
     });
 
     useEffect(() => {
@@ -30,10 +30,10 @@ const Cesta = () => {
                 console.log(loading)
             } else {
                 setProductosPorSupermercado({
-                    Mercadona: [],
-                    Carrefour: [],
-                    Dia: [],
-                    Ahorramas: []
+                    mercadona: [],
+                    carrefour: [],
+                    dia: [],
+                    ahorramas: []
                 });
                 setLoading(false);
             }
@@ -42,10 +42,10 @@ const Cesta = () => {
             .catch(() => {
                 setError('Ha ocurrido un error con la conexión');
                 setProductosPorSupermercado({
-                    Mercadona: [],
-                    Carrefour: [],
-                    Dia: [],
-                    Ahorramas: []
+                    mercadona: [],
+                    carrefour: [],
+                    dia: [],
+                    ahorramas: []
                 });
                 setLoading(false);
             })

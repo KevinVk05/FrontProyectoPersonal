@@ -30,7 +30,7 @@ const ProductoLista = ({productos, eliminando, abrirModalEliminarProducto}) => {
                             <p>
                                 Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                             </p>
-                            <button type="button" className={`btn btn-danger delete-btn-${item.index}-${item.supermercado}`} onClick={() => abrirModalEliminarProducto(item)}>Eliminar de la cesta</button>
+                            <button type="button" className={`btn btn-danger delete-btn-${item.precio}-${item.nombre}`} onClick={() => abrirModalEliminarProducto(item)}>Eliminar de la cesta</button>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 const EstadoBusqueda = ({loading, error, resultados}) => {
     
     return (
-        <div className="my-5">
+        <div>
             {!loading && !error && resultados.length === 0 && (
                 <div className="text-center py-5">
                     <img src="./imagenes/buscador.png" alt="Empieza la búsqueda" className='w-25' />

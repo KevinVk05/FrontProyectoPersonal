@@ -11,9 +11,7 @@ const CestaCompra = () => {
   return (
     <div className="container py-4">
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
-
       <Cesta />
-
     </div>
   )
 };

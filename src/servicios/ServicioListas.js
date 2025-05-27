@@ -20,7 +20,6 @@ class ServicioListas {
     });
   }
 
-
   getListaPorNombre(nombre) {
     return httpExterno.get(`/listas/nombre/${nombre}`, {
       headers: {
@@ -47,6 +46,14 @@ class ServicioListas {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+      },
+    });
+  }
+
+  alternarVisibilidadLista(nombre) {
+    return httpExterno.put(`/listas/visibilidad/${nombre}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   }
