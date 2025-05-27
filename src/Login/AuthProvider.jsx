@@ -5,12 +5,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = UseStorageState("usuario",null);
+  const [esAdmin, setEsAdmin] = useState(false)
 
   const login = (userData) => setUser(userData);
   const logout = () => setUser(null);
+  const admin = (userData) => setEsAdmin(userData)
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, admin }}>
       {children}
     </AuthContext.Provider>
   );

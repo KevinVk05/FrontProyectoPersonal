@@ -25,7 +25,7 @@ const Login = () => {
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignup, setErrorSignup] = useState('');
 
-    const { login } = useAuth();
+    const { login, admin } = useAuth();
     const navigate = useNavigate();
 
     const esEmailValido = (email) => {
@@ -47,15 +47,15 @@ const Login = () => {
                 nombre: loginUsuario.toLowerCase(),
                 contrasena: loginPassword
             });
-            // Ahora response.data será el token JWT si el login fue exitoso
             if (respuesta.status === 200) {
-                const token = respuesta.data;
-                localStorage.setItem('token', token);  // Guardamos el JWT
-                login(loginUsuario);
+                const token = respuesta.data.token;
+                localStorage.setItem('token', token);
+                admin(respuesta.data.esAdmin)
+                login(loginUsuario.toLowerCase());
                 navigate("/")
             }
         } catch (error) {
-            if (error.response.data) {
+            if (error.response && error.response.data) {
                 setErrorLogin(error.response.data);
             } else {
                 setErrorLogin("Ha ocurrido un error de conexión")
@@ -94,9 +94,10 @@ const Login = () => {
                     });
 
                     if (loginRespuesta.status === 200) {
-                        const token = loginRespuesta.data;
+                        const token = loginRespuesta.data.token;
                         localStorage.setItem('token', token);
                         login(signupUsuario.toLowerCase());
+                        admin(respuesta.data.esAdmin)
                         navigate("/");
                     }
                 } catch (loginError) {
