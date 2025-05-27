@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ServicioListas from "../../servicios/ServicioListas";
 import EstadoBusqueda from "../comunes/estadoBusqueda";
-import { listaConResultados } from "../../herramientas/general";
+import ResultadosListas from "./resultadosListas";
 
 const Listas = () => {
 
@@ -10,12 +10,14 @@ const Listas = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        console.log("hola")
         setLoading(true)
-        ServicioListas.listas().then((respuesta) => {
+        ServicioListas.getListas().then((respuesta) => {
             setListasProductos(respuesta.data)
-            console.log(respuesta.data)
             setLoading(false)
-            setError("No se han encontrado ninguna lista.")
+            if (!respuesta.data > 0) {
+                setError("No se han encontrado ninguna lista.")
+            }
         }).catch(() => {
             setLoading(false)
             setError("Ha ocurrido un error al recuperar las listas.")
@@ -24,8 +26,9 @@ const Listas = () => {
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados(listasProductos)}/>
-            
+            <EstadoBusqueda loading={loading} error={error} resultados={listasProductos}/>
+            <ResultadosListas listas={listasProductos}/>
+
         </div>
     )
 }
