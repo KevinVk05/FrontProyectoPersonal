@@ -1,6 +1,7 @@
 import { obtenerIdProducto } from "../../herramientas/general"
 
 const ProductoLista = ({productos, eliminando, abrirModalEliminarProducto}) => {
+    
     return (
         <div className='d-flex overflow-auto align-items-stretch gap-3 m-4'>
             {productos.map((item, indexProd) => (
