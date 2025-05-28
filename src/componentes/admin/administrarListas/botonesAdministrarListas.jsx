@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { eliminarListaPredeterminada } from "../../../herramientas/eliminarListas"
 import { modificarVisibilidadListas } from "../../../herramientas/listasAdministrador"
 import ServicioListas from "../../../servicios/ServicioListas"
 import Modal from "../../modals/modal"
@@ -25,8 +24,7 @@ const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredetermina
     }
 
     const abrirModalEliminarLista = () => {
-
-        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setListasPredeterminadas={setListasPredeterminadas} cesta={false} />)
+        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setListas={setListasPredeterminadas} listas={listasPredeterminadas} listaEliminar={lista} cesta={false} />)
         openModal()
     }
 

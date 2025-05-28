@@ -13,7 +13,7 @@ const AnadirListas = () => {
     }
 
     const anadirLista = () => {
-        setChildrenModal(<ModalAnadirListaAdmin onClose={onclose}/>)
+        setChildrenModal(<ModalAnadirListaAdmin onClose={closeModal}/>)
         openModal()
     }
 

@@ -29,15 +29,12 @@ class ServicioListas {
   }
 
   crearLista(nombreLista) {
-    return httpExterno.post(
-      `/listas/crear`,
-      { nombre: nombreLista },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
+    return httpExterno.post(`/listas/crear`, { nombre: nombreLista }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
     );
   }
 
@@ -46,6 +43,25 @@ class ServicioListas {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+      },
+    });
+  }
+
+  eliminarProdLista(prod) {
+    return httpExterno.delete(`/listas/eliminar-producto`, {
+      data: prod,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+
+  eliminarLista(nombreLista) {
+    return httpExterno.delete(`/listas/eliminar/${nombreLista}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
       },
     });
   }

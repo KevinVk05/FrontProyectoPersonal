@@ -1,8 +1,8 @@
 
-const ModalEliminarProducto = ({producto, onClose, eliminarProd}) => {
+const ModalEliminarProducto = ({producto, lista, onClose, eliminarProd}) => {
 
     const eliminarProducto = () => {
-        eliminarProd(producto);
+        lista ? eliminarProd(producto, lista) : eliminarProd(producto);
         onClose()
     }
 

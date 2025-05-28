@@ -1,6 +1,5 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import ServicioListas from "../../servicios/ServicioListas"
-import Swal from 'sweetalert2'
 
 const ModalAnadirListaAdmin = ({ onClose }) => {
 
@@ -11,7 +10,6 @@ const ModalAnadirListaAdmin = ({ onClose }) => {
         if (nombreLista.length > 0) {
             ServicioListas.crearLista(nombreLista).then(() => {
                 onClose()
-                Swal.fire("Lista creada correctamente")
             }).catch(() => {
                 setError("Ha ocurrido un error al crear la lista.")
             })
@@ -25,6 +23,7 @@ const ModalAnadirListaAdmin = ({ onClose }) => {
             <div className="m-1">
                 Introduzca el nombre de la lista: </div>
             <input type="text"
+                autoFocus
                 placeholder="Maquillaje"
                 className="form-control m-2 w-50"
                 value={nombreLista}

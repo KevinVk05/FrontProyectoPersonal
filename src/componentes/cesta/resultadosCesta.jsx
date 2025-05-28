@@ -10,8 +10,6 @@ import ProductoLista from "../comunes/productoLista";
 
 const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado }) => {
 
-    console.log(productosPorSupermercado)
-
     const [error, setError] = useState(null);
     const [childrenModal, setChildrenModal] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -50,10 +48,9 @@ const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado
     }
 
     const abrirModalEliminarLista = () => {
-        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setProductosPorSupermercado={setProductosPorSupermercado} cesta={true} />)
+        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setListas={setProductosPorSupermercado} listas={productosPorSupermercado} cesta={true} user={user}/>)
         openModal()
     }
-
 
     const abrirModalEliminarProducto = (producto) => {
         setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProdCesta} />)

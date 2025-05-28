@@ -1,7 +1,7 @@
-import { eliminarListaDeLaCompra } from "../../herramientas/eliminarListas"
+import { eliminarLista, eliminarListaDeLaCompra } from "../../herramientas/eliminarListas"
 import { useAuth } from "../../Login/AuthProvider";
 
-const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado, cesta}) => {
+const ModalEliminarLista = ({ onClose, setError, setListas, listas, listaEliminar, cesta}) => {
 
     const { user } = useAuth()
 
@@ -15,7 +15,7 @@ const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado, ce
                 className="w-50 m-2"
             />
             <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2">
-                <button onClick={() => eliminarListaDeLaCompra(user, setProductosPorSupermercado, setError, onClose, cesta)} className="btn btn-danger">Eliminar lista</button>
+                <button onClick={() => eliminarLista(setListas, listas, setError, onClose, cesta, user, listaEliminar)} className="btn btn-danger">Eliminar lista</button>
                 <button onClick={onClose} className="btn btn-success">Mantener lista</button>
             </div>
         </div>

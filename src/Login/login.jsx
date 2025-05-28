@@ -1,8 +1,13 @@
 import "../estilos/login.css"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
+
+const BLOQUEO_KEY = 'loginBloqueadoHasta';
+const INTENTOS_KEY = 'intentosFallidos';
+const TIEMPO_BLOQUEO_MS = 5 * 60 * 1000;
+const MAX_INTENTOS = 3;
 
 const Login = () => {
 
@@ -28,6 +33,44 @@ const Login = () => {
     const { login, admin } = useAuth();
     const navigate = useNavigate();
 
+    const [bloqueado, setBloqueado] = useState(false);
+    const [tiempoRestante, setTiempoRestante] = useState(0);
+
+    const intervaloRef = useRef(null);
+
+    useEffect(() => {
+        const bloqueoHastaStr = localStorage.getItem(BLOQUEO_KEY);
+        if (bloqueoHastaStr) {
+            const bloqueoHasta = parseInt(bloqueoHastaStr, 10);
+            const ahora = Date.now();
+
+            if (bloqueoHasta > ahora) {
+                setBloqueado(true);
+                setTiempoRestante(Math.ceil((bloqueoHasta - ahora) / 1000));
+                iniciarTemporizador(bloqueoHasta);
+            } else {
+                localStorage.removeItem(BLOQUEO_KEY);
+                localStorage.removeItem(INTENTOS_KEY);
+            }
+        }
+        return () => clearInterval(intervaloRef.current);
+    }, []);
+
+    const iniciarTemporizador = (finBloqueo) => {
+        intervaloRef.current = setInterval(() => {
+            const ahora = Date.now();
+            if (finBloqueo <= ahora) {
+                setBloqueado(false);
+                setTiempoRestante(0);
+                localStorage.removeItem(BLOQUEO_KEY);
+                localStorage.removeItem(INTENTOS_KEY);
+                clearInterval(intervaloRef.current);
+            } else {
+                setTiempoRestante(Math.ceil((finBloqueo - ahora) / 1000));
+            }
+        }, 1000);
+    };
+
     const esEmailValido = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         console.log(regex.test(email))
@@ -39,6 +82,11 @@ const Login = () => {
 
         if (!esEmailValido(loginUsuario)) {
             setErrorLogin("Introduce un correo electrónico válido");
+            return;
+        }
+
+        if (bloqueado) {
+            setErrorLogin(`Has alcanzado el maximo de intentos. Intenta de nuevo en ${tiempoRestante} segundos.`);
             return;
         }
 
@@ -55,14 +103,29 @@ const Login = () => {
                 if (respuesta.data.esAdmin ? navigate("/administrarListas") : navigate("/"));
             }
         } catch (error) {
-            if (error.response && error.response.data) {
-                setErrorLogin(error.response.data);
-            } else {
-                setErrorLogin("Ha ocurrido un error de conexión")
-            }
-        }
-    };
 
+            let intentos = parseInt(localStorage.getItem(INTENTOS_KEY)) || 0;
+            intentos += 1;
+            localStorage.setItem(INTENTOS_KEY, intentos);
+
+            if (intentos >= MAX_INTENTOS) {
+                const bloqueoHasta = Date.now() + TIEMPO_BLOQUEO_MS;
+                localStorage.setItem(BLOQUEO_KEY, bloqueoHasta);
+                setBloqueado(true);
+                setTiempoRestante(TIEMPO_BLOQUEO_MS / 1000);
+                iniciarTemporizador(bloqueoHasta);
+                setErrorLogin(`Has alcanzado el máximo de intentos. Vuelva a intentarlo en 5 minutos.`);
+
+            } else {
+                if (error.response && error.response.data) {
+                    setErrorLogin(error.response.data);
+                } else {
+                    setErrorLogin('Error de conexión');
+                }
+
+            }
+        };
+    }
     const handleSignupSubmit = async (e) => {
         e.preventDefault();
 

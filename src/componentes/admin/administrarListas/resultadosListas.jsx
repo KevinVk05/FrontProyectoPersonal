@@ -1,6 +1,9 @@
 import { useState } from "react";
 import BotonesAdministrarListas from "./botonesAdministrarListas";
 import Modal from "../../modals/modal";
+import ModalEliminarProducto from "../../modals/modalEliminarProducto";
+import ProductoLista from "../../comunes/productoLista";
+import ServicioListas from "../../../servicios/ServicioListas";
 
 const ResultadosListas = ({ listas, setListas, setError }) => {
 
@@ -12,21 +15,64 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         setChildrenModal(null)
     }
 
+    // Ordeno las listas para que aparezcan abajo las que no tiene productos
+    const listasOrdenadas = [...listas].sort(
+        (a, b) => b.listaProductos.length - a.listaProductos.length
+    );
 
+    const [eliminando, setEliminando] = useState(null);
+
+    // Cambiar para que se elimine de la lista no de la cesta
+    const eliminarProdLista = (item, listaAModificar) => {
+        const prodEliminado = {
+            lista: listaAModificar.nombre,
+            prod: item
+        }
+
+        ServicioListas.eliminarProdLista(prodEliminado).then(() => {
+            setEliminando(obtenerIdProducto(item));
+            closeModal();
+            setTimeout(() => {
+                setListas(prevListas => {
+                    prevListas.map(lista => 
+                        lista.id === listaAModificar.id ? {
+                            ...lista, listaProductos: lista.listaProductos.filter(
+                                prod => prod.producto.id !== item.producto.id
+                            )
+                        } : lista
+                    )
+                    const nuevos = { ...prev };
+                    const idSuper = item.supermercado.toLowerCase();
+                    nuevos[idSuper] = nuevos[idSuper].filter(p => p.nombre !== item.producto.nombre || p.precio !== item.precio);
+                    return nuevos;
+                });
+                setEliminando(null);
+            }, 500);
+        }).catch(() => {
+            setError("Ha ocurrido un error al eliminar el producto de la cesta")
+        })
+    }
+
+    const abrirModalEliminarProducto = (producto, lista) => {
+        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProdLista} lista={lista}/>)
+        openModal()
+    }
 
     console.log(listas)
     return (
         <div>
-            {listas.map((lista, index) => (
+            {listasOrdenadas.map((lista, index) => (
                 <div key={index} className='shadow-sm border rounded mb-4'>
-                    <div className='d-flex shadow-sm border rounded p-4 justify-content-between'>
+                    <div className='d-flex flex-column flex-sm-row p-4 justify-content-between align-items-start align-items-sm-center'>
                         <div className="d-flex flex-column justify-content-center">
-                            <div className="fs-5 ">{lista.nombre}</div>
+                            <div className="fs-5 text-center">{lista.nombre}</div>
                         </div>
                         <BotonesAdministrarListas listasPredeterminadas={listas} setListasPredeterminadas={setListas} lista={lista} setError={setError} />
                     </div>
-
-                    {/* <ProductoLista productos={productos} eliminando={eliminando} abrirModalEliminarProducto={abrirModalEliminarProducto} /> */}
+                    {lista.listaProductos.length > 0 && (
+                        //Envio los productos de esta manera para convertirlo en un array de productos
+                        <ProductoLista productos={lista.listaProductos.map(lp => lp.producto)} lista={lista} eliminando={eliminando} abrirModalEliminarProducto={(producto) => abrirModalEliminarProducto(producto, lista)} />
+                    )}
                 </div>
             ))
             }
