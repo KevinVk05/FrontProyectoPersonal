@@ -16,9 +16,9 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         setChildrenModal(null)
     }
 
-    // Ordeno las listas para que aparezcan abajo las que no tiene productos
+    // Ordeno las listas para que aparezcan arriba las que no tienen productos
     const listasOrdenadas = (listas ?? []).sort(
-        (a, b) => b.listaProductos.length - a.listaProductos.length
+        (a, b) => a.listaProductos.length - b.listaProductos.length
     );
 
 
@@ -61,7 +61,7 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         openModal()
     }
 
-    console.log(listasOrdenadas)
+    console.log(listas)
     return (
         <div>
             {listasOrdenadas.map((lista, index) => (

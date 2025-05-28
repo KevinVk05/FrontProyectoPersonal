@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { modificarVisibilidadListas } from "../../../herramientas/listasAdministrador"
+import { cambioVisibilidad, modificarVisibilidadListas } from "../../../herramientas/listasAdministrador"
 import ServicioListas from "../../../servicios/ServicioListas"
 import Modal from "../../modals/modal"
 import ModalEliminarLista from "../../modals/modalEliminarLista";
+import ModalAvisoListaVacia from "../../modals/modalAvisoListaVacia";
 
 const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredeterminadas, lista, setError }) => {
 
@@ -15,16 +16,20 @@ const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredetermina
     }
 
     const cambiarVisibilidadLista = () => {
-        ServicioListas.alternarVisibilidadLista(lista.nombre)
-            .then(() => {
-                setListasPredeterminadas(() => { return modificarVisibilidadListas(listasPredeterminadas, lista) })
-            }).catch(() => {
-                setError("Ha ocurrido un error cambiando la visibilidad de la lista")
-            })
+        if (lista.listaProductos.length > 0) {
+            cambioVisibilidad(lista, setListasPredeterminadas, setError)
+        }else{
+            abrirModalAvisoListaVacia()
+        }
     }
 
     const abrirModalEliminarLista = () => {
         setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setListas={setListasPredeterminadas} listas={listasPredeterminadas} listaEliminar={lista} cesta={false} />)
+        openModal()
+    }
+
+    const abrirModalAvisoListaVacia = () => {
+        setChildrenModal(<ModalAvisoListaVacia onClose={closeModal} listaACambiar={lista} setListasPredeterminadas={setListasPredeterminadas} listasPredeterminadas={listasPredeterminadas} setError={setError}/>)
         openModal()
     }
 
