@@ -35,9 +35,7 @@ const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado
                 setProductosPorSupermercado(prev => {
                     const nuevos = { ...prev };
                     const idSuper = item.supermercado.toLowerCase();
-                    console.log(nuevos[idSuper])
                     nuevos[idSuper] = nuevos[idSuper].filter(p => p.nombre !== item.nombre || p.precio !== item.precio);
-                    console.log(nuevos[idSuper])
                     return nuevos;
                 });
                 setEliminando(null);

@@ -4,6 +4,7 @@ import Modal from "../../modals/modal";
 import ModalEliminarProducto from "../../modals/modalEliminarProducto";
 import ProductoLista from "../../comunes/productoLista";
 import ServicioListas from "../../../servicios/ServicioListas";
+import { obtenerIdProducto } from "../../../herramientas/general";
 
 const ResultadosListas = ({ listas, setListas, setError }) => {
 
@@ -16,49 +17,51 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
     }
 
     // Ordeno las listas para que aparezcan abajo las que no tiene productos
-    const listasOrdenadas = [...listas].sort(
+    const listasOrdenadas = (listas ?? []).sort(
         (a, b) => b.listaProductos.length - a.listaProductos.length
     );
+
 
     const [eliminando, setEliminando] = useState(null);
 
     // Cambiar para que se elimine de la lista no de la cesta
-    const eliminarProdLista = (item, listaAModificar) => {
+    const eliminarProdLista = (prod, listaAModificar) => {
         const prodEliminado = {
-            lista: listaAModificar.nombre,
-            prod: item
+            nombre: listaAModificar.nombre,
+            producto: prod
         }
 
-        ServicioListas.eliminarProdLista(prodEliminado).then(() => {
-            setEliminando(obtenerIdProducto(item));
+        ServicioListas.eliminarProdLista(prodEliminado)
+        .then(() => {
+            setEliminando(obtenerIdProducto(prod));
             closeModal();
             setTimeout(() => {
-                setListas(prevListas => {
+                setListas(prevListas => 
                     prevListas.map(lista => 
-                        lista.id === listaAModificar.id ? {
-                            ...lista, listaProductos: lista.listaProductos.filter(
-                                prod => prod.producto.id !== item.producto.id
-                            )
-                        } : lista
+                        lista.id === listaAModificar.id 
+                            ? { 
+                                ...lista, 
+                                listaProductos: lista.listaProductos.filter(
+                                    lp => lp.producto.id !== prod.id
+                                )
+                            } 
+                            : lista
                     )
-                    const nuevos = { ...prev };
-                    const idSuper = item.supermercado.toLowerCase();
-                    nuevos[idSuper] = nuevos[idSuper].filter(p => p.nombre !== item.producto.nombre || p.precio !== item.precio);
-                    return nuevos;
-                });
+                );
                 setEliminando(null);
             }, 500);
-        }).catch(() => {
-            setError("Ha ocurrido un error al eliminar el producto de la cesta")
         })
+        .catch(() => {
+            setError("Ha ocurrido un error al eliminar el producto de la lista");
+        });
     }
 
     const abrirModalEliminarProducto = (producto, lista) => {
-        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProdLista} lista={lista}/>)
+        setChildrenModal(<ModalEliminarProducto producto={producto} onClose={closeModal} eliminarProd={eliminarProdLista} lista={lista} />)
         openModal()
     }
 
-    console.log(listas)
+    console.log(listasOrdenadas)
     return (
         <div>
             {listasOrdenadas.map((lista, index) => (
