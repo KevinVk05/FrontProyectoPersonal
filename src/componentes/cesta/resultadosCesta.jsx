@@ -50,7 +50,7 @@ const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado
     }
 
     const abrirModalEliminarLista = () => {
-        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setProductosPorSupermercado={setProductosPorSupermercado} />)
+        setChildrenModal(<ModalEliminarLista onClose={closeModal} setError={setError} setProductosPorSupermercado={setProductosPorSupermercado} cesta={true} />)
         openModal()
     }
 

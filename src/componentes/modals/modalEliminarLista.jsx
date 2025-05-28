@@ -1,23 +1,9 @@
-import { useAuth } from "../../Login/AuthProvider"
-import ServicioCesta from "../../servicios/ServicioCesta"
+import { eliminarListaDeLaCompra } from "../../herramientas/eliminarListas"
+import { useAuth } from "../../Login/AuthProvider";
 
-const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado}) => {
+const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado, cesta}) => {
 
     const { user } = useAuth()
-
-    const eliminarLista = () => {
-        ServicioCesta.eliminarCesta(user).then(() => {
-                setProductosPorSupermercado({
-                    Mercadona: [],
-                    Carrefour: [],
-                    Dia: [],
-                    Ahorramas: []
-                });
-        }).catch((err) => {
-            setError("Ha ocurrido un error al eliminar su cesta")
-        })
-        onClose()
-    }
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center">
@@ -29,7 +15,7 @@ const ModalEliminarLista = ({ onClose, setError, setProductosPorSupermercado}) =
                 className="w-50 m-2"
             />
             <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2">
-                <button onClick={eliminarLista} className="btn btn-danger">Eliminar lista</button>
+                <button onClick={() => eliminarListaDeLaCompra(user, setProductosPorSupermercado, setError, onClose, cesta)} className="btn btn-danger">Eliminar lista</button>
                 <button onClick={onClose} className="btn btn-success">Mantener lista</button>
             </div>
         </div>

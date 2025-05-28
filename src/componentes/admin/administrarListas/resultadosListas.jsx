@@ -1,7 +1,19 @@
 import { useState } from "react";
 import BotonesAdministrarListas from "./botonesAdministrarListas";
+import Modal from "../../modals/modal";
 
-const ResultadosListas = ({ listas, setError, error }) => {
+const ResultadosListas = ({ listas, setListas, setError }) => {
+
+    const [childrenModal, setChildrenModal] = useState(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const openModal = () => setIsModalOpen(true)
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setChildrenModal(null)
+    }
+
+
+
     console.log(listas)
     return (
         <div>
@@ -11,13 +23,16 @@ const ResultadosListas = ({ listas, setError, error }) => {
                         <div className="d-flex flex-column justify-content-center">
                             <div className="fs-5 ">{lista.nombre}</div>
                         </div>
-                        <BotonesAdministrarListas listaPredeterminada={lista} setError={setError} error={error}/>
+                        <BotonesAdministrarListas listasPredeterminadas={listas} setListasPredeterminadas={setListas} lista={lista} setError={setError} />
                     </div>
 
                     {/* <ProductoLista productos={productos} eliminando={eliminando} abrirModalEliminarProducto={abrirModalEliminarProducto} /> */}
                 </div>
             ))
             }
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                {childrenModal}
+            </Modal>
 
         </div >
     )

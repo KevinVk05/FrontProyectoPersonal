@@ -5,14 +5,14 @@ import ResultadosListas from "./resultadosListas";
 
 const Listas = () => {
 
-    const [listasProductos, setListasProductos] = useState([]);
+    const [listas, setListas] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true)
         ServicioListas.getListas().then((respuesta) => {
-            setListasProductos(respuesta.data)
+            setListas(respuesta.data)
             setLoading(false)
             if (!respuesta.data > 0) {
                 setError("No se han encontrado ninguna lista.")
@@ -25,8 +25,8 @@ const Listas = () => {
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listasProductos}/>
-            <ResultadosListas listas={listasProductos} error={error} setError={setError}/>
+            <EstadoBusqueda loading={loading} error={error} resultados={listas}/>
+            <ResultadosListas listas={listas} setListas={setListas} setError={setError}/>
         </div>
     )
 }

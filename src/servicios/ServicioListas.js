@@ -51,7 +51,7 @@ class ServicioListas {
   }
 
   alternarVisibilidadLista(nombre) {
-    return httpExterno.put(`/listas/visibilidad/${nombre}`, {
+    return httpExterno.put(`/listas/visibilidad/${nombre}`, null, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
