@@ -55,7 +55,7 @@ const ResultadosCesta = ({ productosPorSupermercado, setProductosPorSupermercado
         openModal()
     }
 
-
+    
     return (
         <div>
             {error && (

@@ -6,13 +6,13 @@ const ModalAvisoListaVacia = ({onClose, listaACambiar, setListasPredeterminadas,
             <div className="p-3">
                 ¿Está seguro de que quiere hacer visible una lista vacía?</div>
             <img
-                src="/imagenes/papelera_icon.png"
+                src="/imagenes/iconosModales/visualizar.png"
                 alt="icono papelera"
-                className="w-50 m-2"
+                className="w-25 m-4"
             />
-            <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2">
-                <button onClick={() => cambioVisibilidad(listaACambiar, setListasPredeterminadas, listasPredeterminadas, setError)} className="btn btn-danger">Eliminar lista</button>
-                <button onClick={onClose} className="btn btn-success">Mantener lista</button>
+            <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center gap-2 my-2">
+                <button onClick={() => cambioVisibilidad(listaACambiar, setListasPredeterminadas, listasPredeterminadas, setError, onClose)} className="btn btn-danger">Hacer visible</button>
+                <button onClick={onClose} className="btn btn-success">No hacer visible</button>
             </div>
         </div>
     )

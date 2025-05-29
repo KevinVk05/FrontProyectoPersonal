@@ -61,6 +61,7 @@ const Comparador = () => {
             setLoading(false);
           }, 1000);
         }
+        console.log(respuesta)
       }).catch((error) => {
         setError('Ha ocurrido un error con la conexión');
         setResultados([]);

@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import ServicioProductos from '../../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../estilos/comparador.css"
-import { comprobarSiEstanEnLaCesta, filtrarPorSupermercado } from '../../herramientas/general';
-import { useAuth } from '../../Login/AuthProvider';
-import Encabezado from '../comunes/encabezados';
-import ResultadoBusqueda from '../comparadores/resultadoBusqueda';
+import "../../../estilos/comparador.css"
+import { filtrarPorSupermercado } from '../../../herramientas/general';
+import ServicioProductos from '../../../servicios/ServicioProductos';
+import { useAuth } from '../../../Login/AuthProvider';
+import Encabezado from '../../comunes/encabezados';
+import ResultadoBusquedaAdmin from './resultadoBusquedaAdmin';
+import { useParams } from 'react-router-dom';
+import { comprobarSiEstanEnLaLista } from '../../../herramientas/listasAdministrador';
 
 const ComparadorAdmin = () => {
 
@@ -15,11 +17,11 @@ const ComparadorAdmin = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const { user } = useAuth();
+    const { nombreLista } = useParams();
 
-    const titulo = "Añade productos a las listas predeterminadas"
-    const textoEncabezado1 = "Elige la lista a la que quieres añadir productos y empieza a buscar"
-    const textoEncabezado2 = "Elige entre los productos más baratos:"
+    const titulo = "Compara los precios de los productos de mejor calidad"
+    const textoEncabezado1 = "Busca los productos más adecuados para la lista predeterminada."
+    const textoEncabezado2 = `Elige entre los productos más baratos para la lista: ${nombreLista}.`
 
 
     const manejarSubmit = async (e) => {
@@ -39,7 +41,7 @@ const ComparadorAdmin = () => {
                     setResultados(respuesta.data)
                     setError(null);
                     setLoading(false);
-                    comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
+                    comprobarSiEstanEnLaLista(respuesta.data, setResultados, setError, nombreLista)
                     window.scrollTo({ top: 500, behavior: 'smooth' });
                 } else {
                     setTimeout(() => {
@@ -58,14 +60,14 @@ const ComparadorAdmin = () => {
 
     return (
         <div className="container py-4">
-            <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
+            <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"/imagenes/compra.png"} />
             <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={manejarSubmit}>
                 <input
                     type="text"
                     className="form-control w-50"
                     placeholder="Busca el producto"
                     value={producto}
-                    onChange={setProducto(e.target.value)}
+                    onChange={(e) => setProducto(e.target.value)}
                 />
                 <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={(e) => setSupermercadoSeleccionado(e.target.value)}>
                     <option value="Todos los supermercados">Todos los supermercados</option>
@@ -77,7 +79,7 @@ const ComparadorAdmin = () => {
                 <button type="submit" className="btn btn-success">Buscar</button>
             </form>
 
-            <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
+            <ResultadoBusquedaAdmin nombreLista={nombreLista} producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
         </div>
     );

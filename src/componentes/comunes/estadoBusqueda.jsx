@@ -4,14 +4,14 @@ const EstadoBusqueda = ({loading, error, resultados}) => {
         <div>
             {!loading && !error && resultados.length === 0 && (
                 <div className="text-center py-5">
-                    <img src="./imagenes/buscador.png" alt="Empieza la búsqueda" className='w-25' />
+                    <img src="/imagenes/buscador.png" alt="Empieza la búsqueda" className='w-25' />
                     <div className='textoCarrito fw-semibold'>!Empieza ya la búsqueda!</div>
                 </div>
             )}
 
             {loading && (
                 <div className="text-center my-4">
-                    <img src="./imagenes/loading.gif" alt="Cargando..." className='loading' style={{height: 130}}/>
+                    <img src="/imagenes/loading.gif" alt="Cargando..." className='loading' style={{height: 130}}/>
                 </div>
             )}
 

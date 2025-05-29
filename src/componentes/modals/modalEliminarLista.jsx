@@ -10,7 +10,7 @@ const ModalEliminarLista = ({ onClose, setError, setListas, listas, listaElimina
             <div className="p-3">
                 ¿Está seguro de que quiere eliminar la lista?</div>
             <img
-                src="/imagenes/papelera_icon.png"
+                src="/imagenes/iconosModales/papelera_icon.png"
                 alt="icono papelera"
                 className="w-50 m-2"
             />

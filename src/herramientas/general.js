@@ -24,8 +24,6 @@ export const comprobarSiEstanEnLaCesta = (
     .then((respuesta) => {
       const productosEnCesta = respuesta.data?.productos || [];
 
-      console.log("Productos en la cesta:", productosEnCesta);
-
       const productosActualizados = productosTotal.map((prodResultado) => {
         const enCesta = productosEnCesta.some(
           (prodCesta) =>

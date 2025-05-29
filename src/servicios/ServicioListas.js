@@ -21,7 +21,7 @@ class ServicioListas {
   }
 
   getListaPorNombre(nombre) {
-    return httpExterno.get(`/listas/nombre/${nombre}`, {
+    return httpExterno.get(`/listas/${nombre}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -39,7 +39,7 @@ class ServicioListas {
   }
 
   agregarProductoALista(data) {
-    return httpExterno.post(`/listas/agregar-producto`, data, {
+    return httpExterno.post(`/listas/agregar`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ class ServicioListas {
     });
   }
 
-  eliminarProdLista(prod) {
+  eliminarProductoLista(prod) {
     return httpExterno.delete(`/listas/eliminar-producto`, {
       data: prod,
       headers: {

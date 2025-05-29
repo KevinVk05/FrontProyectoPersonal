@@ -1,10 +1,9 @@
-import { useAuth } from '../../Login/AuthProvider';
-import EstadoBusqueda from "../comunes/estadoBusqueda";
+import { anadirProdALista, eliminarProdDeLista } from '../../../herramientas/comparadorAdmin';
+import EstadoBusqueda from '../../comunes/estadoBusqueda';
 
-const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error, setError }) => {
+const ResultadoBusquedaAdmin = ({ nombreLista, producto, resultados, setResultados, loading, error, setError }) => {
 
-    const { user } = useAuth();
-
+    //Refact
     return (
         <div>
             <EstadoBusqueda loading={loading} error={error} resultados={resultados} />
@@ -16,7 +15,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
                             <div key={index} className="product-card mb-3 shadow-sm">
                                 <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between" style={{ width: 250 }}>
                                     <img
-                                        src={`imagenes/${item.supermercado}_NOMBRE.svg`}
+                                        src={`/imagenes/${item.supermercado}_NOMBRE.svg`}
                                         alt={item.supermercado}
                                         className='mt-2'
                                         style={{ height: 25 }}
@@ -37,10 +36,10 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
                                         <p>
                                             Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                                         </p>
-                                        {!item.enLaCesta ? (
-                                            <button type="button" onClick={() => anadirProdCesta(item, setResultados, resultados, setError, user)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la cesta</button>
+                                        {!item.enlaLista ? (
+                                            <button type="button" onClick={() => anadirProdALista(item, setResultados, resultados, setError, nombreLista)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la lista</button>
                                         ) : (
-                                            <button type="button" onClick={() => eliminarProdCesta(item, setResultados, resultados, setError, user)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la cesta</button>
+                                            <button type="button" onClick={() => eliminarProdDeLista(item, setResultados, resultados, setError, nombreLista)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la lista</button>
                                         )
                                         }
                                     </div>
@@ -55,4 +54,4 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
     )
 }
 
-export default ResultadoBusqueda;
+export default ResultadoBusquedaAdmin;

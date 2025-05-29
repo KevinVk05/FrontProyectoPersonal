@@ -1,6 +1,8 @@
 import AnadirListas from "./anadirListas";
 import Encabezado from "../../comunes/encabezados";
 import Listas from "./listas";
+import { useEffect, useState } from "react";
+import ServicioListas from "../../../servicios/ServicioListas";
 
 const AdministrarListas = () => {
 
@@ -8,11 +10,29 @@ const AdministrarListas = () => {
     const textoEncabezado1 = "Selecciona las listas que los usuarios podrán visualizar, añade y elimina productos de las listas predeterminadas."
     const textoEncabezado2 = "Customiza las listas:"
 
+    const [listas, setListas] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true)
+        ServicioListas.getListas().then((respuesta) => {
+            setListas(respuesta.data)
+            setLoading(false)
+            if (!respuesta.data > 0) {
+                setError("No se han encontrado ninguna lista.")
+            }
+        }).catch(() => {
+            setLoading(false)
+            setError("Ha ocurrido un error al recuperar las listas.")
+        })
+    }, [])
+
     return (
         <div className="container py-4">
             <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
             <AnadirListas />
-            <Listas />
+            <Listas listas={listas} setListas={setListas} setError={setError} loading={loading} error={error}/>
         </div>
     )
 }

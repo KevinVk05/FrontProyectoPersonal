@@ -21,7 +21,6 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         (a, b) => a.listaProductos.length - b.listaProductos.length
     );
 
-
     const [eliminando, setEliminando] = useState(null);
 
     // Cambiar para que se elimine de la lista no de la cesta

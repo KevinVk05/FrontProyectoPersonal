@@ -10,8 +10,8 @@ import CestaCompra from './componentes/cesta/cestaCompra';
 import AdministrarListas from './componentes/admin/administrarListas/administrarListas';
 import MenuSuperior from './componentes/comunes/menu';
 import Pagina404 from './componentes/comunes/Pagina404';
-import ComparadorAdmin from './componentes/admin/comparadorAdmin';
 import RutasAdminProtegida from './Login/RutasAdminProtegidas';
+import ComparadorAdmin from './componentes/admin/comparadorProductosAdmin.jsx/comparadorAdmin';
 
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
             />
 
             <Route
-              path="/comparadorAdmin"
+              path="/comparadorAdmin/:nombreLista"
               element={
                 <RutasAdminProtegida>
                   <ComparadorAdmin />

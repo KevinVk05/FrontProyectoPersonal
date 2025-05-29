@@ -4,6 +4,7 @@ import ServicioListas from "../../../servicios/ServicioListas"
 import Modal from "../../modals/modal"
 import ModalEliminarLista from "../../modals/modalEliminarLista";
 import ModalAvisoListaVacia from "../../modals/modalAvisoListaVacia";
+import { Link } from "react-router-dom";
 
 const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredeterminadas, lista, setError }) => {
 
@@ -16,10 +17,10 @@ const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredetermina
     }
 
     const cambiarVisibilidadLista = () => {
-        if (lista.listaProductos.length > 0) {
-            cambioVisibilidad(lista, setListasPredeterminadas, setError)
-        }else{
+        if (!lista.esVisible && lista.listaProductos.length === 0) {
             abrirModalAvisoListaVacia()
+        } else {
+            cambioVisibilidad(lista, setListasPredeterminadas, listasPredeterminadas, setError)
         }
     }
 
@@ -29,21 +30,23 @@ const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredetermina
     }
 
     const abrirModalAvisoListaVacia = () => {
-        setChildrenModal(<ModalAvisoListaVacia onClose={closeModal} listaACambiar={lista} setListasPredeterminadas={setListasPredeterminadas} listasPredeterminadas={listasPredeterminadas} setError={setError}/>)
+        setChildrenModal(<ModalAvisoListaVacia onClose={closeModal} listaACambiar={lista} setListasPredeterminadas={setListasPredeterminadas} listasPredeterminadas={listasPredeterminadas} setError={setError} />)
         openModal()
     }
 
 
     return (
         <div className="d-flex gap-3">
-            <button className="btn btn-danger" onClick={abrirModalEliminarLista}>Eliminar lista</button>
             {lista.esVisible ? (
-                <button type="button" onClick={cambiarVisibilidadLista} className='btn btn-success'>Hacer visible</button>
-            ) : (
                 <button type="button" onClick={cambiarVisibilidadLista} className='btn btn-secondary'>Ocultar lista</button>
+            ) : (
+                <button type="button" onClick={cambiarVisibilidadLista} className='btn btn-primary'>Hacer visible</button>
             )
             }
-            <button className="btn btn-success">Añadir producto</button>
+            <button className="btn btn-success">
+                <Link className="nav-link" to={`/comparadorAdmin/${lista.nombre}`}>Anadir producto</Link>
+            </button>
+            <button className="btn btn-danger" onClick={abrirModalEliminarLista}>Eliminar lista</button>
 
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 {childrenModal}
