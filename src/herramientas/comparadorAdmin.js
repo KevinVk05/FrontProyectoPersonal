@@ -1,8 +1,9 @@
 import ServicioListas from "../servicios/ServicioListas"
 
 export const anadirProdALista = (item, setResultados, resultados, setError, nombreLista) => {
+    setError(null)
     const prodAnadido = {
-        nombreLista: nombreLista,
+        nombre: nombreLista,
         producto: item
     }
 
@@ -16,6 +17,7 @@ export const anadirProdALista = (item, setResultados, resultados, setError, nomb
 }
 
 export const eliminarProdDeLista = (item, setResultados, resultados, setError, nombreLista) => {
+    setError(null)
     const prodEliminado = {
         nombre: nombreLista,
         producto: item

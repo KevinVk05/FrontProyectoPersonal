@@ -30,7 +30,7 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
             producto: prod
         }
 
-        ServicioListas.eliminarProdLista(prodEliminado)
+        ServicioListas.eliminarProductoLista(prodEliminado)
         .then(() => {
             setEliminando(obtenerIdProducto(prod));
             closeModal();
@@ -60,7 +60,6 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         openModal()
     }
 
-    console.log(listas)
     return (
         <div>
             {listasOrdenadas.map((lista, index) => (

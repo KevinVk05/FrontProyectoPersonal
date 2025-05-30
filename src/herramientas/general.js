@@ -23,7 +23,6 @@ export const comprobarSiEstanEnLaCesta = (
   ServicioCesta.getProdsCesta(user)
     .then((respuesta) => {
       const productosEnCesta = respuesta.data?.productos || [];
-
       const productosActualizados = productosTotal.map((prodResultado) => {
         const enCesta = productosEnCesta.some(
           (prodCesta) =>
@@ -42,6 +41,24 @@ export const comprobarSiEstanEnLaCesta = (
     .catch(() => {
       setError("Ha ocurrido un error con la conexión");
     });
+};
+
+export const comprobarSiProdListaEstanEnLaCesta = async (productos, user) => {
+    try {
+        const respuesta = await ServicioCesta.getProdsCesta(user);
+        const productosEnCesta = respuesta.data?.productos || [];
+        
+        return productos.map(prod => ({
+            ...prod,
+            enLaCesta: productosEnCesta.some(p => 
+                p.nombre === prod.nombre && 
+                p.supermercado === prod.supermercado
+            )
+        }));
+    } catch (error) {
+        console.error("Error al verificar la cesta:", error);
+        return productos; // Devuelve los productos sin modificar en caso de error
+    }
 };
 
 export const cambiarImgFavoritos = (imagen, setImagen) => {

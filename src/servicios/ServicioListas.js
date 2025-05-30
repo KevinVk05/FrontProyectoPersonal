@@ -1,19 +1,19 @@
-import http from "./http-axios";
 import httpExterno from "./http-externo";
 
 const token = localStorage.getItem("token");
 
 class ServicioListas {
-  listas() {
-    return http.get("/listas", {
+
+  getListas() {
+    return httpExterno.get(`/listas/todas`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   }
 
-  getListas() {
-    return httpExterno.get(`/listas/todas`, {
+  getListasVisibles() {
+    return httpExterno.get(`/listas/visibles`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

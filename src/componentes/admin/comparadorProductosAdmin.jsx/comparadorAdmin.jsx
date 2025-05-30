@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../../estilos/comparador.css"
 import { filtrarPorSupermercado } from '../../../herramientas/general';
 import ServicioProductos from '../../../servicios/ServicioProductos';
-import { useAuth } from '../../../Login/AuthProvider';
 import Encabezado from '../../comunes/encabezados';
 import ResultadoBusquedaAdmin from './resultadoBusquedaAdmin';
 import { useParams } from 'react-router-dom';
@@ -38,7 +37,6 @@ const ComparadorAdmin = () => {
 
             ServicioProductos.buscarProducto(productoABuscar.trim().toLowerCase()).then(respuesta => {
                 if (respuesta.data && respuesta.data.length > 0) {
-                    setResultados(respuesta.data)
                     setError(null);
                     setLoading(false);
                     comprobarSiEstanEnLaLista(respuesta.data, setResultados, setError, nombreLista)

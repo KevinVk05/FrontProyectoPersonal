@@ -11,8 +11,9 @@ export const modificarVisibilidadListas = (listasPredeterminadas, listaACambiar)
 export const cambioVisibilidad = (listaACambiar, setListasPredeterminadas, listasPredeterminadas, setError, onClose) => {
   ServicioListas.alternarVisibilidadLista(listaACambiar.nombre)
     .then(() => {
-      setListasPredeterminadas(() => { return modificarVisibilidadListas(listasPredeterminadas, listaACambiar) })
-      if (onClose) {
+      setListasPredeterminadas(prevListas => 
+        modificarVisibilidadListas(prevListas, listaACambiar)
+      );        if (onClose) {
         onClose()
       }
     }).catch(() => {
@@ -35,13 +36,15 @@ export const comprobarSiEstanEnLaLista = (
 ) => {
   ServicioListas.getListaPorNombre(nombreLista)
     .then((respuesta) => {
-      const productosEnCesta = respuesta.data?.productos || [];
-
+      const productosEnLista = respuesta.data?.productos || [];
+      console.log(productosTotal)
+      console.log(respuesta.data.productos)
       const productosActualizados = productosTotal.map((prodResultado) => {
-        const enLaLista = productosEnCesta.some(
-          (prodCesta) =>
-            prodCesta.nombre === prodResultado.nombre &&
-            prodCesta.supermercado === prodResultado.supermercado
+        const enLaLista = productosEnLista.some(
+          (prodLista) =>
+            prodLista.nombre === prodResultado.nombre &&
+            prodLista.supermercado === prodResultado.supermercado &&
+            prodLista.precio === prodResultado.precio
         );
 
         return {
@@ -50,6 +53,7 @@ export const comprobarSiEstanEnLaLista = (
         };
       });
 
+      console.log(productosActualizados)
       setResultados(productosActualizados);
     })
     .catch(() => {

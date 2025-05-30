@@ -29,7 +29,7 @@ export const eliminarProdCesta = (item, setResultados, resultados, setError, use
     })
 }
 
-const modificarResultadosCesta = (item, resultados, seEncuentra) => {
+export const modificarResultadosCesta = (item, resultados, seEncuentra) => {
     return resultados.map(prod =>
         prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precio === item.precio
             ? { ...prod, enLaCesta: seEncuentra }

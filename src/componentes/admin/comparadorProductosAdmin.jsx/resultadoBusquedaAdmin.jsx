@@ -36,7 +36,7 @@ const ResultadoBusquedaAdmin = ({ nombreLista, producto, resultados, setResultad
                                         <p>
                                             Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                                         </p>
-                                        {!item.enlaLista ? (
+                                        {!item.enLaLista ? (
                                             <button type="button" onClick={() => anadirProdALista(item, setResultados, resultados, setError, nombreLista)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la lista</button>
                                         ) : (
                                             <button type="button" onClick={() => eliminarProdDeLista(item, setResultados, resultados, setError, nombreLista)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la lista</button>

@@ -5,10 +5,10 @@ import "../../estilos/comparador.css"
 import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos } from '../../herramientas/general';
 import { useAuth } from '../../Login/AuthProvider';
 import { useFavoritos } from '../../hooks/useFavoritos';
-import ListasPredeterminadas from '../listasPredeterminadas';
 import Encabezado from '../comunes/encabezados';
 import BusquedasFavoritas from '../comunes/busquedasFavoritas';
 import ResultadoBusqueda from './resultadoBusqueda';
+import ListasPredeterminadas from './listasPredeterminadas';
 
 const Comparador = () => {
 
