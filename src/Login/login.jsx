@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
+import { toggle } from "../herramientas/login";
 
 const BLOQUEO_KEY = 'loginBloqueadoHasta';
 const INTENTOS_KEY = 'intentosFallidos';
@@ -10,15 +11,6 @@ const TIEMPO_BLOQUEO_MS = 5 * 60 * 1000;
 const MAX_INTENTOS = 3;
 
 const Login = () => {
-
-    const switchers = [...document.querySelectorAll('.switcher')]
-
-    switchers.forEach(item => {
-        item.addEventListener('click', function () {
-            switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-            this.parentElement.classList.add('is-active')
-        })
-    })
 
     const [loginUsuario, setLoginUsuario] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
@@ -186,106 +178,135 @@ const Login = () => {
         }
     }
 
+    const cambioForm = (esLogIn) => {
+        toggle()
+        cambioError(esLogIn)
+    }
 
     return (
-        <div className="p-4 m-5">
-            <div className="d-flex flex-column flex-md-row align-items-center gap-4">
-                <div className="header-box col-12 col-md-6 rounded p-5 h-100" >
-                    <h1 className="p-4 text-center">Comparator</h1>
-                    <h3>Descubre la forma más inteligente de hacer la compra.</h3>
-                    <p>En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
-                        Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
-                </div>
-                <section className="col-12 col-md-6 py-3 d-flex flex-column justify-content-center align-items-center">
-                    <div className="d-flex">
-                        <div className="form-wrapper is-active w-50">
-                            <button type="button" className="switcher switcher-login" onClick={() => cambioError(true)}>
-                                Login
-                                <span className="underline"></span>
-                            </button>
-                            <form onSubmit={handleSubmitLogin} className="form form-login border rounded overflow-hidden">
-                                <fieldset>
-                                    <div className="input-block">
-                                        <label htmlFor="login-email">E-mail:</label>
-                                        <input
-                                            id="login-email"
-                                            type="text"
-                                            className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa@ejemplo.com"
-                                            value={loginUsuario}
-                                            onChange={(e) => setLoginUsuario(e.target.value)}
-                                            required
-                                        />
+        <section className="h-100 gradient-form">
+            <div className="container py-5 h-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-xl-10">
+                        <div className="card rounded-3 text-black">
+                            <div className="row g-0">
+                                <div id="form1" className="col-lg-6">
+                                    <div className="card-body p-md-5 mx-md-4">
+
+                                        <div className="text-center">
+                                            <img src="./imagenes/logoLogin.png"
+                                                style={{ width: 165 }} alt="logo" />
+                                            <h4 className="mt-1 mb-4 pb-1">Iniciar sesión</h4>
+                                        </div>
+
+                                        {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
+
+                                        <form onSubmit={handleSubmitLogin}>
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label" htmlFor="correoInicioSesion">Correo:</label>
+                                                <input type="email"
+                                                    className="form-control"
+                                                    placeholder="ainhoa@ejemplo.com"
+                                                    value={loginUsuario}
+                                                    onChange={(e) => setLoginUsuario(e.target.value)}
+                                                    required />
+                                            </div>
+
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label" htmlFor="constrasenaInicioSesion">Contraseña:</label>
+                                                <input type="password"
+                                                    className="form-control"
+                                                    placeholder="*******"
+                                                    value={loginPassword}
+                                                    onChange={(e) => setLoginPassword(e.target.value)}
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div className="text-center mb-4">
+                                                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Iniciar sesión</button>
+                                            </div>
+
+                                            <div className="d-flex align-items-center justify-content-center">
+                                                <p className="mb-0 me-2">¿No tienes cuenta?</p>
+                                                <button onClick={() => cambioForm(false)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Registrate!</button>
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    <div className="input-block">
-                                        <label htmlFor="login-password">Contraseña: </label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="login-password"
-                                            placeholder="*******"
-                                            value={loginPassword}
-                                            onChange={(e) => setLoginPassword(e.target.value)}
-                                            required
-                                        />
+                                </div>
+
+                                <div id="cortina" className="top-0 end-0 w-50 h-100 d-flex align-items-center z-3 position-absolute">
+                                    <div className="px-3 py-4 p-md-5 mx-md-4">
+                                        <h1>Comparator</h1>
+                                        <h4 className="mb-4">Descubre la forma más inteligente de hacer la compra</h4>
+                                        <p className="small mb-0">En Comparator podrás comparar precios de productos en diferentes supermercados para ahorrar tiempo y dinero.
+                                            Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
                                     </div>
-                                    <button type="submit" className="btn-login btn btn-success">Acceder</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div className="form-wrapper w-50">
-                            <button type="button" className="switcher switcher-signup" onClick={() => cambioError(false)}>
-                                Sign Up
-                                <span className="underline"></span>
-                            </button>
-                            <form className="form form-signup border rounded overflow-hidden" onSubmit={handleSignupSubmit}>
-                                <fieldset>
-                                    <div className="input-block">
-                                        <label htmlFor="signup-email">E-mail:</label>
-                                        <input
-                                            id="signup-email"
-                                            type="text"
-                                            className="form-control w-100 my-3 px-2"
-                                            placeholder="ainhoa@ejemplo.com"
-                                            value={signupUsuario}
-                                            onChange={(e) => setSignupUsuario(e.target.value)}
-                                            required
-                                        />
+                                </div>
+                                <div id="form2" className="col-lg-6">
+                                    <div className="card-body p-md-5 mx-md-4">
+                                        <div className="text-center">
+                                            <img src="./imagenes/logoLogin.png"
+                                                style={{ width: 165 }} alt="logo" />
+                                            <h4 className="mt-1 mb-4 pb-1">Registrar una nueva cuenta:</h4>
+                                        </div>
+
+                                        {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
+
+                                        <form onSubmit={handleSignupSubmit}>
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label">Correo:</label>
+                                                <input
+                                                    type="email"
+                                                    className="form-control"
+                                                    placeholder="ainhoa@ejemplo.com"
+                                                    value={signupUsuario}
+                                                    onChange={(e) => setSignupUsuario(e.target.value)}
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label">Contraseña:</label>
+                                                <input type="password"
+                                                    className="form-control"
+                                                    placeholder="*******"
+                                                    value={signupPassword}
+                                                    onChange={(e) => setSignupPassword(e.target.value)}
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label">Confirma la ontraseña:</label>
+                                                <input type="password"
+                                                    className="form-control"
+                                                    placeholder="*******"
+                                                    value={signupPasswordConfirm}
+                                                    onChange={(e) => setSignupPasswordConfirm(e.target.value)}
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div className="text-center mb-4">
+                                                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Registrarse</button>
+                                            </div>
+
+                                            <div className="d-flex align-items-center justify-content-center">
+                                                <p className="mb-0 me-2">Ya tienes una cuenta?</p>
+                                                <button onClick={() => cambioForm(true)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Inicia sesión!</button>
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    <div className="input-block ">
-                                        <label htmlFor="signup-password">Contraseña:</label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="signup-password"
-                                            placeholder="*******"
-                                            value={signupPassword}
-                                            onChange={(e) => setSignupPassword(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="input-block">
-                                        <label htmlFor="signup-password-confirm">Confirme la contraseña:</label>
-                                        <input
-                                            type="password"
-                                            className="form-control w-100 my-3 px-2"
-                                            id="signup-password-confirm"
-                                            placeholder="*******"
-                                            value={signupPasswordConfirm}
-                                            onChange={(e) => setSignupPasswordConfirm(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <button type="submit" className="btn-signup btn btn-success">Continue</button>
-                                </fieldset>
-                            </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
-                    {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
 
