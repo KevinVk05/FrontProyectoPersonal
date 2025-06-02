@@ -42,7 +42,7 @@ const ListasPredeterminadas = () => {
     return (
         <div>
             <section className="search-section shadow-sm rounded p-3 my-4">
-                <p className="mb-0 fs-5 fw-bold text-center">Haz tu compra más sencilla y barata con nuestras listas predeterminadas, pensadas para cubrir todas tus necesidades.</p>
+                <p className="mb-0 fs-5 fw-bold text-center" id="listas-prediseñadas">Haz tu compra más sencilla y barata con nuestras listas predeterminadas, pensadas para cubrir todas tus necesidades.</p>
             </section>
             <section className='p-3 shadow-sm border rounded'>
                 <EstadoBusqueda error={error} loading={loading} resultados={listas} />

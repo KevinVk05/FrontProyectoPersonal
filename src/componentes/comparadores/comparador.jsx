@@ -9,6 +9,7 @@ import Encabezado from '../comunes/encabezados';
 import BusquedasFavoritas from '../comunes/busquedasFavoritas';
 import ResultadoBusqueda from './resultadoBusqueda';
 import ListasPredeterminadas from './listasPredeterminadas';
+import EncabezadoComparador from './encabezadoComparador';
 
 const Comparador = () => {
 
@@ -22,7 +23,7 @@ const Comparador = () => {
   const { user } = useAuth();
 
   const titulo = "Comparator, tu comparador de confianza"
-  const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!"
+  const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados."
   const textoEncabezado2 = "Introduce tu producto y compara precios en segundos entre los principales supermercados."
 
   const {
@@ -79,7 +80,7 @@ const Comparador = () => {
 
   return (
     <div className="container py-4">
-      <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
+      <EncabezadoComparador titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
 
       <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={manejarSubmit}>
         <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>

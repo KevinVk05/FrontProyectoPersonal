@@ -22,6 +22,11 @@ const Comparador2 = () => {
   const textoEncabezado1 = "Compara precios entre 2 supermercados, de esta manera podrás elegir entre los establecimientos que están más cerca de ti."
   const textoEncabezado2 = "Busca un producto y filtra por los supermercados que quieres comparar"
 
+  const manejarSubmit = async (e) => {
+    e.preventDefault();
+    realizarBusqueda()
+  };
+
   const {
     imagen,
     setImagen,
@@ -31,9 +36,9 @@ const Comparador2 = () => {
     setFavoritoGuardado
   } = useFavoritos(setError);
 
-  const buscarResultados = async (e) => {
-    e.preventDefault();
-    if (!producto.trim()) {
+  const realizarBusqueda = (nombreProducto) => {
+    const productoABuscar = nombreProducto || producto
+    if (!productoABuscar.trim()) {
       setError("Introduzca el nombre de un producto.")
       setResultados([])
     } else if (!super1.trim() || !super2.trim()) {
@@ -46,7 +51,7 @@ const Comparador2 = () => {
       setLoading(true); // comienza la carga
 
 
-      ServicioProductos.buscarProductoSupermercadosConcretos(producto.trim().toLowerCase(), super1 + "-" + super2).then(respuesta => {
+      ServicioProductos.buscarProductoSupermercadosConcretos(productoABuscar.trim().toLowerCase(), super1 + "-" + super2).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
           setResultados(respuesta.data)
           setError(null);
@@ -68,6 +73,7 @@ const Comparador2 = () => {
 
   const hacerBusquedaFavorita = (nombreProd) => {
     setProducto(nombreProd)
+    realizarBusqueda(nombreProd)
   }
 
   return (
@@ -76,10 +82,10 @@ const Comparador2 = () => {
       <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/supermercados.png"} />
 
       <div className="text-center mb-4">
-        <form onSubmit={buscarResultados} className="d-flex flex-wrap justify-content-center gap-2">
+        <form onSubmit={manejarSubmit} className="d-flex flex-wrap justify-content-center gap-2">
           <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
-            <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)} 
-            alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+            <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)}
+              alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
           </div>
           <input
             type="text"
