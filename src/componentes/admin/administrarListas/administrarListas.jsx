@@ -22,9 +22,13 @@ const AdministrarListas = () => {
             if (!respuesta.data > 0) {
                 setError("No se han encontrado ninguna lista.")
             }
-        }).catch(() => {
-            setLoading(false)
-            setError("Ha ocurrido un error al recuperar las listas.")
+        }).catch((error) => {
+            setLoading(false);
+            if (error.response && error.response.status === 403) {
+                setError( "Su usuario no tiene permisos, vuelva a iniciar sesión.");
+            } else {
+                setError("Ha ocurrido un error al recuperar las listas.")
+            }
         })
     }, [])
 

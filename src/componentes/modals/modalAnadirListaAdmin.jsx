@@ -14,8 +14,10 @@ const ModalAnadirListaAdmin = ({ onClose }) => {
             }).catch((error) => {
                 if (error.response && error.response.data) {
                     setError(error.response.data)
+                } if (error.response && error.response.status === 403) {
+                    setError("Su usuario no tiene permisos, vuelva a iniciar sesión.");
                 } else {
-                    setError("Ha ocurrido un error al crear la lista.")
+                    setError("Ha ocurrido un error al recuperar las listas.")
                 }
             })
         } else {
