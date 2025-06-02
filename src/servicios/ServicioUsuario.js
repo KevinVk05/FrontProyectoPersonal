@@ -1,4 +1,5 @@
 import httpExterno from "./http-externo.js";
+import { getAuthHeaders, getToken } from "./token.js";
 
 class ServicioUsuario {
   
@@ -11,11 +12,8 @@ class ServicioUsuario {
   }
 
   obtenerDatosProtegidos() {
-    const token = localStorage.getItem("token");
     return httpExterno.get("/ruta-protegida", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 }

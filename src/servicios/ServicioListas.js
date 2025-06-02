@@ -1,47 +1,45 @@
 import httpExterno from "./http-externo";
-
-const token = localStorage.getItem("token");
+import { getAuthHeaders, getToken } from "./token";
 
 class ServicioListas {
-
   getListas() {
+    console.log(getToken());
     return httpExterno.get(`/listas/todas`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 
   getListasVisibles() {
+    console.log(getToken());
+
     return httpExterno.get(`/listas/visibles`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 
   getListaPorNombre(nombre) {
     return httpExterno.get(`/listas/${nombre}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 
   crearLista(nombreLista) {
-    return httpExterno.post(`/listas/crear`, { nombre: nombreLista }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
+    return httpExterno.post(
+      `/listas/crear`,
+      { nombre: nombreLista },
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 
   agregarProductoALista(data) {
     return httpExterno.post(`/listas/agregar`, data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json",
       },
     });
@@ -51,26 +49,21 @@ class ServicioListas {
     return httpExterno.delete(`/listas/eliminar-producto`, {
       data: prod,
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json",
       },
     });
   }
 
-
   eliminarLista(nombreLista) {
     return httpExterno.delete(`/listas/eliminar/${nombreLista}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 
   alternarVisibilidadLista(nombre) {
     return httpExterno.put(`/listas/visibilidad/${nombre}`, null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 }

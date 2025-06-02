@@ -64,7 +64,7 @@ const ResultadosListas = ({ listas, setListas, setError }) => {
         <div>
             {listasOrdenadas.map((lista, index) => (
                 <div key={index} className='shadow-sm border rounded mb-4'>
-                    <div className='d-flex flex-column flex-sm-row p-4 justify-content-between align-items-start align-items-sm-center'>
+                    <div className='d-flex flex-column flex-md-row p-4 justify-content-between align-items-md-start align-items-center gap-3'>
                         <div className="d-flex flex-column justify-content-center">
                             <div className="fs-5 text-center">{lista.nombre}</div>
                         </div>

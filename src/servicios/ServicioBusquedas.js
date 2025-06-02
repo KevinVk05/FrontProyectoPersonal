@@ -1,12 +1,11 @@
 import httpExterno from "./http-externo";
-
-const token = localStorage.getItem("token");
+import { getAuthHeaders, getToken } from "./token";
 
 class ServicioBusquedas {
   anadirBusquedaFav(favoritoAnadir) {
     return httpExterno.post(`/favoritos`,favoritoAnadir, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json"
       }
     });
@@ -16,7 +15,7 @@ class ServicioBusquedas {
     return httpExterno.delete(`/favoritos`, {
       data: favoritoEliminar,
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json"
       }
     });
@@ -24,9 +23,7 @@ class ServicioBusquedas {
 
   getBusquedasFavs(user) {
     return httpExterno.get(`/favoritos/${user}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      }
+      headers: getAuthHeaders(),
     })
   }
 

@@ -190,53 +190,7 @@ const Login = () => {
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black">
                             <div className="row g-0">
-                                <div id="form1" className="col-lg-6">
-                                    <div className="card-body p-md-5 mx-md-4">
-
-                                        <div className="text-center">
-                                            <img src="./imagenes/logoLogin.png"
-                                                style={{ width: 165 }} alt="logo" />
-                                            <h4 className="mt-1 mb-4 pb-1">Iniciar sesión</h4>
-                                        </div>
-
-                                        {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
-
-                                        <form onSubmit={handleSubmitLogin}>
-                                            <div data-mdb-input-init className="form-outline mb-4">
-                                                <label className="form-label" htmlFor="correoInicioSesion">Correo:</label>
-                                                <input type="email"
-                                                    className="form-control"
-                                                    placeholder="ainhoa@ejemplo.com"
-                                                    value={loginUsuario}
-                                                    onChange={(e) => setLoginUsuario(e.target.value)}
-                                                    required />
-                                            </div>
-
-                                            <div data-mdb-input-init className="form-outline mb-4">
-                                                <label className="form-label" htmlFor="constrasenaInicioSesion">Contraseña:</label>
-                                                <input type="password"
-                                                    className="form-control"
-                                                    placeholder="*******"
-                                                    value={loginPassword}
-                                                    onChange={(e) => setLoginPassword(e.target.value)}
-                                                    required
-                                                />
-                                            </div>
-
-                                            <div className="text-center mb-4">
-                                                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Iniciar sesión</button>
-                                            </div>
-
-                                            <div className="d-flex align-items-center justify-content-center">
-                                                <p className="mb-0 me-2">¿No tienes cuenta?</p>
-                                                <button onClick={() => cambioForm(false)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Registrate!</button>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-
-                                <div id="cortina" className="top-0 end-0 w-50 h-100 d-flex align-items-center z-3 position-absolute">
+                                <div id="cortina" className="top-0 end-0 w-50 h-100 d-flex align-items-center z-3 position-absolute d-none d-lg-block">
                                     <div className="px-3 py-4 p-md-5 mx-md-4">
                                         <h1>Comparator</h1>
                                         <h4 className="mb-4">Descubre la forma más inteligente de hacer la compra</h4>
@@ -244,61 +198,108 @@ const Login = () => {
                                             Crea tu cuenta para guardar tus cestas, realizar búsquedas personalizadas y encontrar siempre la mejor oferta.</p>
                                     </div>
                                 </div>
-                                <div id="form2" className="col-lg-6">
-                                    <div className="card-body p-md-5 mx-md-4">
-                                        <div className="text-center">
-                                            <img src="./imagenes/logoLogin.png"
-                                                style={{ width: 165 }} alt="logo" />
-                                            <h4 className="mt-1 mb-4 pb-1">Registrar una nueva cuenta:</h4>
+                                <div className="position-relative d-flex justify-content-lg-start justify-content-center">
+                                    <div id="login-form" className="col-lg-6 position-absolute position-lg-static form-visible">
+                                        <div className="card-body p-md-5 mx-md-4">
+
+                                            <div className="text-center">
+                                                <img src="./imagenes/logoLogin.png"
+                                                    style={{ width: 165 }} alt="logo" />
+                                                <h4 className="mt-1 mb-4 pb-1">Iniciar sesión</h4>
+                                            </div>
+
+                                            {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
+
+                                            <form onSubmit={handleSubmitLogin}>
+                                                <div data-mdb-input-init className="form-outline mb-4">
+                                                    <label className="form-label" htmlFor="correoInicioSesion">Correo:</label>
+                                                    <input type="email"
+                                                        className="form-control"
+                                                        placeholder="ainhoa@ejemplo.com"
+                                                        value={loginUsuario}
+                                                        onChange={(e) => setLoginUsuario(e.target.value)}
+                                                        required />
+                                                </div>
+
+                                                <div data-mdb-input-init className="form-outline mb-4">
+                                                    <label className="form-label" htmlFor="constrasenaInicioSesion">Contraseña:</label>
+                                                    <input type="password"
+                                                        className="form-control"
+                                                        placeholder="*******"
+                                                        value={loginPassword}
+                                                        onChange={(e) => setLoginPassword(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div className="text-center mb-4">
+                                                    <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Iniciar sesión</button>
+                                                </div>
+
+                                                <div className="d-flex align-items-center justify-content-center">
+                                                    <p className="mb-0 me-2">¿No tienes cuenta?</p>
+                                                    <button onClick={() => cambioForm(false)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Registrate!</button>
+                                                </div>
+                                            </form>
+
                                         </div>
-
-                                        {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
-
-                                        <form onSubmit={handleSignupSubmit}>
-                                            <div data-mdb-input-init className="form-outline mb-4">
-                                                <label className="form-label">Correo:</label>
-                                                <input
-                                                    type="email"
-                                                    className="form-control"
-                                                    placeholder="ainhoa@ejemplo.com"
-                                                    value={signupUsuario}
-                                                    onChange={(e) => setSignupUsuario(e.target.value)}
-                                                    required
-                                                />
+                                    </div>
+                                    <div id="registro-form" className="col-lg-6">
+                                        <div className="card-body p-md-5 mx-md-4">
+                                            <div className="text-center">
+                                                <img src="./imagenes/logoLogin.png"
+                                                    style={{ width: 165 }} alt="logo" />
+                                                <h4 className="mt-1 mb-4 pb-1">Registrar una nueva cuenta:</h4>
                                             </div>
 
-                                            <div data-mdb-input-init className="form-outline mb-4">
-                                                <label className="form-label">Contraseña:</label>
-                                                <input type="password"
-                                                    className="form-control"
-                                                    placeholder="*******"
-                                                    value={signupPassword}
-                                                    onChange={(e) => setSignupPassword(e.target.value)}
-                                                    required
-                                                />
-                                            </div>
+                                            {errorSignup && <div className="alert alert-danger">{errorSignup}</div>}
 
-                                            <div data-mdb-input-init className="form-outline mb-4">
-                                                <label className="form-label">Confirma la ontraseña:</label>
-                                                <input type="password"
-                                                    className="form-control"
-                                                    placeholder="*******"
-                                                    value={signupPasswordConfirm}
-                                                    onChange={(e) => setSignupPasswordConfirm(e.target.value)}
-                                                    required
-                                                />
-                                            </div>
+                                            <form onSubmit={handleSignupSubmit}>
+                                                <div data-mdb-input-init className="form-outline mb-4">
+                                                    <label className="form-label">Correo:</label>
+                                                    <input
+                                                        type="email"
+                                                        className="form-control"
+                                                        placeholder="ainhoa@ejemplo.com"
+                                                        value={signupUsuario}
+                                                        onChange={(e) => setSignupUsuario(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
 
-                                            <div className="text-center mb-4">
-                                                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Registrarse</button>
-                                            </div>
+                                                <div data-mdb-input-init className="form-outline mb-4">
+                                                    <label className="form-label">Contraseña:</label>
+                                                    <input type="password"
+                                                        className="form-control"
+                                                        placeholder="*******"
+                                                        value={signupPassword}
+                                                        onChange={(e) => setSignupPassword(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
 
-                                            <div className="d-flex align-items-center justify-content-center">
-                                                <p className="mb-0 me-2">Ya tienes una cuenta?</p>
-                                                <button onClick={() => cambioForm(true)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Inicia sesión!</button>
-                                            </div>
-                                        </form>
+                                                <div data-mdb-input-init className="form-outline mb-4">
+                                                    <label className="form-label">Confirma la ontraseña:</label>
+                                                    <input type="password"
+                                                        className="form-control"
+                                                        placeholder="*******"
+                                                        value={signupPasswordConfirm}
+                                                        onChange={(e) => setSignupPasswordConfirm(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
 
+                                                <div className="text-center mb-4">
+                                                    <button data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Registrarse</button>
+                                                </div>
+
+                                                <div className="d-flex align-items-center justify-content-center">
+                                                    <p className="mb-0 me-2">Ya tienes una cuenta?</p>
+                                                    <button onClick={() => cambioForm(true)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Inicia sesión!</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>

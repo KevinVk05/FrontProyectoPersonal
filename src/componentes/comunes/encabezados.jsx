@@ -2,7 +2,7 @@
 const Encabezado = ({ titulo, texto1, texto2, img }) => {
   return (
     <div>
-      <div className="header-box my-4 d-flex flex-column flex-md-row flex-wrap justify-content-between align-items-center rounded p-4">
+      <div className="header-box my-4 d-flex flex-wrap align-items-center rounded p-4 justify-content-center justify-content-lg-between">
         <div className="w-75">
           <h2 className="mb-3 fs-2">{titulo}</h2>
           <div className="mb-0">

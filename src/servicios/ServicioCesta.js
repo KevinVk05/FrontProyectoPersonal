@@ -1,13 +1,11 @@
 import httpExterno from "./http-externo";
-
-const token = localStorage.getItem("token");
+import { getAuthHeaders, getToken } from "./token";
 
 class ServicioCesta {
-
   anadirProdCesta(producto) {
     return httpExterno.post(`/cesta/agregar`, producto, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json",
       },
     });
@@ -17,7 +15,7 @@ class ServicioCesta {
     return httpExterno.delete(`/cesta/eliminar`, {
       data: producto,
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json",
       },
     });
@@ -25,9 +23,9 @@ class ServicioCesta {
 
   eliminarCesta(user) {
     return httpExterno.delete(`/cesta/eliminarCesta`, {
-      data: {nombreUsuario: user},
+      data: { nombreUsuario: user },
       headers: {
-        "Authorization": `Bearer ${token}`,
+        ...getAuthHeaders(),
         "Content-Type": "application/json",
       },
     });
@@ -35,9 +33,7 @@ class ServicioCesta {
 
   getProdsCesta(user) {
     return httpExterno.get(`/cesta/${user}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 }

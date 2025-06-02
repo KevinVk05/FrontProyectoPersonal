@@ -1,47 +1,39 @@
 import httpExterno from "./http-externo";
-import http from "./http-axios"
-
-const token = localStorage.getItem("token");
+import http from "./http-axios";
+import { getAuthHeaders } from "./token";
 
 class ServicioProductos {
   buscarProducto(nombre) {
     return httpExterno.get(`/productos/precioGranel/${nombre}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
     });
   }
 
-  prods(){
+  prods() {
     return http.get("/productos", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+      headers: getAuthHeaders(),
+    });
   }
 
-  prodsCesta(){
+  prodsCesta() {
     return http.get("/productosCesta", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+      headers: getAuthHeaders(),
+    });
   }
 
-  buscarProductoSupermercadosConcretos(nombre, supermercados){
-    return httpExterno.get(`/productos/precioGranel/${nombre}/${supermercados}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+  buscarProductoSupermercadosConcretos(nombre, supermercados) {
+    return httpExterno.get(
+      `/productos/precioGranel/${nombre}/${supermercados}`,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
   }
 
-  buscarCesta(correoUsuario){
+  buscarCesta(correoUsuario) {
     return httpExterno.get(`/productos/${correoUsuario}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+      headers: getAuthHeaders(),
+    });
   }
 }
 

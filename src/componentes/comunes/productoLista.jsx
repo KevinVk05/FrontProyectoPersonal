@@ -7,9 +7,8 @@ const ProductoLista = ({productos, eliminando, abrirModalEliminarProducto}) => {
             {productos.map((item, indexProd) => (
                 <div
                     key={indexProd}
-                    className={`product-card my-3${eliminando === obtenerIdProducto(item) ? ' fade-up' : ''}`}
+                    className={`product-card my-3 ${eliminando === obtenerIdProducto(item) ? 'fade-up' : ''}`}
                     id={obtenerIdProducto(item)}
-                    style={{ viewTransitionName: obtenerIdProducto(item) }}
                 >
                     <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between"
                         style={{
