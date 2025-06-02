@@ -23,7 +23,7 @@ const Comparador = () => {
 
   const titulo = "Comparator, tu comparador de confianza"
   const textoEncabezado1 = "Descubre la manera más fácil y eficiente de realizar tus compras online con nuestro comparador de precios entre supermercados. ¡Ahorra tiempo y dinero en tus compras!"
-  const textoEncabezado2 = "Busca un producto y lo compararemos entre varios supermercados"
+  const textoEncabezado2 = "Introduce tu producto y compara precios en segundos entre los principales supermercados."
 
   const {
     imagen,
@@ -43,9 +43,10 @@ const Comparador = () => {
   const realizarBusqueda = (nombreProducto) => {
     const productoABuscar = nombreProducto || producto
     if (!productoABuscar.trim()) {
+      setResultados([]);
       setError("Introduzca el nombre de un producto.")
     } else {
-      setLoading(true); 
+      setLoading(true);
 
       ServicioProductos.buscarProducto(productoABuscar.trim().toLowerCase()).then(respuesta => {
         if (respuesta.data && respuesta.data.length > 0) {
@@ -82,8 +83,8 @@ const Comparador = () => {
 
       <form className="d-flex flex-wrap justify-content-center gap-2" onSubmit={manejarSubmit}>
         <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
-          <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)} 
-          alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+          <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)}
+            alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
         </div>
         <input
           type="text"

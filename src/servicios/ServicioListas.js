@@ -3,15 +3,12 @@ import { getAuthHeaders, getToken } from "./token";
 
 class ServicioListas {
   getListas() {
-    console.log(getToken());
     return httpExterno.get(`/listas/todas`, {
       headers: getAuthHeaders(),
     });
   }
 
   getListasVisibles() {
-    console.log(getToken());
-
     return httpExterno.get(`/listas/visibles`, {
       headers: getAuthHeaders(),
     });
