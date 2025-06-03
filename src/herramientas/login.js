@@ -17,3 +17,9 @@ export function toggle() {
     registro.classList.add("form-visible");
   }
 }
+
+
+export const esEmailValido = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};

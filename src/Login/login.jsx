@@ -3,12 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
-import { toggle } from "../herramientas/login";
+import { esEmailValido, toggle } from "../herramientas/login";
 
 const BLOQUEO_KEY = 'loginBloqueadoHasta';
 const INTENTOS_KEY = 'intentosFallidos';
-const TIEMPO_BLOQUEO_MS = 5 * 60 * 1000;
-const MAX_INTENTOS = 3;
+const TIEMPO_BLOQUEO_MS = 3 * 60 * 1000;
+const MAX_INTENTOS = 5;
 
 const Login = () => {
 
@@ -63,12 +63,6 @@ const Login = () => {
         }, 1000);
     };
 
-    const esEmailValido = (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        console.log(regex.test(email))
-        return regex.test(email);
-    };
-
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
 
@@ -78,7 +72,6 @@ const Login = () => {
         }
 
         if (bloqueado) {
-            setErrorLogin(`Has alcanzado el maximo de intentos. Intenta de nuevo en ${tiempoRestante} segundos.`);
             return;
         }
 
@@ -106,7 +99,7 @@ const Login = () => {
                 setBloqueado(true);
                 setTiempoRestante(TIEMPO_BLOQUEO_MS / 1000);
                 iniciarTemporizador(bloqueoHasta);
-                setErrorLogin(`Has alcanzado el máximo de intentos. Vuelva a intentarlo en 5 minutos.`);
+                setErrorLogin(`Has alcanzado el máximo de intentos. Vuelva a intentarlo en 3 minutos.`);
 
             } else {
                 if (error.response && error.response.data) {
@@ -114,7 +107,6 @@ const Login = () => {
                 } else {
                     setErrorLogin('Error de conexión');
                 }
-
             }
         };
     }
@@ -209,6 +201,14 @@ const Login = () => {
                                             </div>
 
                                             {errorLogin && <div className="alert alert-danger">{errorLogin}</div>}
+                                            {bloqueado && (
+                                                <div className="alert alert-warning mt-3">
+                                                    Has alcanzado el máximo de intentos. Intenta de nuevo en <b>
+                                                        {Math.floor(tiempoRestante / 60)}:{(tiempoRestante % 60).toString().padStart(2, '0')}
+                                                    </b> minutos.
+                                                </div>
+                                            )}
+
 
                                             <form onSubmit={handleSubmitLogin}>
                                                 <div data-mdb-input-init className="form-outline mb-4">
