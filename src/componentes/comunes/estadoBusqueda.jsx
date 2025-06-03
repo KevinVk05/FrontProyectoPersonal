@@ -5,8 +5,8 @@ const EstadoBusqueda = ({ loading, error, resultados, tipo }) => {
             {!loading && !error && resultados.length === 0 && (
                 <div>
                     {tipo === "COMPARADOR" && (
-                        <div className="text-center py-5 my-5">
-                            <img src="/imagenes/estadoBusqueda/buscador.png" alt="Empieza la búsqueda" className='w-25' />
+                        <div className="text-center py-5 my-2">
+                            <img src="/imagenes/estadoBusqueda/buscador.png" alt="Empieza la búsqueda" style={{ width: "15%" }}  />
                             <div className='textoEstado fw-semibold'>!Empieza ya la búsqueda!</div>
                         </div>
                     )}

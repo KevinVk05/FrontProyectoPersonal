@@ -34,8 +34,9 @@ const AdministrarListas = () => {
 
     return (
         <div className="container py-4">
+            {console.log(listas)}
             <Encabezado titulo={titulo} texto1={textoEncabezado1} texto2={textoEncabezado2} img={"imagenes/compra.png"} />
-            <AnadirListas />
+            <AnadirListas setListas={setListas}/>
             <Listas listas={listas} setListas={setListas} setError={setError} loading={loading} error={error}/>
         </div>
     )

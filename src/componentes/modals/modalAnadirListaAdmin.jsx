@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import ServicioListas from "../../servicios/ServicioListas"
 
-const ModalAnadirListaAdmin = ({ onClose }) => {
+const ModalAnadirListaAdmin = ({ onClose, setListas }) => {
 
     const [error, setError] = useState("")
     const [nombreLista, setNombreLista] = useState("")
@@ -9,7 +9,8 @@ const ModalAnadirListaAdmin = ({ onClose }) => {
     const anadirLista = (e) => {
         e.preventDefault()
         if (nombreLista.length > 0) {
-            ServicioListas.crearLista(nombreLista).then(() => {
+            ServicioListas.crearLista(nombreLista).then((response) => {
+                //setListas( prevLista => [...prevLista, response])
                 onClose()
             }).catch((error) => {
                 if (error.response && error.response.data) {

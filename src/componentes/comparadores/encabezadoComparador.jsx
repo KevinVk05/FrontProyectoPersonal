@@ -6,7 +6,7 @@ const EncabezadoComparador = ({ titulo, texto1, texto2, img }) => {
         <div className="w-75">
           <h2 className="mb-3 fs-2">{titulo}</h2>
           <div className="mb-0">
-            {texto1} <br /> <br />
+            {texto1} <br />
             <span className="fw-medium">¡Ahorra tiempo y dinero en tus compras! ¿No sabes por dónde empezar? Explora nuestras 
                 <a className="text-primary text-decoration-none fw-bold" href="#listas-prediseñadas"> listas prediseñadas </a> 
                  y encuentra la opción perfecta para una compra inteligente y económica.</span>

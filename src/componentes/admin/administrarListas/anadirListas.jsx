@@ -2,7 +2,7 @@ import { useState } from "react"
 import Modal from "../../modals/modal"
 import ModalAnadirListaAdmin from "../../modals/modalAnadirListaAdmin"
 
-const AnadirListas = () => {
+const AnadirListas = ({ setListas}) => {
 
     const [childrenModal, setChildrenModal] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -13,7 +13,7 @@ const AnadirListas = () => {
     }
 
     const anadirLista = () => {
-        setChildrenModal(<ModalAnadirListaAdmin onClose={closeModal}/>)
+        setChildrenModal(<ModalAnadirListaAdmin onClose={closeModal} setListas={setListas}/>)
         openModal()
     }
 
