@@ -16,7 +16,7 @@ const EstadoBusqueda = ({ loading, error, resultados, tipo }) => {
                             <div className='textoEstado fw-semibold'>No se han encontrado productos en la cesta.</div>
                         </div>
                     )}
-                    {tipo === "LISTASPREDETERMINADAS" && (
+                    {(tipo === "LISTASPREDETERMINADAS" || tipo === "LISTAS")  && (
                         <div className="d-flex justify-content-center my-5">
                             <div className='alert alert-danger text-center w-50'>
                                 No se ha encontrado ninguna lista.

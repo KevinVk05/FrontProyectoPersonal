@@ -2,10 +2,9 @@ import { useState } from 'react';
 import ServicioProductos from '../../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../estilos/comparador.css"
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos } from '../../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos, scrollResultados } from '../../herramientas/general';
 import { useAuth } from '../../Login/AuthProvider';
 import { useFavoritos } from '../../hooks/useFavoritos';
-import Encabezado from '../comunes/encabezados';
 import BusquedasFavoritas from '../comunes/busquedasFavoritas';
 import ResultadoBusqueda from './resultadoBusqueda';
 import ListasPredeterminadas from './listasPredeterminadas';
@@ -55,15 +54,12 @@ const Comparador = () => {
           setError(null);
           setLoading(false);
           comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
-          window.scrollTo({ top: 500, behavior: 'smooth' });
+          scrollResultados()
         } else {
-          setTimeout(() => {
-            setError('No se encontraron productos.');
-            setResultados([]);
-            setLoading(false);
-          }, 1000);
+          setError('No se encontraron productos.');
+          setResultados([]);
+          setLoading(false);
         }
-        console.log(respuesta)
       }).catch((error) => {
         setError('Ha ocurrido un error con la conexión');
         setResultados([]);
@@ -109,6 +105,7 @@ const Comparador = () => {
       <ResultadoBusqueda producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
 
       <ListasPredeterminadas />
+
     </div>
   );
 };

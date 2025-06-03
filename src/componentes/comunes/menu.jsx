@@ -23,7 +23,7 @@ const MenuSuperior = () => {
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark px-3 menu-superior" >
+    <nav className="navbar navbar-expand-lg navbar-dark px-3 menu-superior fixed-top" >
       <Link className="navbar-brand" to="/">
         <img
           src="/imagenes/logo-menu.png"

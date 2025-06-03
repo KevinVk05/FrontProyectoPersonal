@@ -44,19 +44,19 @@ export const comprobarSiEstanEnLaCesta = (
 };
 
 export const comprobarSiProdListaEstanEnLaCesta = async (productos, user) => {
-    try {
-        const respuesta = await ServicioCesta.getProdsCesta(user);
-        const productosEnCesta = respuesta.data?.productos || [];
-        return productos.map(prod => ({
-            ...prod,
-            enLaCesta: productosEnCesta.some(p => 
-                p.nombre === prod.producto.nombre && 
-                p.supermercado === prod.producto.supermercado
-            )
-        }));
-    } catch (error) {
-        return productos;
-    }
+  try {
+    const respuesta = await ServicioCesta.getProdsCesta(user);
+    const productosEnCesta = respuesta.data?.productos || [];
+    return productos.map(prod => ({
+      ...prod,
+      enLaCesta: productosEnCesta.some(p =>
+        p.nombre === prod.producto.nombre &&
+        p.supermercado === prod.producto.supermercado
+      )
+    }));
+  } catch (error) {
+    return productos;
+  }
 };
 
 export const cambiarImgFavoritos = (imagen, setImagen) => {
@@ -140,3 +140,10 @@ export const manejarFavoritos = (
 export const listaConResultados = (lista) => {
   return Object.values(lista).some((arr) => arr.length > 0) || [];
 };
+
+
+export const scrollResultados = () => {
+  setTimeout(() => {
+    window.scrollTo({ top: 750, behavior: 'smooth' });
+  }, 500);
+}

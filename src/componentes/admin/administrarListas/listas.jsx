@@ -7,7 +7,7 @@ const Listas = ({ listas, setListas, setError, loading, error }) => {
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listas}/>
+            <EstadoBusqueda loading={loading} error={error} resultados={listas} tipo={"LISTAS"}/>
             <ResultadosListas listas={listas} setListas={setListas} setError={setError}/>
         </div>
     )

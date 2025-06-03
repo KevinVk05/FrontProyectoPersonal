@@ -2,7 +2,6 @@ import Comparador from './componentes/comparadores/comparador'
 import Comparador2 from './componentes/comparadores/comparador2'
 
 import { Routes, Route } from 'react-router-dom';
-import UseStorageState from './servicios/UseStorageState';
 import { AuthProvider, useAuth } from './Login/AuthProvider';
 import Login from './Login/login';
 import RutasProtegidas from './Login/RutasProtegidas';
@@ -12,22 +11,20 @@ import MenuSuperior from './componentes/comunes/menu';
 import Pagina404 from './componentes/comunes/Pagina404';
 import RutasAdminProtegida from './Login/RutasAdminProtegidas';
 import ComparadorAdmin from './componentes/admin/comparadorProductosAdmin.jsx/comparadorAdmin';
+import BotonScroll from './componentes/comunes/botonScroll';
 
 
 function App() {
 
-  const [total, setTotal] = UseStorageState("total", 0); // Estado para el importe total
-  const [productosJson, setProductosJson] = UseStorageState("porductosJson", []);
-
   return (
 
     <AuthProvider>
-
       <div className="App">
         <header className="App-header">
           <MenuSuperior />
         </header>
-        <main>
+        <main className='pt-5'>
+
           <Routes>
             <Route
               path="/login"
@@ -39,6 +36,7 @@ function App() {
               element={
                 <RutasProtegidas>
                   <Comparador />
+                  <BotonScroll />
                 </RutasProtegidas>
               }
             />
@@ -48,6 +46,7 @@ function App() {
               element={
                 <RutasAdminProtegida>
                   <AdministrarListas />
+                  <BotonScroll />
                 </RutasAdminProtegida>
               }
             />
@@ -57,6 +56,7 @@ function App() {
               element={
                 <RutasAdminProtegida>
                   <ComparadorAdmin />
+                  <BotonScroll />
                 </RutasAdminProtegida>
               }
             />
@@ -64,19 +64,18 @@ function App() {
             <Route path="/comparador2" element={
               <RutasProtegidas>
                 <Comparador2 />
+                <BotonScroll />
               </RutasProtegidas>
             } />
 
             <Route path="/cestaCompra" element={
               <RutasProtegidas>
                 <CestaCompra />
+                <BotonScroll />
               </RutasProtegidas>
             } />
 
-
             <Route path="*" element={<Pagina404 />} />
-
-
 
           </Routes>
         </main>

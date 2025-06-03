@@ -18,14 +18,12 @@ const ListasPredeterminadas = () => {
             try {
                 setLoading(true);
                 const respuesta = await ServicioListas.getListasVisibles();
-                console.log(respuesta.data)
                 const listasActualizadas = await Promise.all(
                     respuesta.data.map(async (lista) => ({
                         ...lista,
                         listaProductos: await comprobarSiProdListaEstanEnLaCesta(lista.listaProductos, user)
                     }))
                 );
-
                 setListas(listasActualizadas);
             } catch (error) {
                 setError("Ha ocurrido un error recuperando las listas predeterminadas");
@@ -33,7 +31,6 @@ const ListasPredeterminadas = () => {
                 setLoading(false);
             }
         };
-
         cargarListas();
     }, [])
 
@@ -42,6 +39,7 @@ const ListasPredeterminadas = () => {
             <section className="search-section shadow-sm rounded p-3 mt-4">
                 <p className="mb-0 fs-5 fw-bold text-center">Haz tu compra más sencilla y barata con nuestras listas predeterminadas, pensadas para cubrir todas tus necesidades.</p>
             </section>
+            {console.log(listas)}
             <EstadoBusqueda error={error} loading={loading} resultados={listas} tipo={"LISTASPREDETERMINADAS"} />
             {listas.length > 0 && (
                 <section className='p-3 shadow-sm border rounded'>
