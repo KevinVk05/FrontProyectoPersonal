@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import ServicioUsuario from '../servicios/ServicioUsuario';
-import { esEmailValido, toggle } from "../herramientas/login";
+import { cambioForm, esEmailValido, iniciarTemporizador } from "../herramientas/login";
 
 const BLOQUEO_KEY = 'loginBloqueadoHasta';
 const INTENTOS_KEY = 'intentosFallidos';
@@ -39,7 +39,7 @@ const Login = () => {
             if (bloqueoHasta > ahora) {
                 setBloqueado(true);
                 setTiempoRestante(Math.ceil((bloqueoHasta - ahora) / 1000));
-                iniciarTemporizador(bloqueoHasta);
+                iniciarTemporizador(bloqueoHasta, intervaloRef, setBloqueado, setTiempoRestante)
             } else {
                 localStorage.removeItem(BLOQUEO_KEY);
                 localStorage.removeItem(INTENTOS_KEY);
@@ -47,21 +47,6 @@ const Login = () => {
         }
         return () => clearInterval(intervaloRef.current);
     }, []);
-
-    const iniciarTemporizador = (finBloqueo) => {
-        intervaloRef.current = setInterval(() => {
-            const ahora = Date.now();
-            if (finBloqueo <= ahora) {
-                setBloqueado(false);
-                setTiempoRestante(0);
-                localStorage.removeItem(BLOQUEO_KEY);
-                localStorage.removeItem(INTENTOS_KEY);
-                clearInterval(intervaloRef.current);
-            } else {
-                setTiempoRestante(Math.ceil((finBloqueo - ahora) / 1000));
-            }
-        }, 1000);
-    };
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
@@ -96,11 +81,10 @@ const Login = () => {
             if (intentos >= MAX_INTENTOS) {
                 const bloqueoHasta = Date.now() + TIEMPO_BLOQUEO_MS;
                 localStorage.setItem(BLOQUEO_KEY, bloqueoHasta);
+                setErrorLogin("")
                 setBloqueado(true);
                 setTiempoRestante(TIEMPO_BLOQUEO_MS / 1000);
-                iniciarTemporizador(bloqueoHasta);
-                setErrorLogin(`Has alcanzado el máximo de intentos. Vuelva a intentarlo en 3 minutos.`);
-
+                iniciarTemporizador(bloqueoHasta, intervaloRef, setBloqueado, setTiempoRestante)
             } else {
                 if (error.response && error.response.data) {
                     setErrorLogin(error.response.data);
@@ -160,19 +144,6 @@ const Login = () => {
                 setErrorSignup("Error al registrar usuario");
             }
         }
-    }
-
-    const cambioError = (esLogIn) => {
-        if (esLogIn) {
-            setErrorSignup("")
-        } else {
-            setErrorLogin("")
-        }
-    }
-
-    const cambioForm = (esLogIn) => {
-        toggle()
-        cambioError(esLogIn)
     }
 
     return (
@@ -238,7 +209,7 @@ const Login = () => {
 
                                                 <div className="d-flex align-items-center justify-content-center">
                                                     <p className="mb-0 me-2">¿No tienes cuenta?</p>
-                                                    <button onClick={() => cambioForm(false)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Registrate!</button>
+                                                    <button onClick={() => cambioForm(false, setErrorSignup, setErrorLogin)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Registrate!</button>
                                                 </div>
                                             </form>
 
@@ -295,7 +266,7 @@ const Login = () => {
 
                                                 <div className="d-flex align-items-center justify-content-center">
                                                     <p className="mb-0 me-2">Ya tienes una cuenta?</p>
-                                                    <button onClick={() => cambioForm(true)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Inicia sesión!</button>
+                                                    <button onClick={() => cambioForm(true, setErrorSignup, setErrorLogin)} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-danger">¡Inicia sesión!</button>
                                                 </div>
                                             </form>
 

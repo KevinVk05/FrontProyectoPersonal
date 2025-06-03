@@ -7,8 +7,8 @@ import ServicioListas from "../../../servicios/ServicioListas";
 const AdministrarListas = () => {
 
     const titulo = "Administra las listas predeterminadas"
-    const textoEncabezado1 = "Selecciona las listas que los usuarios podrán visualizar, añade y elimina productos de las listas predeterminadas."
-    const textoEncabezado2 = "Customiza las listas:"
+    const textoEncabezado1 = "Selecciona las listas que los usuarios podrán visualizar. Añade y elimina productos de las listas prediseñadas."
+    const textoEncabezado2 = "Comienza a editarlas:"
 
     const [listas, setListas] = useState([]);
     const [error, setError] = useState(null);

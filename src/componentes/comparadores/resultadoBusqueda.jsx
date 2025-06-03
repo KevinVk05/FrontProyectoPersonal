@@ -5,7 +5,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={resultados} />
+            <EstadoBusqueda loading={loading} error={error} resultados={resultados} tipo={"COMPARADOR"}/>
             {resultados.length > 0 && !loading && (
                 <section className="p-3">
                     <p className="text-center p-4 fs-4">Producto comparado: {producto}</p>

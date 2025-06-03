@@ -1,6 +1,5 @@
 import Encabezado from '../comunes/encabezados';
 import Cesta from './cesta';
-import ResultadosCesta from './resultadosCesta';
 
 const CestaCompra = () => {
 

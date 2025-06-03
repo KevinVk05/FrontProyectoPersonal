@@ -53,7 +53,7 @@ const Cesta = () => {
 
     return (
         <div>
-            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados(productosPorSupermercado)} />
+            <EstadoBusqueda loading={loading} error={error} resultados={listaConResultados(productosPorSupermercado)} tipo={"CESTA"}/>
             <ResultadosCesta productosPorSupermercado={productosPorSupermercado} setProductosPorSupermercado={setProductosPorSupermercado}/>
         </div>
     )

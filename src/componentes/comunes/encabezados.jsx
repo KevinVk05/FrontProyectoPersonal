@@ -12,8 +12,7 @@ const Encabezado = ({ titulo, texto1, texto2, img }) => {
         <img
           src={img}
           alt="Logo Comparador"
-          className="ms-3"
-
+          className="m-3"
           style={{width: '170px'}}
         />
       </div>

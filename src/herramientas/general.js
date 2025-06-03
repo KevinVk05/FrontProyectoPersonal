@@ -47,17 +47,15 @@ export const comprobarSiProdListaEstanEnLaCesta = async (productos, user) => {
     try {
         const respuesta = await ServicioCesta.getProdsCesta(user);
         const productosEnCesta = respuesta.data?.productos || [];
-        
         return productos.map(prod => ({
             ...prod,
             enLaCesta: productosEnCesta.some(p => 
-                p.nombre === prod.nombre && 
-                p.supermercado === prod.supermercado
+                p.nombre === prod.producto.nombre && 
+                p.supermercado === prod.producto.supermercado
             )
         }));
     } catch (error) {
-        console.error("Error al verificar la cesta:", error);
-        return productos; // Devuelve los productos sin modificar en caso de error
+        return productos;
     }
 };
 

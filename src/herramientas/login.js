@@ -18,8 +18,35 @@ export function toggle() {
   }
 }
 
-
 export const esEmailValido = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
+};
+
+export const cambioForm = (esLogIn, setErrorSignup, setErrorLogin) => {
+  toggle()
+  cambioError(esLogIn, setErrorSignup, setErrorLogin)
+}
+
+export const cambioError = (esLogIn, setErrorSignup, setErrorLogin) => {
+  if (esLogIn) {
+    setErrorSignup("")
+  } else {
+    setErrorLogin("")
+  }
+}
+
+export const iniciarTemporizador = (finBloqueo, intervaloRef, setBloqueado, setTiempoRestante) => {
+  intervaloRef.current = setInterval(() => {
+    const ahora = Date.now();
+    if (finBloqueo <= ahora) {
+      setBloqueado(false);
+      setTiempoRestante(0);
+      localStorage.removeItem(BLOQUEO_KEY);
+      localStorage.removeItem(INTENTOS_KEY);
+      clearInterval(intervaloRef.current);
+    } else {
+      setTiempoRestante(Math.ceil((finBloqueo - ahora) / 1000));
+    }
+  }, 1000);
 };

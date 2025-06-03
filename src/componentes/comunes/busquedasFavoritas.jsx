@@ -28,7 +28,7 @@ const BusquedasFavoritas = ({setError, hacerBusquedaFavorita, cambioBusquedasFav
     return (
         <div>
             {busquedasFavs.length > 0 && (
-                <div className="d-flex flex-wrap px-1 my-5 align-items-center justify-content-center gap-2">
+                <div className="d-flex flex-wrap px-1 my-4 align-items-center justify-content-center gap-2">
                     <div>Búsquedas favoritas: </div>
                     {busquedasFavs.map((busqueda, index) => (
                         <button key={index} className="btn btn-light border">

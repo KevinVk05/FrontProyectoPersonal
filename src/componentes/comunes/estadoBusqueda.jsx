@@ -1,23 +1,39 @@
-const EstadoBusqueda = ({loading, error, resultados}) => {
-    
+const EstadoBusqueda = ({ loading, error, resultados, tipo }) => {
+
     return (
         <div>
             {!loading && !error && resultados.length === 0 && (
-                <div className="text-center py-5">
-                    <img src="/imagenes/buscador.png" alt="Empieza la búsqueda" className='w-25' />
-                    <div className='textoCarrito fw-semibold'>!Empieza ya la búsqueda!</div>
+                <div>
+                    {tipo === "COMPARADOR" && (
+                        <div className="text-center py-5 my-5">
+                            <img src="/imagenes/estadoBusqueda/buscador.png" alt="Empieza la búsqueda" className='w-25' />
+                            <div className='textoEstado fw-semibold'>!Empieza ya la búsqueda!</div>
+                        </div>
+                    )}
+                    {tipo === "CESTA" && (
+                        <div className="text-center py-5 my-5">
+                            <img src="/imagenes/estadoBusqueda/cestaVacia.png" alt="Empieza la búsqueda" style={{ width: "18%" }} />
+                            <div className='textoEstado fw-semibold'>No se han encontrado productos en la cesta.</div>
+                        </div>
+                    )}
+                    {tipo === "LISTASPREDETERMINADAS" && (
+                        <div className="d-flex justify-content-center my-5">
+                            <div className='alert alert-danger text-center w-50'>
+                                No se ha encontrado ninguna lista.
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
 
             {loading && (
-                <div className="text-center my-4">
-                    <img src="/imagenes/loading.gif" alt="Cargando..." className='loading' style={{height: 130}}/>
+                <div className="text-center my-4 py-2">
+                    <img src="/imagenes/loading.gif" alt="Cargando..." className='loading' style={{ height: 130 }} />
                 </div>
             )}
 
-            {/* Error */}
             {error && !loading && (
-                <div className="d-flex justify-content-center my-4">
+                <div className="d-flex justify-content-center my-4 py-2">
                     <div className='alert alert-danger text-center w-50'>
                         {error}
                     </div>

@@ -7,7 +7,7 @@ import "../../estilos/menu.css"
 const MenuSuperior = () => {
 
   const { user, logout, esAdmin } = useAuth();
-  console.log("Admin es: " + esAdmin)
+  const handleNavLinkClick = () => setIsNavbarCollapsed(true);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -57,22 +57,23 @@ const MenuSuperior = () => {
               {esAdmin === true ? (
                 <>
                   <li className="nav-item mx-2">
-                    <Link className="nav-link" to="/administrarListas">Administrar Listas</Link>
-                  </li>
-                  <li className="nav-item mx-2 d-flex align-items-center">
-                    <Link className="nav-link" to="/comparadorAdmin">Comparador admin</Link>
+                    <Link className="nav-link" to="/administrarListas"
+                    onClick={() => setIsNavbarCollapsed(true)}>Administrar Listas</Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li className="nav-item mx-2">
-                    <Link className="nav-link" to="/">Comparador de supermercados</Link>
+                    <Link className="nav-link" to="/"
+                    onClick={handleNavLinkClick}>Comparador de supermercados</Link>
                   </li>
                   <li className="nav-item mx-2">
-                    <Link className="nav-link" to="/comparador2">Comparador entre 2 supermercados</Link>
+                    <Link className="nav-link" to="/comparador2"
+                    onClick={handleNavLinkClick}>Comparador entre 2 supermercados</Link>
                   </li>
                   <li className="nav-item mx-2 d-flex align-items-center">
-                    <Link className="nav-link" to="/cestaCompra">Cesta de la compra</Link>
+                    <Link className="nav-link" to="/cestaCompra"
+                    onClick={handleNavLinkClick}>Cesta de la compra</Link>
                   </li>
                   <li className="nav-item mx-2 d-flex align-items-center">
                     <span className="saludo nav-link">Hola, {userAcortado()}</span>

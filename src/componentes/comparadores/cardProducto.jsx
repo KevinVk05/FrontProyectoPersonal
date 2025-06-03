@@ -1,10 +1,9 @@
 import { anadirProdCesta, eliminarProdCesta } from "../../herramientas/comparadores";
 import { useAuth } from "../../Login/AuthProvider";
 
-const CardProducto = ({ item, setResultados, resultados, setError}) => {
+const CardProducto = ({ item, enLaCesta, setResultados, resultados, setError}) => {
     
     const {user} = useAuth();
-
     return (
         
         <div className="card p-3 shadow-sm h-100 d-flex flex-column justify-content-between" style={{ width: 250 }}>
@@ -30,10 +29,11 @@ const CardProducto = ({ item, setResultados, resultados, setError}) => {
                 <p>
                     Precio a granel: <strong>{item.precioGranel} €/{item.unidadMedida}</strong>
                 </p>
-                {!item.enLaCesta ? (
-                    <button type="button" onClick={() => anadirProdCesta(item, setResultados, resultados, setError, user)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la cesta</button>
+
+                {!enLaCesta ? (
+                    <button type="button" onClick={() => anadirProdCesta(item, setResultados, resultados, setError, user, true)} className='mt-auto mx-auto p-2 btn btn-success'>Añadir a la cesta</button>
                 ) : (
-                    <button type="button" onClick={() => eliminarProdCesta(item, setResultados, resultados, setError, user)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la cesta</button>
+                    <button type="button" onClick={() => eliminarProdCesta(item, setResultados, resultados, setError, user, true)} className='mt-auto mx-auto p-2 btn btn-danger'>Eliminar de la cesta</button>
                 )
                 }
             </div>
