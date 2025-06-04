@@ -82,11 +82,11 @@ const MenuSuperior = () => {
                   <li className="nav-item mx-2 d-flex align-items-center">
                     <span className="saludo nav-link">Hola, {userAcortado()}</span>
                   </li>
-                  <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
+                  {/* <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
                     <div
                       className="btn-carrito">
                     </div>
-                  </li>
+                  </li> */}
                 </>
               )}
               <li className="nav-item d-flex align-items-center justify-content-center m-2" style={{ width: 32, height: 32 }}>
