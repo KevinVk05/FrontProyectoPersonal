@@ -7,7 +7,6 @@ import Encabezado from '../../comunes/encabezados';
 import ResultadoBusquedaAdmin from './resultadoBusquedaAdmin';
 import { useParams } from 'react-router-dom';
 import { comprobarSiEstanEnLaLista } from '../../../herramientas/listasAdministrador';
-import BotonScroll from '../../comunes/botonScroll';
 
 const ComparadorAdmin = () => {
 
@@ -85,7 +84,6 @@ const ComparadorAdmin = () => {
             </form>
 
             <ResultadoBusquedaAdmin nombreLista={nombreLista} producto={producto} resultados={filtrarPorSupermercado(resultados, supermercadoSeleccionado)} setResultados={setResultados} loading={loading} error={error} setError={setError} />
-            <BotonScroll />
         </div>
     );
 }

@@ -12,7 +12,7 @@ const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error
                     <div className='d-flex flex-wrap justify-content-center align-items-stretch gap-3'>
                         {resultados.map((item, index) => (
                             <div key={index} className="product-card mb-3 shadow-sm">
-                                <CardProducto item={item} setError={setError} setResultados={setResultados} resultados={resultados} />
+                                <CardProducto item={item} setError={setError} setResultados={setResultados} resultados={resultados} prodPerteneceListaPred={false}/>
                             </div>
                         ))}
                     </div>

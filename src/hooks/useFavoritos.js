@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ServicioBusquedas from "../servicios/ServicioBusquedas";
 import { cambiarImgFavoritos } from "../herramientas/general";
+import ServicioBusquedasFavoritas from "../servicios/ServicioBusquedasFavoritas";
 
 export const useFavoritos = (setError) => {
   const [imagen, setImagen] = useState("/imagenes/fav1.png");
@@ -11,7 +11,7 @@ export const useFavoritos = (setError) => {
     setCambioBusquedasFavoritas
   ) => {
     try {
-      await ServicioBusquedas.eliminarBusquedaFav(busquedaFavEliminar);
+      await ServicioBusquedasFavoritas.eliminarBusquedaFav(busquedaFavEliminar);
       cambiarImgFavoritos(imagen, setImagen);
       setFavoritoGuardado(false);
       setCambioBusquedasFavoritas(Math.random());
@@ -25,7 +25,7 @@ export const useFavoritos = (setError) => {
     setCambioBusquedasFavoritas
   ) => {
     try {
-      await ServicioBusquedas.anadirBusquedaFav(busquedaFavAnadir);
+      await ServicioBusquedasFavoritas.anadirBusquedaFav(busquedaFavAnadir);
       cambiarImgFavoritos(imagen, setImagen);
       setFavoritoGuardado(true);
       setCambioBusquedasFavoritas(Math.random());

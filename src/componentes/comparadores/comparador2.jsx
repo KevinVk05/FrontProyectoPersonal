@@ -92,7 +92,7 @@ const Comparador2 = () => {
             className="form-control w-50"
             placeholder="Busca el producto"
             value={producto}
-            onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen)}
+            onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen, user)}
           />
           <button type="submit" className="btn btn-success">Buscar</button>
           <select value={super1} onChange={(e) => setSuper1(e.target.value)} className="form-select" style={{ width: "30%" }}>
