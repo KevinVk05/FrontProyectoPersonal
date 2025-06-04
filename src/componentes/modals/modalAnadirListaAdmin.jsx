@@ -10,7 +10,7 @@ const ModalAnadirListaAdmin = ({ onClose, setListas }) => {
         e.preventDefault()
         if (nombreLista.length > 0) {
             ServicioListas.crearLista(nombreLista).then((response) => {
-                //setListas( prevLista => [...prevLista, response])
+                setListas(prevLista => [...prevLista, response.data])
                 onClose()
             }).catch((error) => {
                 if (error.response && error.response.data) {

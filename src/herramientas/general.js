@@ -104,7 +104,7 @@ export const handleInputChange = async (
   user
 ) => {
   setProducto(e.target.value);
-  console.log(favoritoGuardado)
+
   if (favoritoGuardado) {
     cambiarImgFavoritos(imagen, setImagen);
   }
@@ -115,7 +115,7 @@ export const handleInputChange = async (
   }
 
   const esFav = await comprobarEsFav(prod)
-  
+
   if (esFav) {
     setFavoritoGuardado(true)
     cambiarImgFavoritos(imagen, setImagen);
