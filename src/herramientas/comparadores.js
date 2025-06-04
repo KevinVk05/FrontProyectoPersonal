@@ -36,11 +36,6 @@ export const eliminarProdCesta = (item, setResultados, resultados, setError, use
 }
 
 export const modificarResultadosCestaProdBuscador = (item, resultados, seEncuentra) => {
-    console.log(resultados.map(prod =>
-        prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precio === item.precio
-            ? { ...prod, enLaCesta: seEncuentra }
-            : prod
-    ))
     return resultados.map(prod =>
         prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precio === item.precio
             ? { ...prod, enLaCesta: seEncuentra }

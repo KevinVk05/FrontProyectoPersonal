@@ -37,8 +37,6 @@ export const comprobarSiEstanEnLaLista = (
   ServicioListas.getListaPorNombre(nombreLista)
     .then((respuesta) => {
       const productosEnLista = respuesta.data?.productos || [];
-      console.log(productosTotal)
-      console.log(respuesta.data.productos)
       const productosActualizados = productosTotal.map((prodResultado) => {
         const enLaLista = productosEnLista.some(
           (prodLista) =>
@@ -53,7 +51,6 @@ export const comprobarSiEstanEnLaLista = (
         };
       });
 
-      console.log(productosActualizados)
       setResultados(productosActualizados);
     })
     .catch(() => {

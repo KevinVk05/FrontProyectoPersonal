@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Login/AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const MenuSuperior = () => {
 
   const handleLogout = () => {
     logout();
-    //localStorage.removeItem('token'); // Elimina el token
+    setIsNavbarCollapsed(true)
     navigate('/login');
   };
 
@@ -21,6 +21,10 @@ const MenuSuperior = () => {
     return userMostrar
   }
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
+
+  useEffect(() => {
+    setIsNavbarCollapsed(true)
+  }, [])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark px-3 menu-superior fixed-top" >
@@ -58,22 +62,22 @@ const MenuSuperior = () => {
                 <>
                   <li className="nav-item mx-2">
                     <Link className="nav-link" to="/administrarListas"
-                    onClick={() => setIsNavbarCollapsed(true)}>Administrar Listas</Link>
+                      onClick={() => setIsNavbarCollapsed(true)}>Administrar Listas</Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li className="nav-item mx-2">
                     <Link className="nav-link" to="/"
-                    onClick={handleNavLinkClick}>Comparador de supermercados</Link>
+                      onClick={handleNavLinkClick}>Comparador de supermercados</Link>
                   </li>
                   <li className="nav-item mx-2">
                     <Link className="nav-link" to="/comparador2"
-                    onClick={handleNavLinkClick}>Comparador entre 2 supermercados</Link>
+                      onClick={handleNavLinkClick}>Comparador entre 2 supermercados</Link>
                   </li>
                   <li className="nav-item mx-2 d-flex align-items-center">
                     <Link className="nav-link" to="/cestaCompra"
-                    onClick={handleNavLinkClick}>Cesta de la compra</Link>
+                      onClick={handleNavLinkClick}>Cesta de la compra</Link>
                   </li>
                   <li className="nav-item mx-2 d-flex align-items-center">
                     <span className="saludo nav-link">Hola, {userAcortado()}</span>

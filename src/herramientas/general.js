@@ -84,7 +84,6 @@ export const dividirResultadosPorSupermercados = (
       clasificados[supermercado].push(prod);
     }
   });
-  console.log(clasificados);
   setProductosPorSupermercado(clasificados);
 };
 

@@ -24,10 +24,8 @@ const Cesta = () => {
             let prods = respuesta.data.productos
             setLoading(false);
             if (prods && prods.length > 0) {
-                console.log(prods)
                 dividirResultadosPorSupermercados(prods, setProductosPorSupermercado)
                 setError(null);
-                console.log(loading)
             } else {
                 setProductosPorSupermercado({
                     mercadona: [],
@@ -37,7 +35,6 @@ const Cesta = () => {
                 });
                 setLoading(false);
             }
-            console.log(productosPorSupermercado.length > 0)
         })
             .catch(() => {
                 setError('Ha ocurrido un error con la conexión');
