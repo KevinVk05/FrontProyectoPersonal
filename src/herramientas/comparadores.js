@@ -7,9 +7,6 @@ export const anadirProdCesta = (item, setResultados, resultados, setError, user,
     }
 
     ServicioCesta.anadirProdCesta(prodAnadido).then(() => {
-        console.log(item)
-        console.log(resultados)
-        console.log(prodPerteneceListaPred)
         setResultados(() => {
             if (prodPerteneceListaPred) {
                 return modificarResultadosCestaProdLista(item, resultados, true)
@@ -28,16 +25,13 @@ export const eliminarProdCesta = (item, setResultados, resultados, setError, use
     }
     ServicioCesta.eliminarProdCesta(prodEliminado).then(() => {
         setResultados(() => {
-            console.log(item)
-            console.log(resultados)
-            console.log(prodPerteneceListaPred)
             if (prodPerteneceListaPred) {
                 return modificarResultadosCestaProdLista(item, resultados, false)
             }
             return modificarResultadosCestaProdBuscador(item, resultados, false)
         })
     }).catch(() => {
-        setError("Ha ocurrido un error al añadir el producto a la cesta")
+        setError("Ha ocurrido un error al eliminar el producto de la cesta")
     })
 }
 

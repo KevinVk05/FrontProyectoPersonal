@@ -28,8 +28,7 @@ class ServicioBusquedasFavoritas {
   }
 
   isBusquedaFav(busqueda) {
-    return httpExterno.get(`/favoritos/verificar`, {
-      data: busqueda,
+    return httpExterno.post(`/favoritos/verificar`, busqueda, {
       headers: {
         ...getAuthHeaders(),
         "Content-Type": "application/json"

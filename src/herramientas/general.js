@@ -93,7 +93,7 @@ export const obtenerIdProducto = (producto) =>
 
 // src/herramientas/handlersBusqueda.js
 
-export const handleInputChange = (
+export const handleInputChange = async (
   e,
   setProducto,
   setFavoritoGuardado,
@@ -102,30 +102,37 @@ export const handleInputChange = (
   imagen,
   setImagen,
   user
-
 ) => {
   setProducto(e.target.value);
-  const producto = {
-    usuario: user,
-    nombreBusqueda: e.target.value
-  }
+  console.log(favoritoGuardado)
   if (favoritoGuardado) {
     cambiarImgFavoritos(imagen, setImagen);
   }
-  comprobarEsFav(producto) ? setFavoritoGuardado(false) : setFavoritoGuardado(true);
+
+  const prod = {
+    usuario: user,
+    nombreBusqueda: e.target.value
+  }
+
+  const esFav = await comprobarEsFav(prod)
+  
+  if (esFav) {
+    setFavoritoGuardado(true)
+    cambiarImgFavoritos(imagen, setImagen);
+  } else {
+    setFavoritoGuardado(false)
+  }
 
 };
 
-const comprobarEsFav = (producto) => {
-  ServicioBusquedasFavoritas.isBusquedaFav(producto).then((respuesta) => {
-    console.log(respuesta)
-    if (respuesta.data === true) {
-      return true
-    } 
+const comprobarEsFav = async (prod) => {
+  try {
+    const respuesta = await ServicioBusquedasFavoritas.isBusquedaFav(prod)
+    return respuesta.data.esFavorito
+  } catch (error) {
     return false
-  }).catch(() => {
-    return false
-  })
+  }
+
 }
 
 export const manejarFavoritos = (
