@@ -3,6 +3,9 @@ import { useAuth } from "../../Login/AuthProvider";
 
 const CardProducto = ({ item, enLaCesta, setResultados, resultados, setError, prodPerteneceListaPred }) => {
 
+    if(!enLaCesta){
+        enLaCesta = item.enLaCesta;
+    }
     const { user } = useAuth();
     return (
 
