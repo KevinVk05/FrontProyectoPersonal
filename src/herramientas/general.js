@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ServicioBusquedasFavoritas from "../servicios/ServicioBusquedasFavoritas";
 import ServicioCesta from "../servicios/ServicioCesta";
 
@@ -165,9 +166,6 @@ export const listaConResultados = (lista) => {
   return Object.values(lista).some((arr) => arr.length > 0) || [];
 };
 
-
-export const scrollResultados = () => {
-  setTimeout(() => {
-    window.scrollTo({ top: 750, behavior: 'smooth' });
-  }, 500);
+export const scrollArriba = () => {
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }

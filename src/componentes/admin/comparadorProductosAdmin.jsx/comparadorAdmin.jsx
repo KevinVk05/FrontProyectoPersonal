@@ -28,6 +28,8 @@ const ComparadorAdmin = () => {
         realizarBusqueda()
     };
 
+    scrollArriba()
+
     const realizarBusqueda = (nombreProducto) => {
         const productoABuscar = nombreProducto || producto
         if (!productoABuscar.trim()) {
@@ -40,7 +42,6 @@ const ComparadorAdmin = () => {
                     setError(null);
                     setLoading(false);
                     comprobarSiEstanEnLaLista(respuesta.data, setResultados, setError, nombreLista)
-                    scrollResultados()
                 } else {
                     setTimeout(() => {
                         setError('No se encontraron productos.');

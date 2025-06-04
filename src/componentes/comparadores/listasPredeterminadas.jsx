@@ -57,7 +57,6 @@ const ListasPredeterminadas = () => {
                                     {
                                         lista.listaProductos.map((producto, index) => (
                                             <div key={index} className="product-card my-3 shadow-sm">
-
                                                 <CardProducto enLaCesta={producto.enLaCesta} item={producto.producto} setResultados={setListas} resultados={listas} setError={setError} prodPerteneceListaPred={true}/>
                                             </div>
 

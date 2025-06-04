@@ -4,7 +4,7 @@ import CardProducto from './cardProducto';
 const ResultadoBusqueda = ({ producto, resultados, setResultados, loading, error, setError }) => {
 
     return (
-        <div>
+        <div id="resultados-busqueda">
             <EstadoBusqueda loading={loading} error={error} resultados={resultados} tipo={"COMPARADOR"}/>
             {resultados.length > 0 && !loading && (
                 <section className="p-3">

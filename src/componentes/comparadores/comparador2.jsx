@@ -5,7 +5,7 @@ import BusquedasFavoritas from '../comunes/busquedasFavoritas';
 import ResultadoBusqueda from './resultadoBusqueda';
 import { useFavoritos } from '../../hooks/useFavoritos';
 import { useAuth } from '../../Login/AuthProvider';
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, handleInputChange, manejarFavoritos, scrollResultados } from '../../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, handleInputChange, manejarFavoritos, scrollArriba, scrollResultados } from '../../herramientas/general';
 
 const Comparador2 = () => {
   const [producto, setProducto] = useState('');
@@ -26,6 +26,8 @@ const Comparador2 = () => {
     e.preventDefault();
     realizarBusqueda()
   };
+
+  scrollArriba()
 
   const {
     imagen,
@@ -56,8 +58,6 @@ const Comparador2 = () => {
           setError(null);
           setLoading(false);
           comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
-          scrollResultados()
-
         } else {
           setError('No se encontraron productos.');
           setResultados([]);

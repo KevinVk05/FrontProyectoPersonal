@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ServicioProductos from '../../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../estilos/comparador.css"
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos, scrollResultados } from '../../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos, scrollArriba, scrollResultados } from '../../herramientas/general';
 import { useAuth } from '../../Login/AuthProvider';
 import { useFavoritos } from '../../hooks/useFavoritos';
 import BusquedasFavoritas from '../comunes/busquedasFavoritas';
@@ -34,11 +34,12 @@ const Comparador = () => {
     setFavoritoGuardado
   } = useFavoritos(setError);
 
-
   const manejarSubmit = async (e) => {
     e.preventDefault();
     realizarBusqueda()
   };
+
+  scrollArriba()
 
   const realizarBusqueda = (nombreProducto) => {
     const productoABuscar = nombreProducto || producto
@@ -54,7 +55,6 @@ const Comparador = () => {
           setError(null);
           setLoading(false);
           comprobarSiEstanEnLaCesta(respuesta.data, setResultados, setError, user)
-          scrollResultados()
         } else {
           setError('No se encontraron productos.');
           setResultados([]);

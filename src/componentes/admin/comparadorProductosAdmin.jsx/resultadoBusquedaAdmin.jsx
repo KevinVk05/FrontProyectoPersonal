@@ -5,7 +5,7 @@ const ResultadoBusquedaAdmin = ({ nombreLista, producto, resultados, setResultad
 
     //Refact
     return (
-        <div>
+        <div id="resultados-busqueda">
             <EstadoBusqueda loading={loading} error={error} resultados={resultados} tipo={"COMPARADOR"}/>
             {resultados.length > 0 && !loading && (
                 <section className="p-3">
