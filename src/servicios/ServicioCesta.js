@@ -1,5 +1,5 @@
-import httpExterno from "./http-externo";
-import { getAuthHeaders, getToken } from "./token";
+import httpExterno from "./conexionAxios/http-externo";
+import { getAuthHeaders } from "./token/token";
 
 class ServicioCesta {
   anadirProdCesta(producto) {

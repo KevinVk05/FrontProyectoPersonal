@@ -1,6 +1,5 @@
-import { useAuth } from "../Login/AuthProvider";
+import ServicioBusquedasFavoritas from "../servicios/ServicioBusquedasFavoritas";
 import ServicioCesta from "../servicios/ServicioCesta";
-import ServicioProductos from "../servicios/ServicioProductos";
 
 export const filtrarPorSupermercado = (
   resultados,
@@ -101,14 +100,27 @@ export const handleInputChange = (
   favoritoGuardado,
   cambiarImgFavoritos,
   imagen,
-  setImagen
+  setImagen,
+
 ) => {
   setProducto(e.target.value);
-  setFavoritoGuardado(false);
   if (favoritoGuardado) {
     cambiarImgFavoritos(imagen, setImagen);
   }
+  comprobarEsFav() ? setFavoritoGuardado(false) : setFavoritoGuardado(true);
+
 };
+
+const comprobarEsFav = (prod) => {
+  ServicioBusquedasFavoritas.isBusquedaFav(prod).then((respuesta) => {
+    if (respuesta.data === true) {
+      return true
+    } 
+    return false
+  }).catch(() => {
+    return false
+  })
+}
 
 export const manejarFavoritos = (
   producto,

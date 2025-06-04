@@ -1,6 +1,6 @@
-import httpExterno from "./http-externo";
-import http from "./http-axios";
-import { getAuthHeaders } from "./token";
+import httpExterno from "./conexionAxios/http-externo";
+import http from "./conexionAxios/http-axios";
+import { getAuthHeaders } from "./token/token";
 
 class ServicioProductos {
   buscarProducto(nombre) {

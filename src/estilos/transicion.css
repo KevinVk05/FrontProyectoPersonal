@@ -1,38 +1,4 @@
-/* Animación de rebote para las cartas */
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
 
-  30% {
-    transform: translateY(-10px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  70% {
-    transform: translateY(-5px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* Animación para difuminar y mover hacia arriba al eliminar */
-@keyframes fadeUp {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-}
 
 .bounce {
   animation: bounce 0.5s;

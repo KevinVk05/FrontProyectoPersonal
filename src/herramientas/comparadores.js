@@ -7,6 +7,9 @@ export const anadirProdCesta = (item, setResultados, resultados, setError, user,
     }
 
     ServicioCesta.anadirProdCesta(prodAnadido).then(() => {
+        console.log(item)
+        console.log(resultados)
+        console.log(prodPerteneceListaPred)
         setResultados(() => {
             if (prodPerteneceListaPred) {
                 return modificarResultadosCestaProdLista(item, resultados, true)
@@ -25,6 +28,9 @@ export const eliminarProdCesta = (item, setResultados, resultados, setError, use
     }
     ServicioCesta.eliminarProdCesta(prodEliminado).then(() => {
         setResultados(() => {
+            console.log(item)
+            console.log(resultados)
+            console.log(prodPerteneceListaPred)
             if (prodPerteneceListaPred) {
                 return modificarResultadosCestaProdLista(item, resultados, false)
             }
@@ -36,6 +42,11 @@ export const eliminarProdCesta = (item, setResultados, resultados, setError, use
 }
 
 export const modificarResultadosCestaProdBuscador = (item, resultados, seEncuentra) => {
+    console.log(resultados.map(prod =>
+        prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precio === item.precio
+            ? { ...prod, enLaCesta: seEncuentra }
+            : prod
+    ))
     return resultados.map(prod =>
         prod.nombre === item.nombre && prod.supermercado === item.supermercado && prod.precio === item.precio
             ? { ...prod, enLaCesta: seEncuentra }

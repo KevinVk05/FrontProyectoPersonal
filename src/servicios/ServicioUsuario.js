@@ -1,5 +1,5 @@
-import httpExterno from "./http-externo.js";
-import { getAuthHeaders, getToken } from "./token.js";
+import httpExterno from "./conexionAxios/http-externo.js";
+import { getAuthHeaders } from "./token/token.js";
 
 class ServicioUsuario {
   

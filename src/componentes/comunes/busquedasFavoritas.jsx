@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ServicioBusquedas from "../../servicios/ServicioBusquedas";
 import { useAuth } from "../../Login/AuthProvider";
 import { useFavoritos } from "../../hooks/useFavoritos";
+import ServicioBusquedasFavoritas from "../../servicios/ServicioBusquedasFavoritas";
 
 const BusquedasFavoritas = ({setError, hacerBusquedaFavorita, cambioBusquedasFavoritas, setCambioBusquedasFavoritas}) => {
 
@@ -10,7 +10,7 @@ const BusquedasFavoritas = ({setError, hacerBusquedaFavorita, cambioBusquedasFav
     const [busquedasFavs, setBusquedasFavs] = useState([])
 
     useEffect(() => {
-        ServicioBusquedas.getBusquedasFavs(user).then((response) => {
+        ServicioBusquedasFavoritas.getBusquedasFavs(user).then((response) => {
             setBusquedasFavs(response.data)
         }).catch(() => {
             setError('Ha ocurrido un error con la conexión');

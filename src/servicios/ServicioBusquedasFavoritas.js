@@ -1,9 +1,9 @@
-import httpExterno from "./http-externo";
-import { getAuthHeaders, getToken } from "./token";
+import httpExterno from "./conexionAxios/http-externo";
+import { getAuthHeaders } from "./token/token";
 
-class ServicioBusquedas {
+class ServicioBusquedasFavoritas {
   anadirBusquedaFav(favoritoAnadir) {
-    return httpExterno.post(`/favoritos`,favoritoAnadir, {
+    return httpExterno.post(`/favoritos`, favoritoAnadir, {
       headers: {
         ...getAuthHeaders(),
         "Content-Type": "application/json"
@@ -27,7 +27,16 @@ class ServicioBusquedas {
     })
   }
 
+  isBusquedaFav(busqueda) {
+    return httpExterno.delete(`/favoritos`, {
+      data: favoritoEliminar,
+      headers: {
+        ...getAuthHeaders(),
+        "Content-Type": "application/json"
+      }
+    });
+  }
 
 }
 
-export default new ServicioBusquedas();
+export default new ServicioBusquedasFavoritas();

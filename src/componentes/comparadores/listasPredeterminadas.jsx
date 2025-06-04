@@ -39,11 +39,10 @@ const ListasPredeterminadas = () => {
             <section className="search-section shadow-sm rounded p-3 mt-4">
                 <p className="mb-0 fs-5 fw-bold text-center">Haz tu compra más sencilla y barata con nuestras listas predeterminadas, pensadas para cubrir todas tus necesidades.</p>
             </section>
-            {console.log(listas)}
             <EstadoBusqueda error={error} loading={loading} resultados={listas} tipo={"LISTASPREDETERMINADAS"} />
             {listas.length > 0 && (
-                <section className='p-3 shadow-sm border rounded'>
-                    <div className="p-3 mb-3 fs-3">Listas predeterminadas</div>
+                <section className='p-3 my-4 shadow-sm border rounded'>
+                    <div className="p-3 my-3 fs-3">Listas predeterminadas</div>
                     {listas.map((lista, index) => (
                         <div key={index} className='p-3 shadow-sm border rounded mb-4'>
                             <div className='d-flex flex-column flex-sm-row p-4 justify-content-between align-items-start align-items-sm-center'>
@@ -58,7 +57,7 @@ const ListasPredeterminadas = () => {
                                         lista.listaProductos.map((producto, index) => (
                                             <div key={index} className="product-card my-3 shadow-sm">
 
-                                                <CardProducto enLaCesta={producto.enLaCesta} item={producto.producto} setResultados={setListas} resultados={listas} setError={setError} />
+                                                <CardProducto enLaCesta={producto.enLaCesta} item={producto.producto} setResultados={setListas} resultados={listas} setError={setError} prodPerteneceListaPred={true}/>
                                             </div>
 
                                         ))
