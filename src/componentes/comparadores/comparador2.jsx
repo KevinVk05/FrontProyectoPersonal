@@ -85,7 +85,7 @@ const Comparador2 = () => {
         <form onSubmit={manejarSubmit} className="d-flex flex-wrap justify-content-center gap-2">
           <div style={{ width: 35, height: 35 }} className='d-flex align-items-center justify-content-center'>
             <img src={imagen} onClick={() => manejarFavoritos(producto, setError, favoritoGuardado, user, eliminarBusquedaFav, anadirBusquedaFav, setCambioBusquedasFavoritas)}
-              alt="favoritos" title='Añadir búsqueda a favoritos' className='fav w-100 h-100' />
+              alt="favoritos" title='Añadir búsqueda a favoritos' className='cursor-pointer w-100 h-100' />
           </div>
           <input
             type="text"
