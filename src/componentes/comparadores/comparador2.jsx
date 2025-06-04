@@ -5,7 +5,7 @@ import BusquedasFavoritas from '../comunes/busquedasFavoritas';
 import ResultadoBusqueda from './resultadoBusqueda';
 import { useFavoritos } from '../../hooks/useFavoritos';
 import { useAuth } from '../../Login/AuthProvider';
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, handleInputChange, manejarFavoritos, scrollArriba, scrollResultados } from '../../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, handleInputChange, manejarFavoritos, scrollArriba } from '../../herramientas/general';
 
 const Comparador2 = () => {
   const [producto, setProducto] = useState('');

@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import {  useState } from 'react';
 import ServicioProductos from '../../servicios/ServicioProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../estilos/comparador.css"
-import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos, scrollArriba, scrollResultados } from '../../herramientas/general';
+import { cambiarImgFavoritos, comprobarSiEstanEnLaCesta, filtrarPorSupermercado, handleInputChange, manejarFavoritos, scrollArriba } from '../../herramientas/general';
 import { useAuth } from '../../Login/AuthProvider';
 import { useFavoritos } from '../../hooks/useFavoritos';
 import BusquedasFavoritas from '../comunes/busquedasFavoritas';
