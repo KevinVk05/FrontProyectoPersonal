@@ -88,7 +88,7 @@ const Comparador = () => {
           className="form-control w-50"
           placeholder="Busca el producto"
           value={producto}
-          onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen)}
+          onChange={(e) => handleInputChange(e, setProducto, setFavoritoGuardado, favoritoGuardado, cambiarImgFavoritos, imagen, setImagen, user)}
         />
         <select name="supermercado" id='selectSupermercado' className='form-select w-auto' onChange={(e) => setSupermercadoSeleccionado(e.target.value)}>
           <option value="Todos los supermercados">Todos los supermercados</option>

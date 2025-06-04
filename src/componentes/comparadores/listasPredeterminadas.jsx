@@ -42,7 +42,8 @@ const ListasPredeterminadas = () => {
             <EstadoBusqueda error={error} loading={loading} resultados={listas} tipo={"LISTASPREDETERMINADAS"} />
             {listas.length > 0 && (
                 <section className='p-3 my-4 shadow-sm border rounded'>
-                    <div className="p-3 my-3 fs-3">Listas predeterminadas</div>
+                    <div className="p-3 my-3 fs-3 fw-medium">Listas de la compra más demandadas:
+                    </div>
                     {listas.map((lista, index) => (
                         <div key={index} className='p-3 shadow-sm border rounded mb-4'>
                             <div className='d-flex flex-column flex-sm-row p-4 justify-content-between align-items-start align-items-sm-center'>

@@ -28,8 +28,8 @@ class ServicioBusquedasFavoritas {
   }
 
   isBusquedaFav(busqueda) {
-    return httpExterno.delete(`/favoritos`, {
-      data: favoritoEliminar,
+    return httpExterno.get(`/favoritos/verificar`, {
+      data: busqueda,
       headers: {
         ...getAuthHeaders(),
         "Content-Type": "application/json"

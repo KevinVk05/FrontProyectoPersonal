@@ -101,18 +101,24 @@ export const handleInputChange = (
   cambiarImgFavoritos,
   imagen,
   setImagen,
+  user
 
 ) => {
   setProducto(e.target.value);
+  const producto = {
+    usuario: user,
+    nombreBusqueda: e.target.value
+  }
   if (favoritoGuardado) {
     cambiarImgFavoritos(imagen, setImagen);
   }
-  comprobarEsFav() ? setFavoritoGuardado(false) : setFavoritoGuardado(true);
+  comprobarEsFav(producto) ? setFavoritoGuardado(false) : setFavoritoGuardado(true);
 
 };
 
-const comprobarEsFav = (prod) => {
-  ServicioBusquedasFavoritas.isBusquedaFav(prod).then((respuesta) => {
+const comprobarEsFav = (producto) => {
+  ServicioBusquedasFavoritas.isBusquedaFav(producto).then((respuesta) => {
+    console.log(respuesta)
     if (respuesta.data === true) {
       return true
     } 
