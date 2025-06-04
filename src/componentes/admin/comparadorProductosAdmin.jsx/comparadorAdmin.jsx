@@ -40,7 +40,7 @@ const ComparadorAdmin = () => {
                     setError(null);
                     setLoading(false);
                     comprobarSiEstanEnLaLista(respuesta.data, setResultados, setError, nombreLista)
-                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                    scrollResultados()
                 } else {
                     setTimeout(() => {
                         setError('No se encontraron productos.');
@@ -58,7 +58,7 @@ const ComparadorAdmin = () => {
 
     return (
         <div className="container py-4">
-            <button className="btn btn-link text-decoration-none text-secondary" onClick={() => window.history.back()}>
+            <button className="btn btn-link text-decoration-none text-secondary mt-4" onClick={() => window.history.back()}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z" />
                 </svg> Volver al administrador de listas
