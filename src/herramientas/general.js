@@ -47,12 +47,13 @@ export const comprobarSiProdListaEstanEnLaCesta = async (productos, user) => {
   try {
     const respuesta = await ServicioCesta.getProdsCesta(user);
     const productosEnCesta = respuesta.data?.productos || [];
-    return productos.map(prod => ({
+    return productos.map((prod) => ({
       ...prod,
-      enLaCesta: productosEnCesta.some(p =>
-        p.nombre === prod.producto.nombre &&
-        p.supermercado === prod.producto.supermercado
-      )
+      enLaCesta: productosEnCesta.some(
+        (p) =>
+          p.nombre === prod.producto.nombre &&
+          p.supermercado === prod.producto.supermercado
+      ),
     }));
   } catch (error) {
     return productos;
@@ -111,29 +112,27 @@ export const handleInputChange = async (
 
   const prod = {
     usuario: user,
-    nombreBusqueda: e.target.value
-  }
+    nombreBusqueda: e.target.value,
+  };
 
-  const esFav = await comprobarEsFav(prod)
+  const esFav = await comprobarEsFav(prod);
 
   if (esFav) {
-    setFavoritoGuardado(true)
+    setFavoritoGuardado(true);
     cambiarImgFavoritos(imagen, setImagen);
   } else {
-    setFavoritoGuardado(false)
+    setFavoritoGuardado(false);
   }
-
 };
 
 const comprobarEsFav = async (prod) => {
   try {
-    const respuesta = await ServicioBusquedasFavoritas.isBusquedaFav(prod)
-    return respuesta.data.esFavorito
+    const respuesta = await ServicioBusquedasFavoritas.isBusquedaFav(prod);
+    return respuesta.data.esFavorito;
   } catch (error) {
-    return false
+    return false;
   }
-
-}
+};
 
 export const manejarFavoritos = (
   producto,
@@ -167,5 +166,7 @@ export const listaConResultados = (lista) => {
 };
 
 export const scrollArriba = () => {
-  window.scrollTo({ top: 0, behavior: 'auto' });
-}
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
+};
