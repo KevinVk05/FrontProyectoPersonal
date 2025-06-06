@@ -44,7 +44,7 @@ const BotonesAdministrarListas = ({ listasPredeterminadas, setListasPredetermina
             )
             }
             <button className="btn btn-success">
-                <Link className="nav-link" to={`/comparadorAdmin/${lista.nombre}`}>Anadir producto</Link>
+                <Link className="nav-link" to={`/comparadorAdmin/${lista.nombre}`}>Añadir producto</Link>
             </button>
             <button className="btn btn-danger" onClick={abrirModalEliminarLista}>Eliminar lista</button>
 
